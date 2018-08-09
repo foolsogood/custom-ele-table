@@ -1,0 +1,16 @@
+{
+  "name": "custom-ele-table",
+  "version": "1.5.1",
+  "description": "自定义报表",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue",
+    "jsx",
+    "table"
+  ],
+  "author": "foolsogood",
+  "license": "ISC"
+}
