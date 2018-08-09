@@ -15,9 +15,20 @@
    - 支持公式运算(formulaTable)
    - 跨列单元格(rowEditableTable)
 
-## 参数说明
+## 示例&&参数说明
 ```
     staticTable 组件
-    
+    ![Image text](https://github.com/foolsogood/custom-ele-table/blob/master/example/static/img/1.png?raw=true)
 ```
-
+```
+mutilTable组件
+![Image text](https://github.com/foolsogood/custom-ele-table/blob/master/example/static/img/2.png?raw=true)
+```
+```
+formulaTable组件
+![Image text](https://github.com/foolsogood/custom-ele-table/blob/master/example/static/img/3.png?raw=true)
+```
+```
+rowEditableTable组件
+![Image text](https://github.com/foolsogood/custom-ele-table/blob/master/example/static/img/4.png?raw=true)
+```
