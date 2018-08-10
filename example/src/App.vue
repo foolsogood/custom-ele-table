@@ -13,7 +13,7 @@
 
     <formulaTable @TableDataChange="formulaTableDataChangeHandler" :tableData="tableDatas_2" :tableHeader="tableHeader_2" :bodyNotShowProps="['code']" uniqueKey="code" />
     <p style="line-height:60px">参数&&方法说明</p>
-    <mutilTable  :tableData="tableDatas_5" :tableHeader="tableHeader_5"  />
+    <explainCom  :tableData="tableDatas_5" :tableHeader="tableHeader_5"  />
     
   </div>
 </template>
@@ -24,7 +24,7 @@ const {
   mutilTable,
   formulaTable
 } = require("custom-ele-table").default;
-
+import explainCom from './explain'
 export default {
   name: "App",
   data() {
@@ -59,7 +59,7 @@ export default {
       ]
     };
   },
-  components: { staticTable, rowEditableTable, mutilTable, formulaTable },
+  components: { staticTable, rowEditableTable, mutilTable, formulaTable,explainCom },
   watch: {
     curTitle: {
       handler(val) {
