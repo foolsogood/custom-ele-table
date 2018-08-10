@@ -106,7 +106,7 @@ export default {
         );
         this.$set(_temp, this.oneCellData.key, val);
         this.$set(this.curTableData, _idx, _temp);
-        this.$emit("rowEditTableDataChange", this.curTableData);
+        this.$emit("TableDataChange", this.curTableData);
       },
       deep: true
     }

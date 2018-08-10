@@ -78,7 +78,7 @@ export default {
       if (_temp) {
         this.$set(_temp, val.prop, val.value);
         this.$set(this.curTableData, _idx, _temp);
-        this.$emit("mutilTableDataChange", this.curTableData);
+        this.$emit("TableDataChange", this.curTableData);
       }
     });
   },

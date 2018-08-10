@@ -196,7 +196,7 @@ export default {
       }
       if (_temp) {
         this.$set(this.curTableData, _idx, _temp);
-        this.$emit("formulaTableDataChange", this.curTableData);
+        this.$emit("TableDataChange", this.curTableData);
       }
     });
   },
