@@ -12,9 +12,11 @@
     <p style="line-height:60px">运算公式表</p>
 
     <formulaTable @TableDataChange="formulaTableDataChangeHandler" :tableData="tableDatas_2" :tableHeader="tableHeader_2" :bodyNotShowProps="['code']" uniqueKey="code" />
-    <p style="line-height:60px">参数&&方法说明</p>
+    <!-- <p style="line-height:60px">参数说明</p>
     <explainCom  :tableData="tableDatas_5" :tableHeader="tableHeader_5"  />
-    
+    <p style="line-height:60px">方法说明</p>
+    <explainCom  :tableData="tableDatas_6" :tableHeader="tableHeader_6"  />
+     -->
   </div>
 </template>
 <script>
@@ -30,11 +32,14 @@ export default {
   data() {
     return {
       triggerFn:()=>{alert(1)},
-      tableDatas_5: require("./mock/abc").default.tableBody,
-      tableHeader_5: require("./mock/abc").default.tableHeader,
+      tableDatas_5: require("./mock/explain").default.propTableBody,
+      tableDatas_6: require("./mock/explain").default.funcTableData,
+      tableHeader_5: require("./mock/explain").default.propTableHeader,
+      tableHeader_6: require("./mock/explain").default.funcTableHeader,
+      
       tableDatas_2: require("./mock/func").default.tableBody,
       tableHeader_2: require("./mock/func").default.tableHeader,
-      tableData: require("./mock/data_2").default.tableBody,
+      tableData: require("./mock/basicInfo").default.tableBody,
       tableDatas: require("./mock/data_3").default.tableBody,
       tableHeader: require("./mock/data_3").default.tableHeader,
       curTitle: "工业表",

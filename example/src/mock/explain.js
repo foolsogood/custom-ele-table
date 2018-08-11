@@ -1,4 +1,4 @@
-let tableBody = [{
+let propTableBody = [{
     prop: 'tableData',
     explain: '表体数据',
     type:'Array',
@@ -88,17 +88,57 @@ let tableBody = [{
     rowEditableTable:'✔️',
     mutilTable: '✔️',
     formulaTable: '✔️',
-},{
-    prop: 'firstThClickHandler',
-    explain: '点击第一个th触发事件',
-    type:'Function',
-    default:'/',
-    staticTable: '❌',
-    rowEditableTable:'✔️',
-    mutilTable: '✔️',
-    formulaTable: '✔️',
-},]
-let tableHeader = [
+}]
+let funcTableData=[
+    {
+        func: 'TableDataChange',
+        explain: '表体数据变化回调方法',
+        // way:'',
+        staticTable: '❌',
+        rowEditableTable:'✔️',
+        mutilTable: '✔️',
+        formulaTable: '✔️',
+    }
+]
+let funcTableHeader = [
+    {
+        title: '方法',
+        key: 'func'
+    },
+    {
+        title: '说明',
+        key: 'explain',
+        isCanEdit: 0
+    },
+    // {
+    //     title: '使用方法',
+    //     key: 'way',
+    //     isCanEdit: 0
+    // },
+    
+    {
+        title: 'staticTable',
+        key: 'staticTable',
+        isCanEdit: 0
+    },
+    {
+        title: 'rowEditableTable',
+        key: 'rowEditableTable',
+        isCanEdit: 0
+    },
+    {
+        title: 'mutilTable',
+        key: 'mutilTable',
+        isCanEdit: 0
+    },
+    {
+        title: 'formulaTable',
+        key: 'formulaTable',
+        isCanEdit: 0
+    },
+
+]
+let propTableHeader = [
     {
         title: '属性',
         key: 'prop'
@@ -140,8 +180,9 @@ let tableHeader = [
     },
 
 ]
-
 export default {
-    tableHeader,
-    tableBody
+    propTableHeader,
+    propTableBody,
+    funcTableData,
+    funcTableHeader
 }

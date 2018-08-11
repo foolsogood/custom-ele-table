@@ -1,6 +1,6 @@
 {
   "name": "custom-ele-table",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "自定义报表",
   "main": "index.js",
   "scripts": {

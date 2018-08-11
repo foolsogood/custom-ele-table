@@ -174,12 +174,6 @@ export default {
                           ) {
                             return;
                           }
-                          // if (_idx != 0) {
-                          //   return;
-                          // }
-                          // if (item.sortIdx != 0) {
-                          //   return;
-                          // }
                           // 点击第一个th单元格触发事件
                           this.firstThClickHandler();
                         }}
@@ -235,13 +229,6 @@ export default {
       }
       return _target.sortIdx;
     },
-    //获取某对象里面所有children层数
-    // getChildrenFloorByItem(obj,childrenFloor=0){
-    //   if(obj.children){
-    //     const floor=childrenFloor+1
-    //     this.getChildrenFloorByItem(,floor)
-    //   }
-    // },
     //返回header某项
     getHeaderItemArr(arr) {
       let bianli = arr => {
@@ -253,19 +240,13 @@ export default {
             if (idx == -1) {
               let _temp = tools.deepCopy(item);
               delete _temp.children;
-              this.headerArr.push({
-                ..._temp
-                // childLength: item.children.length
-              });
+              this.headerArr.push(_temp);
             }
             bianli(item.children);
           } else {
             let _idx = this.headerArr.findIndex(_ => _.key == item.key);
             if (_idx == -1) {
-              this.headerArr.push({
-                ...item
-                // childLength: 0
-              });
+              this.headerArr.push(item);
             }
           }
         });
@@ -372,11 +353,6 @@ export default {
         </tr>
       );
     },
-
-    //obj1中所有属性值是否都能在obj2中找得到且值相等
-    // checkIfKeyAndValueEqual(obj1, obj2) {
-    //   return Object.keys(obj1).every(item => obj1[item] == obj2[item]);
-    // },
     //赋值id
     giveIdx2Item(arr, parentSortId = "", classifyId = 0) {
       arr.map((item, idx) => {

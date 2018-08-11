@@ -212,13 +212,13 @@ export default {
                           this.firstThClickHandler();
                         }}
                       >
-                        <span> {item.title} </span>{" "}
+                        <span> {item.title} </span>
                       </th>
                     );
-                  })}{" "}
+                  })}
               </tr>
             );
-          })}{" "}
+          })}
         </thead>
       );
     },
@@ -241,7 +241,7 @@ export default {
             borderRight: `1px solid ${this.tableBorderColor}`
           }}
         >
-          {this.classifyHeaderHandler()}{" "}
+          {this.classifyHeaderHandler()}
           <tbody
             style={{
               width: "100%",
@@ -249,7 +249,7 @@ export default {
             }}
           >
             {this.ossTableData.map(item => this.renderTableColumn(item))}{" "}
-          </tbody>{" "}
+          </tbody>
         </table>
       );
     },
@@ -261,13 +261,6 @@ export default {
       }
       return _target.sortIdx;
     },
-    //获取某对象里面所有children层数
-    // getChildrenFloorByItem(obj,childrenFloor=0){
-    //   if(obj.children){
-    //     const floor=childrenFloor+1
-    //     this.getChildrenFloorByItem(,floor)
-    //   }
-    // },
     //返回header某项
     getHeaderItemArr(arr) {
       let bianli = arr => {
@@ -279,19 +272,13 @@ export default {
             if (idx == -1) {
               let _temp = deepCopy(item);
               delete _temp.children;
-              this.headerArr.push({
-                ..._temp
-                // childLength: item.children.length
-              });
+              this.headerArr.push(_temp);
             }
             bianli(item.children);
           } else {
             let _idx = this.headerArr.findIndex(_ => _.key == item.key);
             if (_idx == -1) {
-              this.headerArr.push({
-                ...item
-                // childLength: 0
-              });
+              this.headerArr.push(item);
             }
           }
         });
@@ -314,7 +301,6 @@ export default {
             width: "100%"
           }}
         >
-          {" "}
           {Object.keys(colOptions)
             .filter(item => !this.bodyNotShowPropData.includes(item))
             .sort(
@@ -323,9 +309,11 @@ export default {
             .map((item, idx) => {
               return this.bodyNotShowPropData.includes(item) ? null : (
                 <td
-                  class="edit-el-td"
                   style={{
-                    borderBottom: `1px solid ${this.tableBorderColor}`,borderLeft:`1px solid ${this.tableBorderColor}`,lineHeight:'40px',textAlign:'center'
+                    borderBottom: `1px solid ${this.tableBorderColor}`,
+                    borderLeft: `1px solid ${this.tableBorderColor}`,
+                    lineHeight: "40px",
+                    textAlign: "center"
                   }}
                   colspan="1"
                   rowspan="1"
@@ -337,10 +325,6 @@ export default {
         </tr>
       );
     },
-    //obj1中所有属性值是否都能在obj2中找得到且值相等
-    // checkIfKeyAndValueEqual(obj1, obj2) {
-    //   return Object.keys(obj1).every(item => obj1[item] == obj2[item]);
-    // },
     //赋值id
     giveIdx2Item(arr, parentSortId = "", classifyId = 0) {
       arr.map((item, idx) => {
