@@ -430,6 +430,7 @@ export default {
                       addStyle={{
                         borderTop: "none",
                         borderBottom: "none",
+                        borderRight: "none",
                         borderRadius: 0
                       }}
                       editPropName={item}
@@ -456,6 +457,7 @@ export default {
                           ? {
                               borderTop: "none",
                               borderBottom: "none",
+                              borderRight: "none",
                               borderRadius: 0
                             }
                           : {}
@@ -483,6 +485,7 @@ export default {
                       addStyle={{
                         borderTop: "none",
                         borderBottom: "none",
+                        borderRight: "none",
                         borderRadius: 0
                       }}
                       editPropName={item}

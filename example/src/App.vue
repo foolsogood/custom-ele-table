@@ -3,20 +3,15 @@
     <p style="line-height:60px">基本情况表</p>
     <staticTable :tableData="tableData" />
     <p style="line-height:60px">跨行单元格</p>
-    <rowEditableTable @TableDataChange="rowEditTableDataChangeHandler" :tableData="tableDatas" :tableHeader="tableHeader" :bodyNotShowProps="['code']" :uniqueKey="'code'" />
+    <rowEditableTable @rowEditTableDataChange="rowEditTableDataChangeHandler" :tableData="tableDatas" :tableHeader="tableHeader" :bodyNotShowProps="['code']" :uniqueKey="'code'" />
     <p style="line-height:60px">多层表头</p>
     <p>
       <span @click="toggle(item)" :style="curTitle==item.title?{color:'red'}:{}" v-for="(item,idx) in list" :key="idx">{{item.title}}</span>
     </p>
-    <mutilTable @TableDataChange="changeDataHandler" :firstThStyle="{color:'#ff0000'}" :firstThClickHandler="triggerFn" :isFirstThEableClick="true"  :tableData="tableDatas_1" :tableHeader="tableHeader_1" :bodyNotShowProps="['code']" :uniqueKey="'code'" />
+    <mutilTable @mutilTableDataChange="changeDataHandler" :firstThStyle="{color:'#ff0000'}" :firstThClickHandler="triggerFn" :isFirstThEableClick="true"  :tableData="tableDatas_1" :tableHeader="tableHeader_1" :bodyNotShowProps="['code']" :uniqueKey="'code'" />
     <p style="line-height:60px">运算公式表</p>
 
-    <formulaTable @TableDataChange="formulaTableDataChangeHandler" :tableData="tableDatas_2" :tableHeader="tableHeader_2" :bodyNotShowProps="['code']" uniqueKey="code" />
-    <!-- <p style="line-height:60px">参数说明</p>
-    <explainCom  :tableData="tableDatas_5" :tableHeader="tableHeader_5"  />
-    <p style="line-height:60px">方法说明</p>
-    <explainCom  :tableData="tableDatas_6" :tableHeader="tableHeader_6"  />
-     -->
+    <formulaTable @formulaTableDataChange="formulaTableDataChangeHandler" :tableData="tableDatas_2" :tableHeader="tableHeader_2" :bodyNotShowProps="['code']" uniqueKey="code" />
   </div>
 </template>
 <script>
@@ -26,30 +21,25 @@ const {
   mutilTable,
   formulaTable
 } = require("custom-ele-table").default;
-import explainCom from './explain'
+
 export default {
   name: "App",
   data() {
     return {
       triggerFn:()=>{alert(1)},
-      tableDatas_5: require("./mock/explain").default.propTableBody,
-      tableDatas_6: require("./mock/explain").default.funcTableData,
-      tableHeader_5: require("./mock/explain").default.propTableHeader,
-      tableHeader_6: require("./mock/explain").default.funcTableHeader,
-      
       tableDatas_2: require("./mock/func").default.tableBody,
       tableHeader_2: require("./mock/func").default.tableHeader,
-      tableData: require("./mock/basicInfo").default.tableBody,
+      tableData: require("./mock/data_2").default.tableBody,
       tableDatas: require("./mock/data_3").default.tableBody,
       tableHeader: require("./mock/data_3").default.tableHeader,
-      curTitle: "工业表",
+      curTitle: "电表",
       tableDatas_1: [],
       tableHeader_1: [],
       list: [
         {
-          title: "工业表",
-          data: require("./mock/energy_qiye").default.tableBody,
-          header: require("./mock/energy_qiye").default.tableHeader
+          title: "电表",
+          data: require("./mock/electricity").default.tableBody,
+          header: require("./mock/electricity").default.tableHeader
         },
         {
           title: "GHG",
@@ -64,7 +54,7 @@ export default {
       ]
     };
   },
-  components: { staticTable, rowEditableTable, mutilTable, formulaTable,explainCom },
+  components: { staticTable, rowEditableTable, mutilTable, formulaTable },
   watch: {
     curTitle: {
       handler(val) {

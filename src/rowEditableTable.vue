@@ -330,7 +330,8 @@ export default {
                       addStyle={{
                         borderTop: "none",
                         borderBottom: "none",
-                        borderRadius: "0"
+                        borderRight: "none",
+                        borderRadius: "0",
                       }}
                       parentColumnId={colOptions["cell_id"]}
                       componentName={this.$options.name}

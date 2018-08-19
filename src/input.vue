@@ -42,9 +42,6 @@ export default {
       newValue: ""
     };
   },
-  mounted() {
-    this.newValue = this.value;
-  },
   watch: {
     newValue: {
       handler(val) {
@@ -54,6 +51,12 @@ export default {
           parentColumnId: this.parentColumnId
         });
       }
+    },
+    value:{
+      handler(val){
+        this.newValue=val
+      },
+      immediate:true
     }
   },
 };

@@ -109,10 +109,10 @@ export default {
       this.ossTableHeader = tools.deepCopy(this.tableHeader);
       this.curTableData = tools.deepCopy(this.tableData);
 
-      this.bodyNotShowProps.map(item => {
+      this.bodyNotShowProps.forEach(item => {
         this.bodyNotShowPropData.push(item);
       });
-      this.ossTableData.map(item => {
+      this.ossTableData.forEach(item => {
         if (!this.uniqueKey) {
           if (!item.table_id) {
             item.table_id = tools.guid();
@@ -121,9 +121,27 @@ export default {
           item.table_id = item[this.uniqueKey];
         }
       });
+      for (let [k, v] of Object.entries(this.ossTableData[0])) {
+        if (typeof v == "object") {
+          this.combineCellByKey(k);
+        }
+      }
       this.giveIdx2Item(this.ossTableHeader);
       this.getHeaderItemArr(this.ossTableHeader);
     },
+    //将表体中跨行的相同单元格合并(其实是将多余的单元格去除)
+    combineCellByKey(key) {
+      let arr = [];
+      this.ossTableData.forEach(item => {
+        let _idx = arr.findIndex(_ => tools.checkIfObjectEqual(_, item[key]));
+        if (_idx == -1) {
+          arr.push(item[key]);
+        } else {
+          delete item[key];
+        }
+      });
+    },
+
     //将表头中的层级分类
     classifyHeaderHandler() {
       let common = {
@@ -274,10 +292,17 @@ export default {
               return this.bodyNotShowPropData.includes(item) ? null : (
                 <td
                   id={`td_id_${colOptions[this.uniqueKey]}_${item}_${idx}`}
-                  class="edit-el-td"
-                  style={{ borderBottom: `1px solid ${this.tableBorderColor}` }}
+                  style={{
+                    borderLeft: `1px solid ${this.tableBorderColor}`,
+                    borderBottom: `1px solid ${this.tableBorderColor}`,
+                    verticalAlign: "middle"
+                  }}
                   colspan="1"
-                  rowspan="1"
+                  rowspan={
+                    typeof colOptions[item] == "object"
+                      ? colOptions[item].rowSpan
+                      : 1
+                  }
                   onClick={this.tdClickHandler.bind(
                     this,
                     `td_id_${colOptions[this.uniqueKey]}_${item}_${idx}`,
@@ -285,27 +310,29 @@ export default {
                   )}
                 >
                   {this.isReadOnly ? (
-                    <MyInput
-                      style={{ flex: 1 }}
-                      value={colOptions[item]}
-                      parentColumnId={
-                        this.uniqueKey
-                          ? colOptions[this.uniqueKey]
-                          : colOptions["table_id"]
-                      }
-                      addStyle={{
-                        borderTop: "none",
-                        borderBottom: "none",
-                        borderRadius: 0
+                    <span
+                      class="flexBox "
+                      style={{
+                        padding: "0 25px",
+                        minWidth: "100px",
+                        height: `${this.cellHeight *
+                          (typeof colOptions[item] == "object"
+                            ? colOptions[item].rowSpan
+                            : 1)}px`
                       }}
-                      editPropName={item}
-                      componentName={this.$options.name}
-                      readonly
-                    />
+                    >
+                      {typeof colOptions[item] == "object"
+                        ? colOptions[item].value
+                        : colOptions[item]}
+                    </span>
                   ) : this.getHeaderItemByKey(item).isCanEdit ? (
                     <MyInput
                       style={{ flex: 1 }}
-                      value={colOptions[item]}
+                      value={
+                        typeof colOptions[item] == "object"
+                          ? colOptions[item].value
+                          : colOptions[item]
+                      }
                       parentColumnId={
                         this.uniqueKey
                           ? colOptions[this.uniqueKey]
@@ -317,6 +344,8 @@ export default {
                           ? {
                               borderTop: "none",
                               borderBottom: "none",
+                              borderLeft: "none",
+                              borderRight: "none",
                               borderRadius: 0
                             }
                           : {}
@@ -329,23 +358,23 @@ export default {
                       }
                     />
                   ) : (
-                    <MyInput
-                      style={{ flex: 1 }}
-                      value={colOptions[item]}
-                      parentColumnId={
-                        this.uniqueKey
-                          ? colOptions[this.uniqueKey]
-                          : colOptions["table_id"]
-                      }
-                      addStyle={{
-                        borderTop: "none",
-                        borderBottom: "none",
-                        borderRadius: 0
-                      }}
-                      editPropName={item}
-                      componentName={this.$options.name}
-                      readonly
-                    />
+                    <span class="flexBox ">
+                      <span
+                        class="flexBox "
+                        style={{
+                          padding: "0 25px",
+                          minWidth: "100px",
+                          height: `${this.cellHeight *
+                            (typeof colOptions[item] == "object"
+                              ? colOptions[item].rowSpan
+                              : 1)}px`
+                        }}
+                      >
+                        {typeof colOptions[item] == "object"
+                          ? colOptions[item].value
+                          : colOptions[item]}
+                      </span>
+                    </span>
                   )}
                 </td>
               );
@@ -368,9 +397,8 @@ export default {
   },
 
   render() {
-    return <section>{this.renderPanelBody()}</section>;
+    return <section class="nui-scroll">{this.renderPanelBody()}</section>;
   }
 };
 </script>
-
 

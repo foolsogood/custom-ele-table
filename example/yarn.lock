@@ -1586,9 +1586,9 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-custom-ele-table@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/custom-ele-table/-/custom-ele-table-1.5.2.tgz#0e6fb7de2eac6af5d10d4af88e042a28cb4fc396"
+custom-ele-table@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/custom-ele-table/-/custom-ele-table-1.6.0.tgz#43f92f9cb2ccefcf1ac83521d529f066a9a83049"
 
 cyclist@~0.2.2:
   version "0.2.2"
