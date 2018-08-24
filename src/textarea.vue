@@ -1,6 +1,6 @@
 <template>
   <div class="el-textarea">
-    <textarea class="el-textarea__inner__1" :readonly="isReadonly" wrap="off" v-model="textAreaContent" style="border-top: none; border-bottom: none; border-left: none; line-height:30px; margin: 0;padding: 0;" :style="{height: `${ossTableDataLength * 40 + ossTableDataLength - 1}px`}" placeholder="说明" />
+    <textarea class="el-textarea__inner__1" :readonly="isReadonly" wrap="off" v-model="textAreaContent" style="border-top: none; border-bottom: none; border-left: none; line-height:30px; margin: 0;padding: 0;" :style="addStyle" placeholder="说明" />
   </div>
 </template>
 <script>
@@ -8,9 +8,12 @@ import event from "./event.js";
 
 export default {
   props: {
-    ossTableDataLength: { type: [String, Number] },
     propContent: { type: String },
-    isReadonly:{type:Boolean,default:false}
+    isReadonly: { type: Boolean, default: false },
+    addStyle: {
+      type: Object,
+      default: () => new Object()
+    }
   },
   data() {
     return {

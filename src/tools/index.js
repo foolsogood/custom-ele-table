@@ -1,9 +1,9 @@
-class tools {
-    constructor() { }
+const tools = {
+
     //判断变量类型 返回 'String' 'Object'等构造函数名
     // isType(obj) {return Object.prototype.toString.call(obj).slice(8, -1) }
     //深拷贝
-    deepCopy(obj1) {
+    deepCopy: function (obj1) {
         let type = Object.prototype.toString.call(obj1)
         let resObj = undefined
         //引用类型
@@ -33,16 +33,16 @@ class tools {
             resObj = obj1
         }
         return resObj
-    }
-    guid() {
+    },
+    guid: function () {
         function S4() {
             return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
         }
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-    }
+    },
     //两个对象是否相等,这里值处理了基本类型和数组及对象， Date对象和正则没有处理
-    checkIfObjectEqual(objA, objB) {
-        const isType = (obj) => Object.prototype.toString.call(obj).slice(8, -1)
+    checkIfObjectEqual: function (objA, objB) {
+        const isType = function (obj) { return Object.prototype.toString.call(obj).slice(8, -1) }
 
         let typeA = isType(objA);
         let typeB = isType(objB);
@@ -106,13 +106,13 @@ class tools {
 }
 
 //这里用单例模式确保不会重复创建多个实例
-let getTool = (function () {
-    let tool
-    return function () {
-        if (!tool) {
-            tool = new tools()
-        }
-        return tool
-    }
-})()()
-export default getTool
+// let getTool = (function () {
+//     let tool
+//     return function () {
+//         if (!tool) {
+//             tool = new tools()
+//         }
+//         return tool
+//     }
+// })()()
+export default tools

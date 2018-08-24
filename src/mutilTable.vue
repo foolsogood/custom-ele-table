@@ -53,6 +53,34 @@ export default {
     isReadOnly: {
       type: Boolean,
       default: false
+    },
+    //表体无数据显示的提示语
+    bodyEmptyTips: {
+      type: String,
+      default: "暂无数据"
+    },
+    //在body每行后添加模板
+    postfixTemplate: {
+      type: Array,
+      default: () => new Array()
+    },
+    //header样式
+    headerStyle: {
+      type: Object,
+      default: () =>
+        new Object({
+          background: "rgb(230, 242, 246)",
+          color: "#333"
+        })
+    },
+    //body单元格样式
+    cellStyle: {
+      type: Object,
+      default: () =>
+        new Object({
+          background: "#fff",
+          color: "#333"
+        })
     }
   },
   data() {
@@ -63,7 +91,8 @@ export default {
       headerArr: [],
       bodyNotShowPropData: ["table_id"],
       curTableData: [], //
-      tbodyId: tools.guid()
+      tbodyId: tools.guid(),
+      isBodyEmpty: undefined //表体是否无数据
     };
   },
   components: { MyInput },
@@ -107,6 +136,24 @@ export default {
       this.headerArr = [];
       this.ossTableData = tools.deepCopy(this.tableData);
       this.ossTableHeader = tools.deepCopy(this.tableHeader);
+        //如果需要在tr后追加模板
+      if (this.postfixTemplate.length) {
+        console.log(this.headerClasses);
+        let _tempArr = tools.deepCopy(this.ossTableData);
+        this.postfixTemplate.forEach(item => {
+          this.ossTableHeader.push({
+            key: "caozuo",
+            rowSpan: this.headerClasses.length,
+            title: item._header
+          });
+
+          _tempArr.forEach((val, _idx) => {
+            val.caozuo = "123";
+          });
+        });
+        this.ossTableData=_tempArr
+      }
+
       this.curTableData = tools.deepCopy(this.tableData);
 
       this.bodyNotShowProps.forEach(item => {
@@ -121,13 +168,20 @@ export default {
           item.table_id = item[this.uniqueKey];
         }
       });
-      for (let [k, v] of Object.entries(this.ossTableData[0])) {
-        if (typeof v == "object") {
-          this.combineCellByKey(k);
+      if (this.ossTableData.length) {
+        for (let [k, v] of Object.entries(this.ossTableData[0])) {
+          if (typeof v == "object") {
+            this.combineCellByKey(k);
+          }
         }
+        this.isBodyEmpty = false;
+      } else {
+        this.isBodyEmpty = true;
       }
+     
       this.giveIdx2Item(this.ossTableHeader);
       this.getHeaderItemArr(this.ossTableHeader);
+     
     },
     //将表体中跨行的相同单元格合并(其实是将多余的单元格去除)
     combineCellByKey(key) {
@@ -154,6 +208,7 @@ export default {
             return (
               <tr
                 style={{
+                  ...this.headerStyle,
                   borderTop: `1px solid ${this.tableBorderColor}`
                 }}
               >
@@ -207,28 +262,41 @@ export default {
       );
     },
     //单元格点击事件
-    tdClickHandler(tableId, isCanEdit) {
+    tdClickHandler(tableId, isCanEdit, item, trData) {
+      //响应操作单元格传入的函数
+      if (trData.caozuo) {
+        const _handler = trData.caozuo._clickHandler;
+        if (item == "caozuo" && _handler && typeof _handler == "function") {
+          _handler.apply(this);
+        }
+      }
       if (!isCanEdit) {
         return;
       }
+
       this.curEditTdId = tableId;
     },
 
     //渲染表body
     renderPanelBody() {
-      return (
-        <table
-          cellspacing="0"
-          cellpadding="0"
-          style={{
-            width: "100%",
-            borderLeft: `1px solid ${this.tableBorderColor}`,
-            borderRight: `1px solid ${this.tableBorderColor}`
-          }}
-        >
-          {this.classifyHeaderHandler()}
+      //body无数据
+      const emptyBody = () => {
+        return (
+          <div
+            class="flexBox"
+            style={{
+              height: "100px",
+              border: `1px solid ${this.tableBorderColor}`
+            }}
+          >
+            {this.bodyEmptyTips}
+          </div>
+        );
+      };
+      //body有数据
+      const renderBody = () => {
+        return (
           <tbody
-            id={this.tbodyId}
             style={{
               width: "100%",
               borderTop: `1px solid ${this.tableBorderColor}`
@@ -236,11 +304,28 @@ export default {
           >
             {this.ossTableData.map(item => this.renderTableColumn(item))}
           </tbody>
-        </table>
+        );
+      };
+      return (
+        <div>
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            style={{
+              width: "100%",
+              borderLeft: `1px solid ${this.tableBorderColor}`,
+              borderRight: `1px solid ${this.tableBorderColor}`
+            }}
+          >
+            {this.classifyHeaderHandler()}
+            {this.isBodyEmpty === false ? renderBody() : null}
+          </table>
+          {this.isBodyEmpty === false ? null : emptyBody()}
+        </div>
       );
     },
     //返回header某项的排列索引
-    getHeaderItemIndex(target_key) {
+    getHeaderItemSortIndex(target_key) {
       let _target = this.headerArr.find(item => item.key == target_key);
       if (!_target) {
         console.error(_target, target_key);
@@ -279,106 +364,146 @@ export default {
       let _temp = this.headerArr.find(item => item.key == key);
       return _temp;
     },
+    //排序A是否应该排在B前面 -1是1否
+    isAfrontB(A, B) {
+      let A_arr = A.split("_");
+      let B_arr = B.split("_");
+      const len = Math.min(...[A_arr.length, B_arr.length]);
+      for (let i = 0; i < len; i++) {
+        if (A_arr[i] - B_arr[i] > 0) {
+          return 1;
+        } else if (A_arr[i] - B_arr[i] < 0) {
+          return -1;
+        }
+      }
+      return 0;
+    },
     //渲染表的每行
     renderTableColumn(colOptions) {
+      const _renderHtml = html => {
+        return (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: '<span class="el-icon-delete"></span>'
+            }}
+          />
+        );
+      };
+      //根据sortIdx排好序
+      const sortArr = Object.keys(colOptions)
+        .filter(item => !this.bodyNotShowPropData.includes(item))
+        .sort((a, b) => {
+          let flag = this.isAfrontB(
+            this.getHeaderItemSortIndex(a),
+            this.getHeaderItemSortIndex(b)
+          );
+          return flag;
+        });
       return (
-        <tr style={{ width: "100%" }}>
-          {Object.keys(colOptions)
-            .filter(item => !this.bodyNotShowPropData.includes(item))
-            .sort(
-              (a, b) => this.getHeaderItemIndex(a) - this.getHeaderItemIndex(b)
-            )
-            .map((item, idx) => {
-              return this.bodyNotShowPropData.includes(item) ? null : (
-                <td
-                  id={`td_id_${colOptions[this.uniqueKey]}_${item}_${idx}`}
-                  style={{
-                    borderLeft: `1px solid ${this.tableBorderColor}`,
-                    borderBottom: `1px solid ${this.tableBorderColor}`,
-                    verticalAlign: "middle"
-                  }}
-                  colspan="1"
-                  rowspan={
-                    typeof colOptions[item] == "object"
-                      ? colOptions[item].rowSpan
-                      : 1
-                  }
-                  onClick={this.tdClickHandler.bind(
-                    this,
-                    `td_id_${colOptions[this.uniqueKey]}_${item}_${idx}`,
-                    this.getHeaderItemByKey(item).isCanEdit
-                  )}
-                >
-                  {this.isReadOnly ? (
+        <tr style={{ width: "100%", ...this.cellStyle }}>
+          {sortArr.map((item, idx) => {
+            //是否渲染成html
+            const isHtml = !!colOptions[item]._html;
+            const common = {
+              padding: "0 25px",
+              minWidth: "100px",
+              height: `${this.cellHeight *
+                (typeof colOptions[item] == "object"
+                  ? colOptions[item].rowSpan
+                  : 1)}px`
+            };
+            return this.bodyNotShowPropData.includes(item) ? null : (
+              <td
+                id={`td_id_${colOptions[this.uniqueKey]}_${item}_${idx}`}
+                style={{
+                  borderLeft: `1px solid ${this.tableBorderColor}`,
+                  borderBottom: `1px solid ${this.tableBorderColor}`,
+                  verticalAlign: "middle"
+                }}
+                colspan="1"
+                rowspan={
+                  typeof colOptions[item] == "object"
+                    ? colOptions[item].rowSpan
+                    : 1
+                }
+                onClick={this.tdClickHandler.bind(
+                  this,
+                  `td_id_${colOptions[this.uniqueKey]}_${item}_${idx}`,
+                  this.getHeaderItemByKey(item).isCanEdit,
+                  item,
+                  colOptions
+                )}
+              >
+                {this.isReadOnly ? (
+                  <span
+                    class="flexBox "
+                    style={{
+                      padding: "0 25px",
+                      minWidth: "100px",
+                      height: `${this.cellHeight *
+                        (typeof colOptions[item] == "object"
+                          ? colOptions[item].rowSpan
+                          : 1)}px`
+                    }}
+                  >
+                    {typeof colOptions[item] == "object"
+                      ? colOptions[item].value
+                      : colOptions[item]}
+                  </span>
+                ) : this.getHeaderItemByKey(item).isCanEdit ? (
+                  <MyInput
+                    style={{ minWidth: "100px" }}
+                    value={
+                      typeof colOptions[item] == "object"
+                        ? colOptions[item].value
+                        : colOptions[item]
+                    }
+                    parentColumnId={
+                      this.uniqueKey
+                        ? colOptions[this.uniqueKey]
+                        : colOptions["table_id"]
+                    }
+                    addStyle={
+                      `td_id_${colOptions.table_id}_${item}_${idx}` !=
+                      this.curEditTdId
+                        ? {
+                            borderTop: "none",
+                            borderBottom: "none",
+                            borderLeft: "none",
+                            borderRight: "none",
+                            borderRadius: 0,
+                            ...this.cellStyle
+                          }
+                        : {}
+                    }
+                    editPropName={item}
+                    componentName={this.$options.name}
+                    readonly={
+                      `td_id_${colOptions.table_id}_${item}_${idx}` !=
+                      this.curEditTdId
+                    }
+                  />
+                ) : (
+                  <span class="flexBox ">
                     <span
                       class="flexBox "
-                      style={{
-                        padding: "0 25px",
-                        minWidth: "100px",
-                        height: `${this.cellHeight *
-                          (typeof colOptions[item] == "object"
-                            ? colOptions[item].rowSpan
-                            : 1)}px`
-                      }}
+                      style={
+                        isHtml
+                          ? { ...common, cursor: "pointer" }
+                          : { ...common }
+                      }
                     >
                       {typeof colOptions[item] == "object"
-                        ? colOptions[item].value
+                        ? isHtml
+                          ? colOptions[item]._html
+                          : colOptions[item].value
                         : colOptions[item]}
                     </span>
-                  ) : this.getHeaderItemByKey(item).isCanEdit ? (
-                    <MyInput
-                      style={{ flex: 1 }}
-                      value={
-                        typeof colOptions[item] == "object"
-                          ? colOptions[item].value
-                          : colOptions[item]
-                      }
-                      parentColumnId={
-                        this.uniqueKey
-                          ? colOptions[this.uniqueKey]
-                          : colOptions["table_id"]
-                      }
-                      addStyle={
-                        `td_id_${colOptions.table_id}_${item}_${idx}` !=
-                        this.curEditTdId
-                          ? {
-                              borderTop: "none",
-                              borderBottom: "none",
-                              borderLeft: "none",
-                              borderRight: "none",
-                              borderRadius: 0
-                            }
-                          : {}
-                      }
-                      editPropName={item}
-                      componentName={this.$options.name}
-                      readonly={
-                        `td_id_${colOptions.table_id}_${item}_${idx}` !=
-                        this.curEditTdId
-                      }
-                    />
-                  ) : (
-                    <span class="flexBox ">
-                      <span
-                        class="flexBox "
-                        style={{
-                          padding: "0 25px",
-                          minWidth: "100px",
-                          height: `${this.cellHeight *
-                            (typeof colOptions[item] == "object"
-                              ? colOptions[item].rowSpan
-                              : 1)}px`
-                        }}
-                      >
-                        {typeof colOptions[item] == "object"
-                          ? colOptions[item].value
-                          : colOptions[item]}
-                      </span>
-                    </span>
-                  )}
-                </td>
-              );
-            })}
+                  </span>
+                )}
+              </td>
+            );
+          })}
         </tr>
       );
     },
@@ -386,7 +511,7 @@ export default {
     giveIdx2Item(arr, parentSortId = "", classifyId = 0) {
       arr.map((item, idx) => {
         if (!item.sortIdx) {
-          item.sortIdx = (parentSortId ? parentSortId + "" : "") + idx;
+          item.sortIdx = (parentSortId ? parentSortId + "_" : "") + idx;
         }
         item.classifyId = classifyId;
         if (item.children && item.children.length) {

@@ -45,11 +45,16 @@ export default {
   watch: {
     newValue: {
       handler(val) {
-        event.emit(`inputChange-${this.componentName}`, {
-          value: val,
-          prop: this.editPropName,
-          parentColumnId: this.parentColumnId
-        });
+        let data={
+            value:''+ val,
+            prop: this.editPropName,
+            parentColumnId: this.parentColumnId
+          }
+        try{
+          event.emit(`inputChange-${this.componentName}`,data );
+        }catch(err){
+          console.error('error',data,err)
+        }
       }
     },
     value:{

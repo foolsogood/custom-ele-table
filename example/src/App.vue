@@ -3,15 +3,15 @@
     <p style="line-height:60px">基本情况表</p>
     <staticTable :tableData="tableData" />
     <p style="line-height:60px">跨行单元格</p>
-    <rowEditableTable @rowEditTableDataChange="rowEditTableDataChangeHandler" :tableData="tableDatas" :tableHeader="tableHeader" :bodyNotShowProps="['code']" :uniqueKey="'code'" />
+    <rowEditableTable  @TableDataChange="rowEditTableDataChangeHandler" :tableData="tableDatas" :tableHeader="tableHeader" :bodyNotShowProps="['code']" :uniqueKey="'code'" />
     <p style="line-height:60px">多层表头</p>
     <p>
-      <span @click="toggle(item)" :style="curTitle==item.title?{color:'red'}:{}" v-for="(item,idx) in list" :key="idx">{{item.title}}</span>
+      <span @click="toggle(item)" style="padding-right:20px" :style="curTitle==item.title?{color:'red'}:{}" v-for="(item,idx) in list" :key="idx">{{item.title}}</span>
     </p>
-    <mutilTable @mutilTableDataChange="changeDataHandler" :firstThStyle="{color:'#ff0000'}" :firstThClickHandler="triggerFn" :isFirstThEableClick="true"  :tableData="tableDatas_1" :tableHeader="tableHeader_1" :bodyNotShowProps="['code']" :uniqueKey="'code'" />
+    <mutilTable @TableDataChange="changeDataHandler" :firstThStyle="{color:'#ff0000'}" :firstThClickHandler="triggerFn" :isFirstThEableClick="true"  :tableData="tableDatas_1" :tableHeader="tableHeader_1" :bodyNotShowProps="['code']" :uniqueKey="'code'" />
     <p style="line-height:60px">运算公式表</p>
 
-    <formulaTable @formulaTableDataChange="formulaTableDataChangeHandler" :tableData="tableDatas_2" :tableHeader="tableHeader_2" :bodyNotShowProps="['code']" uniqueKey="code" />
+    <formulaTable @TableDataChange="formulaTableDataChangeHandler" :tableData="tableDatas_2" :tableHeader="tableHeader_2" :bodyNotShowProps="['code']" uniqueKey="code" />
   </div>
 </template>
 <script>
@@ -21,7 +21,6 @@ const {
   mutilTable,
   formulaTable
 } = require("custom-ele-table").default;
-
 export default {
   name: "App",
   data() {
@@ -36,6 +35,11 @@ export default {
       tableDatas_1: [],
       tableHeader_1: [],
       list: [
+         {
+          title: "唐总看这个",
+          data: require("./mock/data_1").default.tableBody,
+          header: require("./mock/data_1").default.tableHeader
+        },
         {
           title: "电表",
           data: require("./mock/electricity").default.tableBody,

@@ -54,6 +54,29 @@ export default {
     isReadOnly: {
       type: Boolean,
       default: false
+    },
+    //表体无数据显示的提示语
+    bodyEmptyTips: {
+      type: String,
+      default: "暂无数据"
+    },
+    //header样式
+    headerStyle: {
+      type: Object,
+      default: () =>
+        new Object({
+          background: "rgb(230, 242, 246)",
+          color: "#333"
+        })
+    },
+    //body单元格样式
+    cellStyle: {
+      type: Object,
+      default: () =>
+        new Object({
+          background: "#fff",
+          color: "#333"
+        })
     }
   },
   data() {
@@ -63,7 +86,8 @@ export default {
       curEditTdId: "", //当前编辑状态的td 的id
       headerArr: [], //由表头所有项目组成
       bodyNotShowPropData: ["table_id"], //表体数据中不显示的属性
-      curTableData: [] //当前表格的数据，暴露给父组件
+      curTableData: [], //当前表格的数据，暴露给父组件
+      isBodyEmpty: false //表体是否无数据
     };
   },
   components: { MyInput },
@@ -152,7 +176,7 @@ export default {
                   console.error(e);
                   return null;
                 }
-              });
+              }, 0);
               if (h) {
                 let __v = _plusCell[k];
                 this.$set(__v, "value", h);
@@ -171,7 +195,10 @@ export default {
                     : this.checkIfNum(_temp_oss[item.key])
               );
               let f = v.fn;
-              //解析函数字符串，计算公式
+              /**
+               * 解析函数字符串，计算公式
+               * TODO 性能不好 后期考虑用 new Function() @fsg 2018.8.16
+               */
               let res = eval("(" + f + `)(${argsArr.toString()})`);
               //如果输入非数字或0则不变化
               if (!["NaN%", "Infinity%", "NaN", "Infinity"].includes(res)) {
@@ -237,6 +264,7 @@ export default {
           item.table_id = item[this.uniqueKey];
         }
       });
+      this.isBodyEmpty = !this.ossTableData.length;
       //为表头每一个th赋值排序id
       this.giveIdx2Item(this.ossTableHeader);
       this.getHeaderItemArr(this.ossTableHeader);
@@ -245,8 +273,8 @@ export default {
     checkIfNum(n) {
       return Number(n) != NaN ? Number(n) : 0;
     },
-    //将表头中的层级分类
-    classifyHeaderHandler() {
+    //将表头中的层级分类，渲染表头
+    renderHeader() {
       //公共样式
       let common = {
         verticalAlign: "middle",
@@ -258,6 +286,7 @@ export default {
             return (
               <tr
                 style={{
+                  ...this.headerStyle,
                   borderTop: `1px solid ${this.tableBorderColor}`
                 }}
               >
@@ -322,18 +351,24 @@ export default {
     },
 
     //渲染表body
-    renderPanelBody() {
-      return (
-        <table
-          cellspacing="0"
-          cellpadding="0"
-          style={{
-            width: "100%",
-            borderLeft: `1px solid ${this.tableBorderColor}`,
-            borderRight: `1px solid ${this.tableBorderColor}`
-          }}
-        >
-          {this.classifyHeaderHandler()}
+    renderTableBody() {
+      //body无数据
+      const emptyBody = () => {
+        return (
+          <div
+            class="flexBox"
+            style={{
+              height: "100px",
+              border: `1px solid ${this.tableBorderColor}`
+            }}
+          >
+            {this.bodyEmptyTips}
+          </div>
+        );
+      };
+      //body有数据
+      const renderBody = () => {
+        return (
           <tbody
             style={{
               width: "100%",
@@ -342,7 +377,24 @@ export default {
           >
             {this.ossTableData.map(item => this.renderTableColumn(item))}
           </tbody>
-        </table>
+        );
+      };
+      return (
+        <div>
+          <table
+            cellspacing="0"
+            cellpadding="0"
+            style={{
+              width: "100%",
+              borderLeft: `1px solid ${this.tableBorderColor}`,
+              borderRight: `1px solid ${this.tableBorderColor}`
+            }}
+          >
+            {this.renderHeader()}
+            {renderBody()}
+          </table>
+          {this.isBodyEmpty ? emptyBody() : null}
+        </div>
       );
     },
     //返回header某项的排序索引
@@ -431,7 +483,7 @@ export default {
                         borderTop: "none",
                         borderBottom: "none",
                         borderRight: "none",
-                        borderRadius: 0
+                        borderRadius: 0,...this.cellStyle
                       }}
                       editPropName={item}
                       componentName={this.$options.name}
@@ -458,7 +510,8 @@ export default {
                               borderTop: "none",
                               borderBottom: "none",
                               borderRight: "none",
-                              borderRadius: 0
+                              borderRadius: 0,
+                              ...this.cellStyle
                             }
                           : {}
                       }
@@ -486,7 +539,8 @@ export default {
                         borderTop: "none",
                         borderBottom: "none",
                         borderRight: "none",
-                        borderRadius: 0
+                        borderRadius: 0,
+                        ...this.cellStyle
                       }}
                       editPropName={item}
                       componentName={this.$options.name}
@@ -522,7 +576,7 @@ export default {
   },
 
   render() {
-    return <section>{this.renderPanelBody()}</section>;
+    return <section>{this.renderTableBody()}</section>;
   }
 };
 </script>

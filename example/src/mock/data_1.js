@@ -1,31 +1,28 @@
 let tableBody = [
     {
-        code:'',//单元格标识
         name: '工业总产值',//指标名称
-        bqz: '',//本期值
+        bqz: '100',//本期值
         lastyear_value: '',//上年同期值
         unit: '万元',//计量单位
         change_rate: '',//同比变化率
-        shuoming:''
+        shuoming:'说明123'
     },
     {
-        code:'',//单元格标识
         unit: '万元',
         name: '工业增加值',
-        bqz: '',
+        bqz: '120',
         lastyear_value: '',
         change_rate: '85%',
-        shuoming:''
+        shuoming:'说明aaa'
         
     },
     {
-        code:'',//单元格标识
         name: '销售收入',
         unit: '万元',
         bqz: '100',
-        lastyear_value: '',
+        lastyear_value: '120',
         change_rate: '',
-        shuoming:''
+        shuoming:'说明ccc'
         
     },
 ]
@@ -33,39 +30,26 @@ let tableHeader = [
     {
         title: '指标名称',
         key: 'name',
-        onlyOneCell: false,//是否只有一个单元格
-        isCanEdit:false,//该属性是否可编辑
     },
     {
         title: '计量单位',
         key: 'unit',
-        onlyOneCell: false,
-        isCanEdit:false
     },
     {
         title: '本期值',
         key: 'bqz',
-        onlyOneCell: false,
-        isCanEdit:true
     },
     {
         title: '上年同期值',
         key: 'lastyear_value',
-        onlyOneCell: false,
-        isCanEdit:true
     },
     {
         title: '同比变化率',
         key: 'change_rate',
-        onlyOneCell: false,
-        isCanEdit:true
-
     },
     {
         title: '产值及能耗消费变化情况说明',
         key: 'shuoming',
-        onlyOneCell: true,//
-        isCanEdit:true
     },
 
 ]
