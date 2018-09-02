@@ -2,7 +2,7 @@
 import tools from "./tools/index";
 import MyInput from "./input.vue";
 import event from "./event.js";
-
+import fns from './tools/fns'
 export default {
   name: "MutilTable",
   props: {
@@ -97,27 +97,218 @@ export default {
   },
   components: { MyInput },
   created() {
+    event.on("textarea-change", val => {
+      this.textAreaContent = val;
+    });
     event.on(`inputChange-${this.$options.name}`, val => {
+      let _check = obj => {
+        let flag = false;
+        for (let [k, v] of Object.entries(obj)) {
+          if (val.prop == k) {
+            return true;
+          }
+          if (typeof v == "object") {
+            return (
+              v.fnParms &&
+              v.fnParms.some(item => {
+                let _flag =
+                  item.code == val.parentColumnId || item.key == val.prop;
+                // if (_flag) {
+                //   console.log(
+                //     "_flag",
+                //     _flag,
+                //     item.key,
+                //     val.prop,
+                //     item.code == val.parentColumnId,
+                //     item.key == val.prop
+                //   );
+                // }
+                return _flag;
+              })
+            );
+          }
+        }
+        return flag;
+      };
+      //该数据变化后 受影响的
+      let target_arr = this.curTableData.filter(
+        // item => _check(item)
+        item => item[this.uniqueKey] == val.parentColumnId || _check(item)
+      );
+      //找到数据变化的那一行tr
       let _temp = this.curTableData.find(
         item => item[this.uniqueKey] == val.parentColumnId
       );
+      if (typeof _temp[val.prop] == "object") {
+        this.$set(
+          _temp,
+          val.prop,
+          Object.assign(_temp[val.prop], { value: val.value })
+        );
+      } else {
+        this.$set(_temp, val.prop, val.value);
+      }
+      if (_temp) {
+        this.$set(this.curTableData, _idx, _temp);
+        this.$emit("TableDataChange", this.curTableData);
+      }
       let _idx = this.curTableData.findIndex(
         item => item[this.uniqueKey] == val.parentColumnId
       );
-      if (_temp) {
-        this.$set(_temp, val.prop, val.value);
-        this.$set(this.curTableData, _idx, _temp);
-        this.$emit("TableDataChange", this.curTableData);
+      let _temp_oss = this.ossTableData.find(
+        item => item[this.uniqueKey] == val.parentColumnId
+      );
+      if (typeof _temp[val.prop] == "object") {
+        this.$set(
+          _temp_oss,
+          val.prop,
+          Object.assign(_temp_oss[val.prop], { value: val.value })
+        );
+      } else {
+        this.$set(_temp_oss, val.prop, val.value);
+      }
+      let _idx_oss = this.ossTableData.findIndex(
+        item => item[this.uniqueKey] == val.parentColumnId
+      );
+      if (target_arr.length) {
+        // console.log("target_arr", target_arr);
+        try {
+          target_arr.forEach(item => {
+            for (let [k, v] of Object.entries(item)) {
+              if (typeof v == "object") {
+                //列累加计算
+                if (v.isColPlus) {
+                  //累加合计的单元格
+                  let _plusCell = this.ossTableData.find(
+                    item => typeof item[k] == "object" && item[k].cal == "lj"
+                  );
+                  let _plusCell_Idx = this.ossTableData.findIndex(
+                    item => typeof item[k] == "object" && item[k].cal == "lj"
+                  );
+                  //遍历fnParms将需要计算的项目累加
+                  if (_plusCell[k].fnParms) {
+                    let h = _plusCell[k].fnParms.reduce((prev, cur) => {
+                      try {
+                        //迭代结果一开始不是数字而是对象
+                        let _q;
+                        if (typeof prev == "object") {
+                          _q = this.ossTableData.find(
+                            item => item.code == prev.code
+                          )[prev.key];
+                        } else {
+                          _q = this.checkIfNum(prev);
+                        }
+                        //cur也有可能是对象
+                        let _p = this.ossTableData.find(
+                          item => item.code == cur.code
+                        )[cur.key];
+                        if (typeof _q == "object") {
+                          _q = this.checkIfNum(_q.value);
+                        } else {
+                          _q = this.checkIfNum(_q);
+                        }
+                        if (typeof _p == "object") {
+                          _p = this.checkIfNum(_p.value);
+                        } else {
+                          _p = this.checkIfNum(_p);
+                        }
+                        return _q + _p;
+                      } catch (e) {
+                        return null;
+                      }
+                    }, 0);
+                    if (h) {
+                      let __v = _plusCell[k];
+                      this.$set(__v, "value", h);
+                      this.$set(_plusCell, k, __v);
+                      this.$set(this.ossTableData, _plusCell_Idx, _plusCell);
+                    }
+                  }
+                }
+                if (v.fn && v.fnParms) {
+                  if (
+                    v.fnParms.some(_val => {
+                      return _val.key == val.prop;
+                    }) &&
+                    //TODO 问题很大
+                    v.fnParms.every(_val => {
+                      let flag =
+                        this.getValueFromColumn(_val.code, _val.key) !== "";
+                      // if (flag) {
+                      //   console.log(
+                      //     flag,
+                      //     _val.code,
+                      //     _val.key,
+                      //     this.getValueFromColumn(_val.code, _val.key),
+                      //     _val.key,
+                      //     "______________"
+                      //   );
+                      // }
+                      return flag;
+                    })
+                  ) {
+                    //参数数值的数组
+                    let argsArr = v.fnParms.map(_val => {
+                      return this.getValueFromColumn(_val.code, _val.key);
+                    });
+                    // console.log("///", v.fn, v.fnParms, argsArr);
+                    let f = v.fn;
+                    /**
+                     * 解析函数字符串，计算公式
+                     * TODO 性能不好 后期考虑用 new Function() @fsg 2018.8.16
+                     */
+                    try {
+                      let res = eval("(" + f + `)(${argsArr.toString()})`);
+                      let flag = [
+                        "NaN%",
+                        "Infinity%",
+                        "NaN",
+                        "Infinity"
+                      ].includes(res);
+                      // console.log("kkk", res, flag);
+                      //如果输入非数字或0则不变化
+                      if (flag) {
+                        this.$set(v, "value", "");
+                      } else {
+                        this.$set(v, "value", res);
+                      }
+                    } catch (error) {
+                      throw error;
+                    }
+                  } else {
+                    this.$set(v, "value", "");
+                  }
+                }
+              }
+            }
+          });
+        } catch (err) {
+          throw err;
+        }
+        let copyCurTD = tools.deepCopy(this.curTableData);
+        let copyOssTD = tools.deepCopy(this.ossTableData);
+        target_arr.forEach(item => {
+          copyCurTD.forEach((_val, _index) => {
+            if (item[this.uniqueKey] == _val.code) {
+              this.$set(this.curTableData, _index, item);
+              let c_index = copyOssTD.findIndex(
+                _item => _item[this.uniqueKey] == _val.code
+              );
+              this.$set(
+                this.ossTableData,
+                c_index,
+                Object.assign({}, this.ossTableData[c_index], item)
+              );
+            }
+          });
+        });
       }
     });
   },
   computed: {
     //表头层级
     headerClasses() {
-      let arr = [];
-      this.headerArr.map(item => {
-        arr.push(item.classifyId);
-      });
+      let arr = this.headerArr.map(item => item.classifyId);
       return [...new Set(arr)];
     }
   },
@@ -132,28 +323,29 @@ export default {
   },
 
   methods: {
+    //匹配对应行的值
+    getValueFromColumn(code, key) {
+      let _target;
+      let res;
+      _target = this.curTableData.find(item => item[this.uniqueKey] == code);
+      if (_target) {
+        if (typeof _target[key] == "object") {
+          return _target[key].value ? _target[key].value : 0;
+        } else {
+          return _target[key] ? _target[key] : 0;
+        }
+      } else {
+        return 0;
+      }
+    },
+    //判断是否为数字，不是则输出0
+    checkIfNum(n) {
+      return Number(n) != NaN ? Number(n) : 0;
+    },
     initData() {
       this.headerArr = [];
       this.ossTableData = tools.deepCopy(this.tableData);
       this.ossTableHeader = tools.deepCopy(this.tableHeader);
-        //如果需要在tr后追加模板
-      if (this.postfixTemplate.length) {
-        console.log(this.headerClasses);
-        let _tempArr = tools.deepCopy(this.ossTableData);
-        this.postfixTemplate.forEach(item => {
-          this.ossTableHeader.push({
-            key: "caozuo",
-            rowSpan: this.headerClasses.length,
-            title: item._header
-          });
-
-          _tempArr.forEach((val, _idx) => {
-            val.caozuo = "123";
-          });
-        });
-        this.ossTableData=_tempArr
-      }
-
       this.curTableData = tools.deepCopy(this.tableData);
 
       this.bodyNotShowProps.forEach(item => {
@@ -178,10 +370,9 @@ export default {
       } else {
         this.isBodyEmpty = true;
       }
-     
+
       this.giveIdx2Item(this.ossTableHeader);
       this.getHeaderItemArr(this.ossTableHeader);
-     
     },
     //将表体中跨行的相同单元格合并(其实是将多余的单元格去除)
     combineCellByKey(key) {
@@ -198,13 +389,13 @@ export default {
 
     //将表头中的层级分类
     classifyHeaderHandler() {
-      let common = {
+      const common = {
         verticalAlign: "middle",
         borderRight: `1px solid ${this.tableBorderColor}`
       };
       return (
         <thead>
-          {this.headerClasses.map(i => {
+          {this.headerClasses.map(val => {
             return (
               <tr
                 style={{
@@ -213,7 +404,7 @@ export default {
                 }}
               >
                 {this.headerArr
-                  .filter(item => item.classifyId == i)
+                  .filter(item => item.classifyId == val)
                   .filter(item => item.title)
                   .map((item, _idx) => {
                     return (
@@ -403,7 +594,7 @@ export default {
         <tr style={{ width: "100%", ...this.cellStyle }}>
           {sortArr.map((item, idx) => {
             //是否渲染成html
-            const isHtml = !!colOptions[item]._html;
+            // const isHtml = !!colOptions[item]._html;
             const common = {
               padding: "0 25px",
               minWidth: "100px",
@@ -412,6 +603,62 @@ export default {
                   ? colOptions[item].rowSpan
                   : 1)}px`
             };
+            const isReadOnlySpan = (() => {
+              return (
+                <span
+                  class="flexBox "
+                  style={{
+                    padding: "0 25px",
+                    minWidth: "100px",
+                    height: `${this.cellHeight *
+                      (typeof colOptions[item] == "object"
+                        ? colOptions[item].rowSpan
+                        : 1)}px`
+                  }}
+                >
+                  {typeof colOptions[item] == "object"
+                    ? colOptions[item].value
+                    : colOptions[item]}
+                </span>
+              );
+            })();
+            const editInput = (() => {
+              return (
+                <MyInput
+                  style={{ minWidth: "100px" }}
+                  value={
+                    typeof colOptions[item] == "object"
+                      ? colOptions[item].value
+                      : colOptions[item]
+                  }
+                  parentColumnId={
+                    this.uniqueKey
+                      ? colOptions[this.uniqueKey]
+                      : colOptions["table_id"]
+                  }
+                  addStyle={
+                    `td_id_${colOptions.table_id}_${item}_${idx}` !=
+                    this.curEditTdId
+                      ? {
+                          borderTop: "none",
+                          borderBottom: "none",
+                          borderLeft: "none",
+                          borderRight: "none",
+                          // cursor:'pointer',
+                          borderRadius: 0,
+                          ...this.cellStyle
+                        }
+                      : {}
+                  }
+                  editPropName={item}
+                  componentName={this.$options.name}
+                  readonly={
+                    `td_id_${colOptions.table_id}_${item}_${idx}` !=
+                    this.curEditTdId
+                  }
+                />
+              );
+            })();
             return this.bodyNotShowPropData.includes(item) ? null : (
               <td
                 id={`td_id_${colOptions[this.uniqueKey]}_${item}_${idx}`}
@@ -434,73 +681,11 @@ export default {
                   colOptions
                 )}
               >
-                {this.isReadOnly ? (
-                  <span
-                    class="flexBox "
-                    style={{
-                      padding: "0 25px",
-                      minWidth: "100px",
-                      height: `${this.cellHeight *
-                        (typeof colOptions[item] == "object"
-                          ? colOptions[item].rowSpan
-                          : 1)}px`
-                    }}
-                  >
-                    {typeof colOptions[item] == "object"
-                      ? colOptions[item].value
-                      : colOptions[item]}
-                  </span>
-                ) : this.getHeaderItemByKey(item).isCanEdit ? (
-                  <MyInput
-                    style={{ minWidth: "100px" }}
-                    value={
-                      typeof colOptions[item] == "object"
-                        ? colOptions[item].value
-                        : colOptions[item]
-                    }
-                    parentColumnId={
-                      this.uniqueKey
-                        ? colOptions[this.uniqueKey]
-                        : colOptions["table_id"]
-                    }
-                    addStyle={
-                      `td_id_${colOptions.table_id}_${item}_${idx}` !=
-                      this.curEditTdId
-                        ? {
-                            borderTop: "none",
-                            borderBottom: "none",
-                            borderLeft: "none",
-                            borderRight: "none",
-                            borderRadius: 0,
-                            ...this.cellStyle
-                          }
-                        : {}
-                    }
-                    editPropName={item}
-                    componentName={this.$options.name}
-                    readonly={
-                      `td_id_${colOptions.table_id}_${item}_${idx}` !=
-                      this.curEditTdId
-                    }
-                  />
-                ) : (
-                  <span class="flexBox ">
-                    <span
-                      class="flexBox "
-                      style={
-                        isHtml
-                          ? { ...common, cursor: "pointer" }
-                          : { ...common }
-                      }
-                    >
-                      {typeof colOptions[item] == "object"
-                        ? isHtml
-                          ? colOptions[item]._html
-                          : colOptions[item].value
-                        : colOptions[item]}
-                    </span>
-                  </span>
-                )}
+                {this.isReadOnly
+                  ? isReadOnlySpan
+                  : this.getHeaderItemByKey(item).isCanEdit
+                    ? editInput
+                    : isReadOnlySpan}
               </td>
             );
           })}

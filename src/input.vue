@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="el-input">
-      <input type="text" v-model="newValue" :parentColumnId="parentColumnId" autocomplete="off" class="el-input__inner__1" :readonly="readonly" :style="addStyle" />
+      <input type="text" :disabled="readonly" v-model="newValue" :parentColumnId="parentColumnId" autocomplete="off" class="el-input__inner__1" :readonly="readonly" :style="addStyle" />
     </div>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default {
     componentName: {
       type: String,
       // default: ""
-    }
+    },
   },
   data() {
     return {
