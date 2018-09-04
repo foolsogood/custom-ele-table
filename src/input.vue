@@ -43,26 +43,30 @@ export default {
     };
   },
   watch: {
+     value:{
+      handler(val){
+        this.newValue=val
+      },
+      immediate:true
+    },
     newValue: {
-      handler(val) {
+      handler(newV) {
+        // if(oldV==''){
+        //   return
+        // }
         let data={
-            value:''+ val,
+            value:''+ newV,
             prop: this.editPropName,
             parentColumnId: this.parentColumnId
           }
         try{
           event.emit(`inputChange-${this.componentName}`,data );
         }catch(err){
-          console.error('error',data,err)
+          console.error('error',data,newV,err)
         }
       }
     },
-    value:{
-      handler(val){
-        this.newValue=val
-      },
-      immediate:true
-    }
+   
   },
 };
 </script>

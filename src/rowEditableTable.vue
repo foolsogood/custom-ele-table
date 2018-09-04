@@ -3,7 +3,7 @@ import tools from "./tools/index";
 import MyInput from "./input.vue";
 import Textarea from "./textarea.vue";
 import event from "./event.js";
-import fns from './tools/fns'
+import fnModules from "./tools/fns";
 
 export default {
   name: "RowEditableTable",
@@ -97,22 +97,31 @@ export default {
       }
     };
   },
+  computed: {
+    //表头层级
+    headerClasses() {
+      let arr = this.headerArr.map(item => item.classifyId);
+      return [...new Set(arr)];
+    }
+  },
   created() {
     event.on("textarea-change", val => {
       this.textAreaContent = val;
     });
     event.on(`inputChange-${this.$options.name}`, val => {
-      // console.log("val", val);
       let _check = obj => {
         let flag = false;
         for (let [k, v] of Object.entries(obj)) {
+          if (val.prop == k) {
+            return true;
+          }
           if (typeof v == "object") {
-            // console.log('v',v)
-            flag =
+            return (
               v.fnParms &&
-              v.fnParms.some(
-                item => item.code == val.parentColumnId || item.key == val.prop
-              );
+              v.fnParms.some(item => {
+                return item.code == val.parentColumnId || item.key == val.prop;
+              })
+            );
           }
         }
         return flag;
@@ -156,41 +165,53 @@ export default {
       let _idx_oss = this.ossTableData.findIndex(
         item => item[this.uniqueKey] == val.parentColumnId
       );
-      if (target_arr.length > 1) {
-        // console.log("target_arr", target_arr);
+      if (target_arr.length) {
         target_arr.forEach(item => {
           for (let [k, v] of Object.entries(item)) {
             if (typeof v == "object") {
-              if (v.fn) {
-                if (
-                  v.fnParms &&
-                  v.fnParms.every(_val => {
-                    return this.getValueFromColumn(_val.code, _val.key);
-                  })
-                ) {
+              if (v.fn && v.fnParms && v.fnParms.length) {
+                if (v.fnParms.some(_val => _val.key == val.prop)) {
                   //参数数值的数组
                   let argsArr = v.fnParms.map(_val => {
                     return this.getValueFromColumn(_val.code, _val.key);
                   });
-                  // console.log(v.fnParms, argsArr);
                   let f = v.fn;
-                  /**
-                   * 解析函数字符串，计算公式
-                   * TODO 性能不好 后期考虑用 new Function() @fsg 2018.8.16
-                   */
-                  let res = eval("(" + f + `)(${argsArr.toString()})`);
-                  let flag = ["NaN%", "Infinity%", "NaN", "Infinity"].includes(
-                    res
-                  );
-                  // console.log(res, flag);
-                  //如果输入非数字或0则不变化
-                  if (flag) {
-                    this.$set(v, "value", "");
-                  } else {
-                    this.$set(v, "value", res);
+                  //加入浮点型计算
+                  const { floatAdd, floatMul, floatDiv } = tools;
+                  // console.log(k, v.code, fnModules[f], argsArr);
+
+                  if (fnModules[f]) {
+                    f = fnModules[f];
                   }
-                } else {
-                  this.$set(v, "value", "");
+                  try {
+                    /**
+                     * 解析函数字符串，计算公式
+                     * TODO 性能不好 后期考虑用 new Function() @fsg 2018.8.16
+                     */
+                    let res = eval("(" + f + `)(${argsArr.toString()})`);
+                    if (["false", false].includes(res)) {
+                      alert("公式运行错误，请检查参数!");
+                    }
+                    if (Number(res) !== NaN) {
+                      res = Number(res).toFixed(3);
+                    }
+                    let flag = [
+                      "NaN%",
+                      "Infinity%",
+                      "NaN",
+                      "Infinity",
+                      false,
+                      "false"
+                    ].includes(res);
+                    //如果输入非数字或0则不变化
+                    if (flag) {
+                      this.$set(v, "value", "");
+                    } else {
+                      this.$set(v, "value", res);
+                    }
+                  } catch (err) {
+                    throw err;
+                  }
                 }
               }
             }
@@ -249,9 +270,9 @@ export default {
       _target = this.curTableData.find(item => item[this.uniqueKey] == code);
       if (_target) {
         if (typeof _target[key] == "object") {
-          return _target[key].value;
+          return _target[key].value ? _target[key].value : 0;
         } else {
-          return _target[key];
+          return _target[key] ? _target[key] : 0;
         }
       } else {
         return "";
@@ -316,21 +337,23 @@ export default {
     },
     //返回header某项
     getHeaderItemArr(arr) {
-      let bianli = arr => {
+      const bianli = arr => {
         arr.map(item => {
-          if (item.children) {
-            let idx = this.headerArr.findIndex(_ => _.title == item.title);
+          if (item.onlyOneCell == 1) {
+            return;
+          }
+          if (item.children && item.children.length) {
+            let idx = this.headerArr.findIndex(
+              val => val.title == item.title && val.sortIdx == item.sortIdx
+            );
             if (idx == -1) {
               let _temp = tools.deepCopy(item);
               delete _temp.children;
-              this.headerArr.push({
-                ..._temp,
-                childLength: item.children.length
-              });
+              this.headerArr.push(_temp);
             }
             bianli(item.children);
           } else {
-            let _idx = this.headerArr.findIndex(_ => _.key == item.key);
+            let _idx = this.headerArr.findIndex(val => val.key == item.key);
             if (_idx == -1) {
               this.headerArr.push(item);
             }
@@ -339,51 +362,74 @@ export default {
       };
       bianli(arr);
     },
-    //返回header某项的排列索引
-    getHeaderItemIndex(target_key) {
-      let _target = this.headerArr.find(item => item.key == target_key);
-      try {
-        return _target.sortIdx;
-      } catch (err) {
-        console.error(_target, target_key);
-      }
-    },
+
     //通过key查找表头
     getHeaderItemByKey(key) {
       let _temp = this.tableHeader.find(item => item.key == key);
       return _temp;
     },
-
+    //
+    //渲染只有一个单元格项的头部
+    oneCellHeader() {
+      const getOneCellHeaderArr = ((
+        origArr = this.onlyOneCellBodyArr,
+        resArr = []
+      ) => {
+        let arr = tools.deepCopy(origArr);
+        arr.forEach(item => {
+          let _temp = tools.deepCopy(item);
+          delete _temp.children;
+          resArr.push(_temp);
+          if (item.children && item.children.length) {
+            getOneCellHeaderArr(item.children, resArr);
+          }
+        });
+        return resArr;
+      })();
+      const oneCellHeaderArr = getOneCellHeaderArr.filter(item => item.title);
+      return (
+        <div style={{ borderTop: `1px solid ${this.tableBorderColor}` }}>
+          {oneCellHeaderArr.map(item => {
+            return (
+              <div
+                id={item.title}
+                style={{
+                  lineHeight: `${this.cellHeight * item.rowSpan}px`,
+                  borderRight: `1px solid ${this.tableBorderColor}`,
+                  borderBottom: `1px solid ${this.tableBorderColor}`,
+                  width: "300px",
+                  ...this.headerStyle
+                }}
+                class="flexBox Ellipsis"
+              >
+                <span style={{ padding: "0 20px" }}>{item.title}</span>
+              </div>
+            );
+          })}
+        </div>
+      );
+    },
     //渲染只有一个单元格的项
     renderOneCellItem() {
       if (!this.onlyOneCellBodyArr.length) {
         return null;
       }
       return (
-        <div class="flexBox ">
+        <div class="flexBox flex-ver-box alItSt" style={{ width: "300px" }}>
+          {this.oneCellHeader()}
           {this.onlyOneCellBodyArr.map(item => {
             return (
               <div
-                class="flexBox flex-ver-box alItSt "
                 style={{
                   overflow: "hidden",
                   border: `1px solid ${this.tableBorderColor}`,
                   borderLeft: "none",
-                  width: "100%"
+                  borderTop: "none",
+
+                  width: "300px"
                 }}
                 key={item.key}
               >
-                <div
-                  id={item.key}
-                  style={{
-                    lineHeight: `${this.cellHeight}px`,
-                    borderBottom: `1px solid ${this.tableBorderColor}`,
-                    ...this.headerStyle
-                  }}
-                  class="flexBox Ellipsis"
-                >
-                  <span style={{ padding: "0 20px" }}>{item.title}</span>
-                </div>
                 {this.isBodyEmpty ? null : (
                   <Textarea
                     addStyle={{
@@ -420,59 +466,90 @@ export default {
         <div>
           <table
             style={{
-              width: "100%",
+              // width: "100%",
               border: `1px solid ${this.tableBorderColor}`,
               borderBottom: "none",
               borderLeft: "none"
             }}
           >
-            <thead style={{ width: "100%" }}>
-              {this.ossTableHeader.map((item, idx) =>
-                this.renderHeader(item, idx)
-              )}
+            <thead>
+              {this.headerClasses.map(val => {
+                return (
+                  <tr
+                    style={{
+                      ...this.headerStyle,
+                      borderTop: `1px solid ${this.tableBorderColor}`
+                    }}
+                  >
+                    {this.headerArr
+                      .filter(item => item.classifyId == val)
+                      .filter(item => item.title)
+                      .map((item, _idx) => {
+                        return this.renderHeader(item, _idx);
+                      })}
+                  </tr>
+                );
+              })}
             </thead>
             {renderBody()}
           </table>
         </div>
       );
     },
+    getRowspan(cell) {
+      return cell.rowSpan ? cell.rowSpan : 1;
+    },
     //渲染表头
-    renderHeader(header, idx) {
+    renderHeader(item, _idx) {
       let common = {
-        lineHeight: `${this.cellHeight}px`,
+        verticalAlign: "middle",
         borderLeft: `1px solid ${this.tableBorderColor}`
       };
       return (
         <th
+          rowspan={this.getRowspan(item)}
+          colspan={item.colSpan ? item.colSpan : 1}
           style={
-            idx == 0 && this.isFirstThEableClick
+            _idx == 0 &&
+            this.isFirstThEableClick &&
+            item.sortIdx == 0 &&
+            item.classifyId == 0
               ? {
                   ...common,
                   ...this.firstThStyle,
-                  cursor: "pointer",
-                  ...this.headerStyle,
-                  width: `${1 / this.ossTableHeader.length * 100}%`
+                  height: `${this.cellHeight * this.getRowspan(item)}px`
                 }
-              : { ...common, ...this.headerStyle }
+              : {
+                  ...common,
+                  height: `${this.cellHeight * this.getRowspan(item)}px`
+                }
           }
           onClick={() => {
-            if (!this.isFirstThEableClick) {
-              return;
-            }
-            if (idx != 0) {
+            if (
+              !this.isFirstThEableClick ||
+              _idx != 0 ||
+              item.sortIdx != 0 ||
+              item.classifyId != 0
+            ) {
               return;
             }
             // 点击第一个th单元格触发事件
             this.firstThClickHandler();
           }}
         >
-          {header.title}
+          <span>{item.title}</span>
         </th>
       );
     },
     //返回只有一个单元格的项的字段
-    getOneCellItemByKey(key) {
-      let _temp = this.onlyOneCellBodyArr.find(item => item.key == key);
+    getOneCellItemByKey(key, arr = this.onlyOneCellBodyArr) {
+      let _temp = arr.find(item => {
+        if (item.key) {
+          return item.key == key;
+        } else if (item.children && item.children.length) {
+          return this.getOneCellItemByKey(key, item.children);
+        }
+      });
       return _temp;
     },
     //单元格点击事件
@@ -495,7 +572,7 @@ export default {
       }
       return 0;
     },
-      //返回header某项的排列索引
+    //返回header某项的排列索引
     getHeaderItemSortIndex(target_key) {
       let _target = this.headerArr.find(item => item.key == target_key);
       if (!_target) {
@@ -507,6 +584,7 @@ export default {
     renderTableColumn(colOptions) {
       const sortArr = Object.keys(colOptions)
         .filter(item => !this.bodyNotShowPropData.includes(item))
+        .filter(item => !this.bodyNotShowPropData.includes(item))
         .filter(item => !this.getOneCellItemByKey(item))
         .sort((a, b) => {
           return this.isAfrontB(
@@ -514,46 +592,38 @@ export default {
             this.getHeaderItemSortIndex(b)
           );
         });
-
       return (
         <tr style={{ width: "100%" }}>
           {sortArr.map((item, idx) => {
             const readonlyInput = (() => {
               return (
-                <MyInput
-                  style={{ width: "100%" }}
-                  readonly
-                  value={
-                    typeof colOptions[item] == "object"
-                      ? colOptions[item].value
-                      : colOptions[item]
-                  }
-                  componentName={this.$options.name}
-                  parentColumnId={colOptions["cell_id"]}
-                  editPropName={item}
-                  addStyle={{
-                    borderTop: "none",
-                    borderBottom: "none",
-                    borderRadius: "0",
-                    borderRight: "none",
-                    ...this.cellStyle
+                <span
+                  class="flexBox "
+                  style={{
+                    padding: "0 25px",
+                    minWidth: "100px",
+                    borderLeft: `1px solid ${this.tableBorderColor}`,
+                    height: `${this.cellHeight}px`
                   }}
-                />
+                >
+                  {typeof colOptions[item] == "object"
+                    ? `${colOptions[item].value}`
+                    : `${colOptions[item]}`}
+                </span>
               );
             })();
             const editInput = (() => {
               return (
                 <MyInput
-                  style={{ width: "100%" }}
+                  style={{ minWidth: "100px" }}
                   addStyle={
                     `td_id_${colOptions[this.uniqueKey]}_${item}_${idx}` !=
                     this.curEditTdId
                       ? {
                           borderTop: "none",
                           borderBottom: "none",
-                          // borderLeft: "none",
+                          borderLeft: `1px solid ${this.tableBorderColor}`,
                           borderRight: "none",
-                          cursor: "pointer",
                           borderRadius: 0,
                           ...this.cellStyle
                         }
@@ -576,7 +646,8 @@ export default {
                 id={`td_id_${colOptions[this.uniqueKey]}_${item}_${idx}`}
                 style={{
                   borderBottom: `1px solid ${this.tableBorderColor}`,
-                  width: `${1 / this.ossTableHeader.length * 100}%`
+                  width: `${1 / this.ossTableHeader.length * 100}%`,
+                  verticalAlign: "middle"
                 }}
                 onClick={this.tdClickHandler.bind(
                   this,
@@ -585,7 +656,8 @@ export default {
               >
                 {this.isReadOnly
                   ? readonlyInput
-                  : this.getHeaderItemByKey(item).isCanEdit
+                  : this.getHeaderItemByKey(item) &&
+                    this.getHeaderItemByKey(item).isCanEdit
                     ? typeof colOptions[item] == "object" &&
                       colOptions[item].isCanEdit == 0
                       ? readonlyInput
@@ -614,10 +686,10 @@ export default {
       );
     };
     return (
-      <section class="nui-scroll" style={{ width: "100%" }}>
-        <div class="flexBox  alItSt" style={{ width: "100%" }}>
-          <div class="flex-1">{this.renderPanelBody()}</div>
-          <div style={{ maxWidth: "300px" }}>{this.renderOneCellItem()}</div>
+      <section class="nui-scroll ">
+        <div style={{ display: "flex" }}>
+          <div>{this.renderPanelBody()}</div>
+          <div style={{ width: "300px" }}>{this.renderOneCellItem()}</div>
         </div>
         {this.isBodyEmpty ? emptyBody() : null}
       </section>

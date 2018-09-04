@@ -1,4 +1,14 @@
-const fns={
-
+const fns = {
+    'function(){return Array.prototype.reduce.call(arguments,(a,b)=>a+b)}': 'function(){return Array.prototype.reduce.call(arguments,(a,b)=>floatAdd(a,b))}',
+    'function(a,b){return((a/b)*c)}': 'function(a,b){return(floatMul((floatDiv(a,b),c))}',
+    'function(a,b){return(100*(a-b)/b)}': 'function(a,b){return(100*floatDiv(floatAdd(a,-b),b))}',
+    'function(a,b){return(a/b)}': 'function(a,b){return(floatDiv(a,b))}',
+    'function(a,b){return(a+b)}': 'function(a,b){return(floatAdd(a,b))}',
+    'function(a,b,c){return((a-b)/c)}': 'function(a,b,c){return(floatDiv(floatAdd(a,-b),c))}',
+    'function(a,b,c){return(a+b-c)}': 'function(a,b,c){return(floatAdd(floatAdd(a,b),-c))}',
+    'function(a,b,c){if((a+b)<c) {return false }return(a+b-c)}':'function(a,b,c){if((a+b)<c) {return false }return(floatAdd(floatAdd(a,b),-c))}',
+    //TODO 这两个公式太长了 放弃浮点型处理 直接原公式计算初结果toFixed(3) @fsg 2018.09.03
+    // 'function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}': '',
+    // 'function(a1,b1,c1,d1,a2,b2,c2,d2,a3,b3,c3,d3,a4,b4,c4,d4,a5,b5,c5,d5,a6,b6,c6,d6,a7,b7,c7,d7,a8,b8,c8,d8,a9,b9,c9,d9,a10,b10,c10,d10,a11,b11,c11,d11,a12,b12,c12,d12,a13,b13,c13,d13,a14,b14,c14,d14,a15,b15,c15,d15,a16,b16,c16,d16,a17,b17,c17,d17,a18,b18,c18,d18,a19,b19,c19,d19,a20,b20,c20,d20,a21,b21,c21,d21,a22,b22,c22,d22,a23,b23,c23,d23,a24,b24,c24,d24,a25,b25,c25,d25,a26,b26,c26,d26,a27,b27,c27,d27,a28,b28,c28,d28,a29,b29,c29,d29,a30,b30,c30,d30,a31,b31,c31,d31,a32,b32,c32,d32,a33,b33,c33,d33,a34,b34,c34,d34,a35,b35,c35,d35,a36,b36,c36,d36,a37,b37,c37,d37,a38,b38,c38,d38,a39,b39,c39,d39){return((a1-b1-c1)*d1+(a2-b2-c2)*d2+(a3-b3-c3)*d3+(a4-b4-c4)*d4+(a5-b5-c5)*d5+(a6-b6-c6)*d6+(a7-b7-c7)*d7+(a8-b8-c8)*d8+(a9-b9-c9)*d9+(a10-b10-c10)*d10+(a11-b11-c11)*d11+(a12-b12-c12)*d12+(a13-b13-c13)*d13+(a14-b14-c14)*d14+(a15-b15-c15)*d15+(a16-b16-c16)*d16+(a17-b17-c17)*d17+(a18-b18-c18)*d18+(a19-b19-c19)*d19+(a20-b20-c20)*d20+(a21-b21-c21)*d21+(a22-b22-c22)*d22+(a23-b23-c23)*d23+(a24-b24-c24)*d24+(a25-b25-c25)*d25+(a26-b26-c26)*d26+(a27-b27-c27)*d27+(a28-b28-c28)*d28+(a29-b29-c29)*d29+(a30-b30-c30)*d30+(a31-b31-c31)*d31+(a32-b32-c32)*d32+(a33-b33-c33)*d33+(a34-b34-c34)*d34+(a35-b35-c35)*d35+(a36-b36-c36)*d36+(a37-b37-c37)*d37+(a38-b38-c38)*d38+(a39-b39-c39)*d39)}': ''
 }
 export default fns

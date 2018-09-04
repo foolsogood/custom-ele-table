@@ -131,6 +131,7 @@ let tableHeader = [{
 	"key": "explain",
 	"title": "产值及能耗消费变化情况说明",
 	"onlyOneCell": 1,
+	'rowSpan':1,
 	"isCanEdit": 1,
 	"children": []
 }]

@@ -2,7 +2,7 @@
 import tools from "./tools/index";
 import MyInput from "./input.vue";
 import event from "./event.js";
-import fns from './tools/fns'
+import fnModules from "./tools/fns";
 export default {
   name: "MutilTable",
   props: {
@@ -59,11 +59,6 @@ export default {
       type: String,
       default: "暂无数据"
     },
-    //在body每行后添加模板
-    postfixTemplate: {
-      type: Array,
-      default: () => new Array()
-    },
     //header样式
     headerStyle: {
       type: Object,
@@ -91,16 +86,13 @@ export default {
       headerArr: [],
       bodyNotShowPropData: ["table_id"],
       curTableData: [], //
-      tbodyId: tools.guid(),
       isBodyEmpty: undefined //表体是否无数据
     };
   },
   components: { MyInput },
   created() {
-    event.on("textarea-change", val => {
-      this.textAreaContent = val;
-    });
     event.on(`inputChange-${this.$options.name}`, val => {
+      // console.log(val);
       let _check = obj => {
         let flag = false;
         for (let [k, v] of Object.entries(obj)) {
@@ -111,19 +103,7 @@ export default {
             return (
               v.fnParms &&
               v.fnParms.some(item => {
-                let _flag =
-                  item.code == val.parentColumnId || item.key == val.prop;
-                // if (_flag) {
-                //   console.log(
-                //     "_flag",
-                //     _flag,
-                //     item.key,
-                //     val.prop,
-                //     item.code == val.parentColumnId,
-                //     item.key == val.prop
-                //   );
-                // }
-                return _flag;
+                return item.code == val.parentColumnId || item.key == val.prop;
               })
             );
           }
@@ -171,101 +151,43 @@ export default {
         item => item[this.uniqueKey] == val.parentColumnId
       );
       if (target_arr.length) {
-        // console.log("target_arr", target_arr);
         try {
           target_arr.forEach(item => {
             for (let [k, v] of Object.entries(item)) {
               if (typeof v == "object") {
-                //列累加计算
-                if (v.isColPlus) {
-                  //累加合计的单元格
-                  let _plusCell = this.ossTableData.find(
-                    item => typeof item[k] == "object" && item[k].cal == "lj"
-                  );
-                  let _plusCell_Idx = this.ossTableData.findIndex(
-                    item => typeof item[k] == "object" && item[k].cal == "lj"
-                  );
-                  //遍历fnParms将需要计算的项目累加
-                  if (_plusCell[k].fnParms) {
-                    let h = _plusCell[k].fnParms.reduce((prev, cur) => {
-                      try {
-                        //迭代结果一开始不是数字而是对象
-                        let _q;
-                        if (typeof prev == "object") {
-                          _q = this.ossTableData.find(
-                            item => item.code == prev.code
-                          )[prev.key];
-                        } else {
-                          _q = this.checkIfNum(prev);
-                        }
-                        //cur也有可能是对象
-                        let _p = this.ossTableData.find(
-                          item => item.code == cur.code
-                        )[cur.key];
-                        if (typeof _q == "object") {
-                          _q = this.checkIfNum(_q.value);
-                        } else {
-                          _q = this.checkIfNum(_q);
-                        }
-                        if (typeof _p == "object") {
-                          _p = this.checkIfNum(_p.value);
-                        } else {
-                          _p = this.checkIfNum(_p);
-                        }
-                        return _q + _p;
-                      } catch (e) {
-                        return null;
-                      }
-                    }, 0);
-                    if (h) {
-                      let __v = _plusCell[k];
-                      this.$set(__v, "value", h);
-                      this.$set(_plusCell, k, __v);
-                      this.$set(this.ossTableData, _plusCell_Idx, _plusCell);
-                    }
-                  }
-                }
-                if (v.fn && v.fnParms) {
-                  if (
-                    v.fnParms.some(_val => {
-                      return _val.key == val.prop;
-                    }) &&
-                    //TODO 问题很大
-                    v.fnParms.every(_val => {
-                      let flag =
-                        this.getValueFromColumn(_val.code, _val.key) !== "";
-                      // if (flag) {
-                      //   console.log(
-                      //     flag,
-                      //     _val.code,
-                      //     _val.key,
-                      //     this.getValueFromColumn(_val.code, _val.key),
-                      //     _val.key,
-                      //     "______________"
-                      //   );
-                      // }
-                      return flag;
-                    })
-                  ) {
+                if (v.fn && v.fnParms && v.fnParms.length) {
+                  if (v.fnParms.some(_val => _val.key == val.prop)) {
                     //参数数值的数组
                     let argsArr = v.fnParms.map(_val => {
                       return this.getValueFromColumn(_val.code, _val.key);
                     });
-                    // console.log("///", v.fn, v.fnParms, argsArr);
                     let f = v.fn;
+                    //加入浮点型计算
+                    const { floatAdd, floatMul, floatDiv } = tools;
+                    if (fnModules[f]) {
+                      f = fnModules[f];
+                    }
+
+                    // console.log(f)
                     /**
                      * 解析函数字符串，计算公式
                      * TODO 性能不好 后期考虑用 new Function() @fsg 2018.8.16
                      */
                     try {
                       let res = eval("(" + f + `)(${argsArr.toString()})`);
+                      if (["false", false].includes(res)) {
+                        alert("公式运行错误，请检查参数!");
+                      }
+                      if (Number(res) !== NaN) {
+                        res = Number(res).toFixed(3);
+                      }
+                      // console.log(k, v.code, res, f, argsArr);
                       let flag = [
                         "NaN%",
                         "Infinity%",
                         "NaN",
                         "Infinity"
                       ].includes(res);
-                      // console.log("kkk", res, flag);
                       //如果输入非数字或0则不变化
                       if (flag) {
                         this.$set(v, "value", "");
@@ -275,8 +197,6 @@ export default {
                     } catch (error) {
                       throw error;
                     }
-                  } else {
-                    this.$set(v, "value", "");
                   }
                 }
               }
@@ -347,17 +267,20 @@ export default {
       this.ossTableData = tools.deepCopy(this.tableData);
       this.ossTableHeader = tools.deepCopy(this.tableHeader);
       this.curTableData = tools.deepCopy(this.tableData);
+      this.bodyNotShowPropData = [
+        ...tools.deepCopy(this.bodyNotShowProps),
+        "table_id"
+      ];
 
-      this.bodyNotShowProps.forEach(item => {
-        this.bodyNotShowPropData.push(item);
-      });
       this.ossTableData.forEach(item => {
         if (!this.uniqueKey) {
           if (!item.table_id) {
             item.table_id = tools.guid();
           }
         } else {
-          item.table_id = item[this.uniqueKey];
+          item.table_id = item[this.uniqueKey]
+            ? item[this.uniqueKey]
+            : tools.guid();
         }
       });
       if (this.ossTableData.length) {
@@ -571,15 +494,6 @@ export default {
     },
     //渲染表的每行
     renderTableColumn(colOptions) {
-      const _renderHtml = html => {
-        return (
-          <span
-            dangerouslySetInnerHTML={{
-              __html: '<span class="el-icon-delete"></span>'
-            }}
-          />
-        );
-      };
       //根据sortIdx排好序
       const sortArr = Object.keys(colOptions)
         .filter(item => !this.bodyNotShowPropData.includes(item))
@@ -620,6 +534,35 @@ export default {
                     ? colOptions[item].value
                     : colOptions[item]}
                 </span>
+                // <MyInput
+                //   style={{ minWidth: "100px" }}
+                //   value={
+                //     typeof colOptions[item] == "object"
+                //       ? colOptions[item].value
+                //       : colOptions[item]
+                //   }
+                //   parentColumnId={
+                //     this.uniqueKey
+                //       ? colOptions[this.uniqueKey]
+                //         ? colOptions[this.uniqueKey]
+                //         : colOptions["table_id"]
+                //       : colOptions["table_id"]
+                //   }
+                //   addStyle={
+                //     {
+                //           borderTop: "none",
+                //           borderBottom: "none",
+                //           borderLeft: "none",
+                //           borderRight: "none",
+                //           // cursor:'pointer',
+                //           borderRadius: 0,
+                //           ...this.cellStyle
+                //         }
+                //   }
+                //   editPropName={item}
+                //   componentName={this.$options.name}
+                //   readonly
+                // />
               );
             })();
             const editInput = (() => {
@@ -634,6 +577,8 @@ export default {
                   parentColumnId={
                     this.uniqueKey
                       ? colOptions[this.uniqueKey]
+                        ? colOptions[this.uniqueKey]
+                        : colOptions["table_id"]
                       : colOptions["table_id"]
                   }
                   addStyle={
@@ -684,7 +629,10 @@ export default {
                 {this.isReadOnly
                   ? isReadOnlySpan
                   : this.getHeaderItemByKey(item).isCanEdit
-                    ? editInput
+                    ? typeof colOptions[item] == "object" &&
+                      colOptions[item].isCanEdit == 0
+                      ? isReadOnlySpan
+                      : editInput
                     : isReadOnlySpan}
               </td>
             );

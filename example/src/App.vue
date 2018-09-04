@@ -9,8 +9,6 @@
       <span @click="toggle(item)" style="padding-right:20px" :style="curTitle==item.title?{color:'red'}:{}" v-for="(item,idx) in list" :key="idx">{{item.title}}</span>
     </p>
     <mutilTable @TableDataChange="changeDataHandler" :firstThStyle="{color:'#ff0000'}" :firstThClickHandler="triggerFn" :isFirstThEableClick="true" :tableData="tableDatas_1" :tableHeader="tableHeader_1" :bodyNotShowProps="['code']" :uniqueKey="'code'" />
-    <p style="line-height:60px">运算公式表</p>
-    <formulaTable @TableDataChange="formulaTableDataChangeHandler" :tableData="tableDatas_2" :tableHeader="tableHeader_2" :bodyNotShowProps="['code']" uniqueKey="code" />
   </div>
 </template>
 
@@ -19,7 +17,6 @@
     staticTable,
     rowEditableTable,
     mutilTable,
-    formulaTable
   } = require("custom-ele-table").default;
   export default {
     name: "App",
@@ -63,7 +60,6 @@
       staticTable,
       rowEditableTable,
       mutilTable,
-      formulaTable
     },
     watch: {
       curTitle: {
@@ -100,7 +96,6 @@
         // console.log(data);
       },
       rowEditTableDataChangeHandler(data) {},
-      formulaTableDataChangeHandler(data) {}
     }
   };
 </script>

@@ -32,6 +32,20 @@ class tools {
     }
     //浮点型除法
     floatDiv(a, b) {
+        function floatMul(A, B) {
+            var c = 0,
+                d = A.toString(),
+                e = B.toString();
+            try {
+                c += d.split(".")[1].length;
+            } catch (f) {
+            }
+            try {
+                c += e.split(".")[1].length;
+            } catch (f) {
+            }
+            return Number(d.replace(".", "")) * Number(e.replace(".", "")) / Math.pow(10, c);
+        }
         var c, d, e = 0,
             f = 0;
         try {
@@ -42,7 +56,7 @@ class tools {
             f = b.toString().split(".")[1].length;
         } catch (g) {
         }
-        return c = Number(a.toString().replace(".", "")), d = Number(b.toString().replace(".", "")), mul(c / d, Math.pow(10, f - e));
+        return c = Number(a.toString().replace(".", "")), d = Number(b.toString().replace(".", "")), floatMul(c / d, Math.pow(10, f - e));
     }
 
     //判断变量类型 返回 'String' 'Object'等构造函数名

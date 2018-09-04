@@ -5,7 +5,8 @@
 ## 安装
 - npm i custom-ele-table
 - 或 yarn add custom-ele-table
-<!-- ## 在线演示 -->
+## 在线演示
+[狠狠戳我]()
 ## 为什么要做这个组件？这个组件能干嘛
 
 - 1.之前做vue的报表都是使用了element-ui的table组件，用过的都知道该组件并不是很符合数据驱动的思想，公司中多个项目需要做大量的报表展示或者修改提交的操作，因此产生了做自定义报表的需求
@@ -20,8 +21,6 @@
 ![Image text](https://github.com/foolsogood/custom-ele-table/blob/master/example/static/img/4.png?raw=true)
 #### mutilTable组件
 ![Image text](https://github.com/foolsogood/custom-ele-table/blob/master/example/static/img/2.png?raw=true)
-#### formulaTable组件
-![Image text](https://github.com/foolsogood/custom-ele-table/blob/master/example/static/img/3.png?raw=true)
 #### rowEditableTable组件
 ![Image text](https://github.com/foolsogood/custom-ele-table/blob/master/example/static/img/1.png?raw=true)
 
