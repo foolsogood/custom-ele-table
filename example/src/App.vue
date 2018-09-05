@@ -3,100 +3,129 @@
     <p style="line-height:60px">基本情况表</p>
     <staticTable :tableData="tableData" />
     <p style="line-height:60px">跨行单元格</p>
-    <rowEditableTable @TableDataChange="rowEditTableDataChangeHandler" :tableData="tableDatas" :tableHeader="tableHeader" :bodyNotShowProps="['code']" :uniqueKey="'code'" />
+    <p>
+      <span @click="toggleEdit(item)" :style="rowEdit.cur==item.title?{color:'red'}:{}" v-for="(item,idx) in rowEdit.list" :key="idx">{{item.title}}</span>
+    </p>
+    <rowEditableTable  @TableDataChange="rowEditTableDataChangeHandler" :tableData="edit_tableData" :tableHeader="edit_tableHeader" :bodyNotShowProps="['code']" uniqueKey="code" />
+
     <p style="line-height:60px">多层表头</p>
     <p>
       <span @click="toggle(item)" style="padding-right:20px" :style="curTitle==item.title?{color:'red'}:{}" v-for="(item,idx) in list" :key="idx">{{item.title}}</span>
     </p>
-    <mutilTable @TableDataChange="changeDataHandler" :firstThStyle="{color:'#ff0000'}" :firstThClickHandler="triggerFn" :isFirstThEableClick="true" :tableData="tableDatas_1" :tableHeader="tableHeader_1" :bodyNotShowProps="['code']" :uniqueKey="'code'" />
+    <mutilTable  @TableDataChange="changeDataHandler" :firstThStyle="{color:'#ff0000'}" :firstThClickHandler="triggerFn" :isFirstThEableClick="true" :isReadOnly="isMutilReadOnly" :tableData="tableDatas_1" :tableHeader="tableHeader_1" :bodyNotShowProps="['code','id']" uniqueKey="code" />
+
+    <!-- <p style="line-height:60px">参数说明</p>
+    <explainCom :tableData="explain.prop.data" :tableHeader="explain.prop.header" />
+    <p style="line-height:60px">方法说明</p>
+    <explainCom :tableData="explain.func.data" :tableHeader="explain.func.header" /> -->
   </div>
 </template>
-
 <script>
-  const {
+const {
+  staticTable,
+  rowEditableTable,
+  mutilTable,
+} = require("custom-ele-table").default;
+import explainCom from "./explain";
+
+export default {
+  name: "App",
+  data() {
+    return {
+      triggerFn: () => {
+        alert(1);
+      },
+      explain: {
+        prop: {
+          data: require("./mock/explain").default.propTableBody,
+          header: require("./mock/explain").default.propTableHeader
+        },
+        func: {
+          data: require("./mock/explain").default.funcTableData,
+          header: require("./mock/explain").default.funcTableHeader
+        }
+      },
+      tableData: require("./mock/data_2").default.tableBody,
+      edit_tableData: [],
+      edit_tableHeader: [],
+      rowEdit: {
+        cur: "纯展示",
+        list: [
+          {
+            title: "纯展示",
+            data: require("./mock/func_4").default.tableBody,
+            header: require("./mock/func_4").default.tableHeader
+          },
+          {
+            title: "计算",
+            data: require("./mock/func_3").default.tableBody,
+            header: require("./mock/func_3").default.tableHeader
+          }
+        ]
+      },
+      curTitle: "计算",
+      tableDatas_1: [],
+      tableHeader_1: [],
+      isMutilReadOnly: false,
+      list: [
+        {
+          title: "计算",
+          data: require("./mock/func_7").default.tableBody,
+          header: require("./mock/func_7").default.tableHeader,
+          isReadOnly: false
+        },
+        {
+          title: "GHG",
+          data: require("./mock/GHG").default.tableBody,
+          header: require("./mock/GHG").default.tableHeader,
+          isReadOnly: true
+        },
+        {
+          title: "123",
+          data: require("./mock/func").default.tableBody,
+          header: require("./mock/func").default.tableHeader,
+          isReadOnly: false
+        }
+      ]
+    };
+  },
+  components: {
     staticTable,
     rowEditableTable,
     mutilTable,
-  } = require("custom-ele-table").default;
-  export default {
-    name: "App",
-    data() {
-      return {
-        triggerFn: () => {
-          alert(1)
-        },
-        tableDatas_2: require("./mock/func").default.tableBody,
-        tableHeader_2: require("./mock/func").default.tableHeader,
-        tableData: require("./mock/data_2").default.tableBody,
-        tableDatas: require("./mock/data_3").default.tableBody,
-        tableHeader: require("./mock/data_3").default.tableHeader,
-        curTitle: "电表",
-        tableDatas_1: [],
-        tableHeader_1: [],
-        list: [{
-            title: "唐总看这个",
-            data: require("./mock/data_1").default.tableBody,
-            header: require("./mock/data_1").default.tableHeader
-          },
-          {
-            title: "电表",
-            data: require("./mock/electricity").default.tableBody,
-            header: require("./mock/electricity").default.tableHeader
-          },
-          {
-            title: "GHG",
-            data: require("./mock/GHG").default.tableBody,
-            header: require("./mock/GHG").default.tableHeader
-          },
-          {
-            title: "三层表头",
-            data: require("./mock/data_5").default.tableBody,
-            header: require("./mock/data_5").default.tableHeader
-          }
-        ]
-      };
-    },
-    components: {
-      staticTable,
-      rowEditableTable,
-      mutilTable,
-    },
-    watch: {
-      curTitle: {
-        handler(val) {
-          let _idx = this.list.findIndex(item => item.title == val);
-          if (_idx != -1) {
-            this.tableDatas_1 = this.list[_idx].data;
-            this.tableHeader_1 = this.list[_idx].header;
-          }
-        },
-        immediate: true,
-        deep: true
-      }
-    },
-    created() {
-      let tableBody=require("./mock/func").default.tableBody
-      console.log(this.getFn(tableBody))
-    },
-    methods: {
-      getFn(tableBody) {
-        let arr= tableBody.map(item => {
-          for (let [key, value] of Object.entries(item)) {
-            if (typeof value == 'object' && value.fn) {
-              return value.fn
-            }
-          }
-        }).filter(item=>item)
-        return [...new Set(arr)]
+    explainCom
+  },
+  watch: {
+    curTitle: {
+      handler(val) {
+        let _temp = this.list.find(item => item.title == val);
+        this.tableDatas_1 = _temp.data;
+        this.tableHeader_1 = _temp.header;
+        this.isMutilReadOnly = _temp.isReadOnly;
       },
-      toggle(item) {
-        this.curTitle = item.title;
+      immediate: true
+    },
+    "rowEdit.cur": {
+      handler(val) {
+        let _temp = this.rowEdit.list.find(item => item.title == val);
+        this.edit_tableData = _temp.data;
+        this.edit_tableHeader = _temp.header;
       },
-      changeDataHandler(data) {
-        // console.log(data);
-      },
-      rowEditTableDataChangeHandler(data) {},
+      immediate: true
     }
-  };
+  },
+  methods: {
+    toggle(item) {
+      this.curTitle = item.title;
+    },
+    toggleEdit(item) {
+      this.rowEdit.cur = item.title;
+    },
+    changeDataHandler(data) {
+      // console.log(data);
+    },
+    rowEditTableDataChangeHandler(data) {}
+  }
+};
 </script>
 

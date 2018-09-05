@@ -284,6 +284,8 @@ export default {
     },
     //检查表头是否存在一个单元格的项目
     initData() {
+      this.headerArr=[]
+      this.onlyOneCellBodyArr=[]
       this.ossTableHeader = tools.deepCopy(this.tableHeader);
       this.ossTableData = tools.deepCopy(this.tableData);
       this.curTableData = tools.deepCopy(this.tableData);
@@ -337,7 +339,7 @@ export default {
     },
     //返回header某项
     getHeaderItemArr(arr) {
-      const bianli = arr => {
+      let bianli = arr => {
         arr.map(item => {
           if (item.onlyOneCell == 1) {
             return;
@@ -369,26 +371,23 @@ export default {
       return _temp;
     },
     //
+    getOneCellHeaderArr(origArr = this.onlyOneCellBodyArr,resArr=[]) {
+      let arr = tools.deepCopy(origArr);
+      arr.forEach(item => {
+        let _temp = tools.deepCopy(item);
+        delete _temp.children;
+        resArr.push(_temp)
+        if (item.children && item.children.length) {
+          this.getOneCellHeaderArr(item.children,resArr);
+        }
+      });
+      return resArr
+    },
     //渲染只有一个单元格项的头部
     oneCellHeader() {
-      const getOneCellHeaderArr = ((
-        origArr = this.onlyOneCellBodyArr,
-        resArr = []
-      ) => {
-        let arr = tools.deepCopy(origArr);
-        arr.forEach(item => {
-          let _temp = tools.deepCopy(item);
-          delete _temp.children;
-          resArr.push(_temp);
-          if (item.children && item.children.length) {
-            getOneCellHeaderArr(item.children, resArr);
-          }
-        });
-        return resArr;
-      })();
-      const oneCellHeaderArr = getOneCellHeaderArr.filter(item => item.title);
+      const oneCellHeaderArr=this.getOneCellHeaderArr().filter(item=>item.title)
       return (
-        <div style={{ borderTop: `1px solid ${this.tableBorderColor}` }}>
+        <div style={{borderTop:`1px solid ${this.tableBorderColor}`}}>
           {oneCellHeaderArr.map(item => {
             return (
               <div
@@ -420,6 +419,7 @@ export default {
           {this.onlyOneCellBodyArr.map(item => {
             return (
               <div
+                // class="flexBox flex-ver-box alItSt "
                 style={{
                   overflow: "hidden",
                   border: `1px solid ${this.tableBorderColor}`,
@@ -517,6 +517,7 @@ export default {
               ? {
                   ...common,
                   ...this.firstThStyle,
+                  cursor: "pointer",
                   height: `${this.cellHeight * this.getRowspan(item)}px`
                 }
               : {
@@ -537,7 +538,7 @@ export default {
             this.firstThClickHandler();
           }}
         >
-          <span>{item.title}</span>
+          <span>{item.title }</span>
         </th>
       );
     },
@@ -582,8 +583,10 @@ export default {
     },
     //渲染表的每行
     renderTableColumn(colOptions) {
-      const sortArr = Object.keys(colOptions)
-        .filter(item => !this.bodyNotShowPropData.includes(item))
+      const sortArr1 = Object.keys(colOptions).filter(
+        item => !this.bodyNotShowPropData.includes(item)
+      );
+      const sortArr = sortArr1
         .filter(item => !this.bodyNotShowPropData.includes(item))
         .filter(item => !this.getOneCellItemByKey(item))
         .sort((a, b) => {
@@ -704,6 +707,4 @@ export default {
   border-radius: 0;
 }
 </style>
-
-
 

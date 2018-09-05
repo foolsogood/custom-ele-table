@@ -1,5 +1,4 @@
 <script>
-import MyInput from './input.vue'
 
 export default {
   name: "staticTable",
@@ -17,16 +16,33 @@ export default {
     cellHeight: {
       type: [String, Number],
       default: "40"
+    },
+     //header样式
+    headerStyle: {
+      type: Object,
+      default: () =>
+        new Object({
+          background: "rgb(230, 242, 246)",
+          color: "#333"
+        })
+    },
+    //body单元格样式
+    cellStyle: {
+      type: Object,
+      default: () =>
+        new Object({
+          background: "#fff",
+          color: "#333"
+        })
     }
   
   },
-  components:{MyInput},
   
   methods: {
     //渲染表body
     renderPanelBody() {
       return (
-        <table style={{border: `1px solid ${this.tableBorderColor}`, borderBottom: "none",width:'100%'}}>
+        <table style={{border: `1px solid ${this.tableBorderColor}`, borderBottom: "none",borderLeft:'none',width:'100%'}}>
           <tbody style={{width:'100%'}}>
             {this.tableData.map(item => this.renderTableColumn(item))}
           </tbody>
@@ -41,10 +57,22 @@ export default {
           {colOptions.map(item => {
             return (
               <td class="flexBox flex-1 " style={{borderBottom:`1px solid ${this.tableBorderColor}`}}>
-                <span class="flexBox" style={{ flex: 1 }}>
+                <span class="flexBox" style={{ flex: 1,height: `${this.cellHeight}px`,borderLeft:`1px solid ${this.tableBorderColor}`,...this.headerStyle}}>
                   {item.name}
                 </span>
-                <MyInput style={{ flex: 2 }} addStyle={{borderTop:'none',borderBottom:'none',borderRadius:'0'}} value={item.value} readonly />
+                 <span
+                  class="flexBox "
+                  style={{
+                    padding: "0 25px",
+                    minWidth: "100px",
+                    borderLeft: `1px solid ${this.tableBorderColor}`,
+                    height: `${this.cellHeight}px`,
+                    flex: 2,
+                    ...this.cellStyle
+                  }}
+                >
+                  {item.value}
+                </span>
               </td>
             );
           })}

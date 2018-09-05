@@ -92,6 +92,9 @@ export default {
   components: { MyInput },
   created() {
     event.on(`inputChange-${this.$options.name}`, val => {
+      if(this.isReadOnly){
+        return
+      }
       // console.log(val);
       let _check = obj => {
         let flag = false;
@@ -365,7 +368,7 @@ export default {
                           this.firstThClickHandler();
                         }}
                       >
-                        <span>{item.title}</span>
+                        <span>{item.title }</span>
                       </th>
                     );
                   })}
