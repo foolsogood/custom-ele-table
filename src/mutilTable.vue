@@ -76,6 +76,15 @@ export default {
           background: "#fff",
           color: "#333"
         })
+    },
+    //需要公式计算的单元格的样式
+    calcCellStyle: {
+      type: Object,
+      default: () =>
+        new Object({
+          background: "#999",
+          color: "#fff"
+        })
     }
   },
   data() {
@@ -92,8 +101,8 @@ export default {
   components: { MyInput },
   created() {
     event.on(`inputChange-${this.$options.name}`, val => {
-      if(this.isReadOnly){
-        return
+      if (this.isReadOnly) {
+        return;
       }
       // console.log(val);
       let _check = obj => {
@@ -368,7 +377,7 @@ export default {
                           this.firstThClickHandler();
                         }}
                       >
-                        <span>{item.title }</span>
+                        <span>{item.title}</span>
                       </th>
                     );
                   })}
@@ -510,8 +519,6 @@ export default {
       return (
         <tr style={{ width: "100%", ...this.cellStyle }}>
           {sortArr.map((item, idx) => {
-            //是否渲染成html
-            // const isHtml = !!colOptions[item]._html;
             const common = {
               padding: "0 25px",
               minWidth: "100px",
@@ -521,51 +528,34 @@ export default {
                   : 1)}px`
             };
             const isReadOnlySpan = (() => {
+              const common = {
+                padding: "0 25px",
+                minWidth: "100px",
+                height:
+                  this.cellHeight *
+                    (typeof colOptions[item] == "object"
+                      ? (colOptions[item].rowSpan?colOptions[item].rowSpan:1)
+                      : 1) +
+                  "px"
+              };
               return (
                 <span
                   class="flexBox "
-                  style={{
-                    padding: "0 25px",
-                    minWidth: "100px",
-                    height: `${this.cellHeight *
-                      (typeof colOptions[item] == "object"
-                        ? colOptions[item].rowSpan
-                        : 1)}px`
-                  }}
+                  style={
+                    colOptions[item].fn
+                      ? {
+                          ...common,
+                          ...this.calcCellStyle
+                        }
+                      : {
+                          ...common
+                        }
+                  }
                 >
                   {typeof colOptions[item] == "object"
                     ? colOptions[item].value
                     : colOptions[item]}
                 </span>
-                // <MyInput
-                //   style={{ minWidth: "100px" }}
-                //   value={
-                //     typeof colOptions[item] == "object"
-                //       ? colOptions[item].value
-                //       : colOptions[item]
-                //   }
-                //   parentColumnId={
-                //     this.uniqueKey
-                //       ? colOptions[this.uniqueKey]
-                //         ? colOptions[this.uniqueKey]
-                //         : colOptions["table_id"]
-                //       : colOptions["table_id"]
-                //   }
-                //   addStyle={
-                //     {
-                //           borderTop: "none",
-                //           borderBottom: "none",
-                //           borderLeft: "none",
-                //           borderRight: "none",
-                //           // cursor:'pointer',
-                //           borderRadius: 0,
-                //           ...this.cellStyle
-                //         }
-                //   }
-                //   editPropName={item}
-                //   componentName={this.$options.name}
-                //   readonly
-                // />
               );
             })();
             const editInput = (() => {
@@ -658,7 +648,11 @@ export default {
   },
 
   render() {
-    return <section class="nui-scroll">{this.renderPanelBody()}</section>;
+    return (
+      <section class="nui-scroll nui-scroll-x">
+        {this.renderPanelBody()}
+      </section>
+    );
   }
 };
 </script>

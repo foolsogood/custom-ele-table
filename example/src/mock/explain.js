@@ -102,6 +102,14 @@ let propTableBody = [{
     staticTable: '✔️',
     rowEditableTable:'✔️',
     mutilTable: '✔️',
+},{
+    prop: 'calcCellStyle',
+    explain: '公式计算结果的单元格样式',
+    type:'Object',
+    default:'{background: "#999",color: "#fff"}',
+    staticTable: '❌',
+    rowEditableTable:'✔️',
+    mutilTable: '✔️',
 }]
 let funcTableData=[
     {

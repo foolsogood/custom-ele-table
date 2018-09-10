@@ -1,6 +1,6 @@
 {
   "name": "custom-ele-table",
-  "version": "1.9.8",
+  "version": "2.0.0",
   "description": "vue自定义报表组件",
   "main": "index.js",
   "repository": {

@@ -50,19 +50,16 @@ export default {
       immediate:true
     },
     newValue: {
-      handler(newV) {
-        // if(oldV==''){
-        //   return
-        // }
+      handler(val) {
         let data={
-            value:''+ newV,
+            value:val,
             prop: this.editPropName,
             parentColumnId: this.parentColumnId
           }
         try{
-          event.emit(`inputChange-${this.componentName}`,data );
+            event.emit(`inputChange-${this.componentName}`,data );
         }catch(err){
-          console.error('error',data,newV,err)
+          console.error('error',data,val,err)
         }
       }
     },

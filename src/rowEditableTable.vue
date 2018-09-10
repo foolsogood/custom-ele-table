@@ -78,6 +78,15 @@ export default {
           background: "#fff",
           color: "#333"
         })
+    },
+    //需要公式计算的单元格的样式
+    calcCellStyle: {
+      type: Object,
+      default: () =>
+        new Object({
+          background: "#999",
+          color: "#fff"
+        })
     }
   },
   data() {
@@ -284,8 +293,8 @@ export default {
     },
     //检查表头是否存在一个单元格的项目
     initData() {
-      this.headerArr=[]
-      this.onlyOneCellBodyArr=[]
+      this.headerArr = [];
+      this.onlyOneCellBodyArr = [];
       this.ossTableHeader = tools.deepCopy(this.tableHeader);
       this.ossTableData = tools.deepCopy(this.tableData);
       this.curTableData = tools.deepCopy(this.tableData);
@@ -367,27 +376,29 @@ export default {
 
     //通过key查找表头
     getHeaderItemByKey(key) {
-      let _temp = this.tableHeader.find(item => item.key == key);
+      let _temp = this.headerArr.find(item => item.key == key);
       return _temp;
-    },
-    //
-    getOneCellHeaderArr(origArr = this.onlyOneCellBodyArr,resArr=[]) {
-      let arr = tools.deepCopy(origArr);
-      arr.forEach(item => {
-        let _temp = tools.deepCopy(item);
-        delete _temp.children;
-        resArr.push(_temp)
-        if (item.children && item.children.length) {
-          this.getOneCellHeaderArr(item.children,resArr);
-        }
-      });
-      return resArr
     },
     //渲染只有一个单元格项的头部
     oneCellHeader() {
-      const oneCellHeaderArr=this.getOneCellHeaderArr().filter(item=>item.title)
+      const getOneCellHeaderArr = (
+        origArr = this.onlyOneCellBodyArr,
+        resArr = []
+      ) => {
+        let arr = tools.deepCopy(origArr);
+        arr.forEach(item => {
+          let _temp = tools.deepCopy(item);
+          delete _temp.children;
+          resArr.push(_temp);
+          if (item.children && item.children.length) {
+            getOneCellHeaderArr(item.children, resArr);
+          }
+        });
+        return resArr;
+      };
+      const oneCellHeaderArr = getOneCellHeaderArr().filter(item => item.title);
       return (
-        <div style={{borderTop:`1px solid ${this.tableBorderColor}`}}>
+        <div style={{ borderTop: `1px solid ${this.tableBorderColor}` }}>
           {oneCellHeaderArr.map(item => {
             return (
               <div
@@ -538,7 +549,7 @@ export default {
             this.firstThClickHandler();
           }}
         >
-          <span>{item.title }</span>
+          <span>{item.title}</span>
         </th>
       );
     },
@@ -599,15 +610,25 @@ export default {
         <tr style={{ width: "100%" }}>
           {sortArr.map((item, idx) => {
             const readonlyInput = (() => {
+              const common = {
+                padding: "0 25px",
+                minWidth: "100px",
+                borderLeft: `1px solid ${this.tableBorderColor}`,
+                height: `${this.cellHeight}px`
+              };
               return (
                 <span
                   class="flexBox "
-                  style={{
-                    padding: "0 25px",
-                    minWidth: "100px",
-                    borderLeft: `1px solid ${this.tableBorderColor}`,
-                    height: `${this.cellHeight}px`
-                  }}
+                  style={
+                    colOptions[item].fn
+                      ? {
+                          ...common,
+                          ...this.calcCellStyle
+                        }
+                      : {
+                          ...common
+                        }
+                  }
                 >
                   {typeof colOptions[item] == "object"
                     ? `${colOptions[item].value}`
@@ -689,7 +710,7 @@ export default {
       );
     };
     return (
-      <section class="nui-scroll ">
+      <section class="nui-scroll nui-scroll-x">
         <div style={{ display: "flex" }}>
           <div>{this.renderPanelBody()}</div>
           <div style={{ width: "300px" }}>{this.renderOneCellItem()}</div>
@@ -707,4 +728,6 @@ export default {
   border-radius: 0;
 }
 </style>
+
+
 
