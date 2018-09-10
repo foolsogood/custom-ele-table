@@ -1,6 +1,6 @@
 <template>
   <div id="app" style="padding:20px 30px">
-    <!-- <p style="line-height:60px">基本情况表</p>
+    <p style="line-height:60px">基本情况表</p>
     <staticTable :tableData="tableData" />
     <p style="line-height:60px">跨行单元格</p>
     <p>
@@ -11,11 +11,11 @@
     <p style="line-height:60px">多层表头</p>
     <p>
       <span @click="toggle(item)" style="padding-right:20px" :style="curTitle==item.title?{color:'red'}:{}" v-for="(item,idx) in list" :key="idx">{{item.title}}</span>
-    </p> -->
-    <!-- <mutilTable  @TableDataChange="changeDataHandler" :firstThStyle="{color:'#ff0000'}" :firstThClickHandler="triggerFn" :isFirstThEableClick="true" :isReadOnly="isMutilReadOnly" :tableData="tableDatas_1" :tableHeader="tableHeader_1" :bodyNotShowProps="['code','id']" uniqueKey="code" /> -->
+    </p>
+    <mutilTable  @TableDataChange="changeDataHandler" :firstThStyle="{color:'#ff0000'}" :firstThClickHandler="triggerFn" :isFirstThEableClick="true" :isReadOnly="isMutilReadOnly" :tableData="tableDatas_1" :tableHeader="tableHeader_1" :bodyNotShowProps="['code','id']" uniqueKey="code" />
 
-    <p style="line-height:60px">参数说明</p>
-    <explainCom :tableData="explain.prop.data" :tableHeader="explain.prop.header" />
+    <!-- <p style="line-height:60px">参数说明</p>
+    <explainCom :tableData="explain.prop.data" :tableHeader="explain.prop.header" /> -->
     <!-- <p style="line-height:60px">方法说明</p> -->
     <!-- <explainCom :tableData="explain.func.data" :tableHeader="explain.func.header" /> -->
   </div>
