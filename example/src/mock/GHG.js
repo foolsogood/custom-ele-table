@@ -1,4 +1,5 @@
-let tableBody = [{
+let tableBody = [
+  {
     month: '1月',
     lng: '',
     qiyou: '',
@@ -9,7 +10,7 @@ let tableBody = [{
     ghg_2: 89226.2226903353,
     ywdl: 47.344,
     ghg_3: 249.550224,
-    ghg_total: 89475.7729143353
+    ghg_total: 110000
   },
   {
     month: '2月',
@@ -22,7 +23,7 @@ let tableBody = [{
     ghg_2: 79420.9469578391,
     ywdl: 79.8599999999999,
     ghg_3: 420.94206,
-    ghg_total: 79841.8890178391
+    ghg_total: 120000
   },
   {
     month: '3月',
@@ -35,7 +36,7 @@ let tableBody = [{
     ghg_2: 82262.4190016046,
     ywdl: '0',
     ghg_3: '0',
-    ghg_total: '82262.4190016046'
+    ghg_total: '100000'
   },
   {
     month: '4月',
@@ -168,6 +169,7 @@ let tableBody = [{
     ghg_total: '1102564.18089449'
   }
 ]
+
 let tableHeader = [
   {
     title: '日期',
@@ -249,22 +251,16 @@ let tableHeader = [
     }]
   }
 ]
-tableBody.map(item => {
-  for (let key in item) {
-    if (key != 'month' && item[key] != '0') {
-      item[key] = parseFloat(item[key] - 0).toFixed(2)
-    }
-    if(!item.code){
-      item.code=guid()
-    }
-  }
-})
-function guid() {
-  function S4() {
-      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-  }
-  return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-}
+// tableBody.map(item => {
+//   for (let key in item) {
+//     if (key != 'month' && item[key] != '0') {
+//       item[key] = parseFloat(item[key] - 0).toFixed(2)
+//     }
+//     if(!item.code){
+//       item.code=tools.guid()
+//     }
+//   }
+// })
 export default {
   tableHeader,
   tableBody

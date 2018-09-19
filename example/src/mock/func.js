@@ -3,12 +3,12 @@
 let tableBody = [
     {
         "explain": "",
-        "code": "01000001",
+        code: "01000001",
         "rate":
             {
-                "fnParms": [
-                    { "key": "thisYearValue", "code": "01000001" },
-                    { "key": "lastYearValue", "code": "01000001" }
+                fnParms: [
+                    { key: "thisYearValue", code: "01000001" },
+                    { key: "lastYearValue", code: "01000001" }
                 ],
                 "fn": "function(a,b){return((a-b)/b)*100+'%'}",
                 "value": "",
@@ -30,16 +30,16 @@ let tableBody = [
     },
     {
         "explain": "",
-        "code": "01000002",
+        code: "01000002",
         "thisYearValue": {
             value: '',
             isColPlus: 1,//是否参与列的累计
             // isRowPlus: 0,//是否参与行的累计
         },
         "rate": {
-            "fnParms": [
-                { "key": "thisYearValue", "code": "01000002" },
-                { "key": "lastYearValue", "code": "01000002" }
+            fnParms: [
+                { key: "thisYearValue", code: "01000002" },
+                { key: "lastYearValue", code: "01000002" }
             ],
             "fn": "function(a,b){return((a-b)/b)*100+'%'}",
             "value": "",
@@ -51,16 +51,16 @@ let tableBody = [
     },
     {
         "explain": "",
-        "code": "01000003",
+        code: "01000003",
         "thisYearValue": {
             value: '',
             isColPlus: 1,//是否参与列的累计
             // isRowPlus: 0,//是否参与行的累计
         },
         "rate": {
-            "fnParms": [
-                { "key": "thisYearValue", "code": "01000003" },
-                { "key": "lastYearValue", "code": "01000003" }
+            fnParms: [
+                { key: "thisYearValue", code: "01000003" },
+                { key: "lastYearValue", code: "01000003" }
             ],
             "fn": "function(a,b){return((a-b)/b)*100+'%'}",
             "value": "",
@@ -72,12 +72,12 @@ let tableBody = [
     },
     {
         "explain": "",
-        "code": "01000004",
+        code: "01000004",
         "thisYearValue": {
-            "fnParms": [
-                { "key": "thisYearValue", "code": "01000001" },
-                { "key": "thisYearValue", "code": "01000002" },
-                { "key": "thisYearValue", "code": "01000003" }
+            fnParms: [
+                { key: "thisYearValue", code: "01000001" },
+                { key: "thisYearValue", code: "01000002" },
+                { key: "thisYearValue", code: "01000003" }
             ],
             "fn": "",
             "value": "",
@@ -93,7 +93,7 @@ let tableBody = [
 // 
 let tableHeader = [
     {
-        "key": "index",
+        key: "index",
         "title": "指标名称",
         "onlyOneCell": 0,
         "isCanEdit": 0,
@@ -103,7 +103,7 @@ let tableHeader = [
         "children": []
     },
     {
-        "key": "uint",
+        key: "uint",
         "title": "计量单位",
         "onlyOneCell": 0,
         "isCanEdit": 0,
@@ -113,7 +113,7 @@ let tableHeader = [
         "children": []
     },
     {
-        "key": "thisYearValue",
+        key: "thisYearValue",
         "title": "本期值",
         "onlyOneCell": 0,
         "isCanEdit": 1,
@@ -123,7 +123,7 @@ let tableHeader = [
         "children": []
     },
     {
-        "key": "lastYearValue",
+        key: "lastYearValue",
         "title": "上年同期值",
         "onlyOneCell": 0,
         "isCanEdit": 1,
@@ -133,7 +133,7 @@ let tableHeader = [
         "children": []
     },
     {
-        "key": "rate",
+        key: "rate",
         "title": "同比变化率",
         "onlyOneCell": 0,
         "isCanEdit": 0,
@@ -143,7 +143,7 @@ let tableHeader = [
         "children": []
     },
     {
-        "key": "explain",
+        key: "explain",
         "title": "产值及能耗消费变化情况说明",
         "onlyOneCell": 1,
         "isCanEdit": 1,

@@ -4,7 +4,7 @@ import MyInput from "./input.vue";
 import Textarea from "./textarea.vue";
 import event from "./event.js";
 import fnModules from "./tools/fns";
-
+import Toast from "./toast.vue";
 export default {
   name: "RowEditableTable",
   props: {
@@ -118,6 +118,10 @@ export default {
       this.textAreaContent = val;
     });
     event.on(`inputChange-${this.$options.name}`, val => {
+      if (Object.is(Number(val.value), NaN)) {
+        event.emit("show-toast", { text: "请输入数字" });
+        return;
+      }
       let _check = obj => {
         let flag = false;
         for (let [k, v] of Object.entries(obj)) {
@@ -125,12 +129,18 @@ export default {
             return true;
           }
           if (typeof v == "object") {
-            return (
+            let flag =
               v.fnParms &&
               v.fnParms.some(item => {
-                return item.code == val.parentColumnId || item.key == val.prop;
-              })
-            );
+                return (
+                  item[this.uniqueKey] == val.parentColumnId &&
+                  item.key == val.prop
+                );
+              });
+
+            if (flag) {
+              return true;
+            }
           }
         }
         return flag;
@@ -147,7 +157,7 @@ export default {
         this.$set(
           _temp,
           val.prop,
-          Object.assign(_temp[val.prop], { value: val.value })
+          Object.assign({}, _temp[val.prop], { value: val.value })
         );
       } else {
         this.$set(_temp, val.prop, val.value);
@@ -199,7 +209,8 @@ export default {
                      */
                     let res = eval("(" + f + `)(${argsArr.toString()})`);
                     if (["false", false].includes(res)) {
-                      alert("公式运行错误，请检查参数!");
+                      event.emit("show-toast", { text: "公式运算错误,请检查" });
+                      return;
                     }
                     if (Number(res) !== NaN) {
                       res = Number(res).toFixed(3);
@@ -305,7 +316,8 @@ export default {
       this.bodyNotShowProps.map(item => {
         this.bodyNotShowPropData.push(item);
       });
-      this.ossTableData.map(item => {
+
+      this.ossTableData.forEach(item => {
         if (!this.uniqueKey) {
           if (!item.cell_id) {
             item.cell_id = tools.guid();
@@ -477,7 +489,7 @@ export default {
         <div>
           <table
             style={{
-              // width: "100%",
+              width: "100%",
               border: `1px solid ${this.tableBorderColor}`,
               borderBottom: "none",
               borderLeft: "none"
@@ -594,32 +606,38 @@ export default {
     },
     //渲染表的每行
     renderTableColumn(colOptions) {
-      const sortArr1 = Object.keys(colOptions).filter(
-        item => !this.bodyNotShowPropData.includes(item)
-      );
-      const sortArr = sortArr1
+      const sortArr = Object.keys(colOptions)
+        .filter(item => !this.bodyNotShowPropData.includes(item))
+        .filter(item => item != "undefined")
         .filter(item => !this.bodyNotShowPropData.includes(item))
         .filter(item => !this.getOneCellItemByKey(item))
         .sort((a, b) => {
-          return this.isAfrontB(
-            this.getHeaderItemSortIndex(a),
-            this.getHeaderItemSortIndex(b)
-          );
+          try {
+            return this.isAfrontB(
+              this.getHeaderItemSortIndex(a),
+              this.getHeaderItemSortIndex(b)
+            );
+          } catch (e) {
+            throw e;
+          }
         });
       return (
         <tr style={{ width: "100%" }}>
           {sortArr.map((item, idx) => {
             const readonlyInput = (() => {
               const common = {
-                padding: "0 25px",
                 minWidth: "100px",
+                borderTop: "none",
+                borderBottom: "none",
                 borderLeft: `1px solid ${this.tableBorderColor}`,
-                height: `${this.cellHeight}px`
+                borderRight: "none",
+                borderRadius: 0,
+                textAlign: "center",
+                ...this.cellStyle
               };
               return (
-                <span
-                  class="flexBox "
-                  style={
+                <MyInput
+                  addStyle={
                     colOptions[item].fn
                       ? {
                           ...common,
@@ -629,11 +647,22 @@ export default {
                           ...common
                         }
                   }
-                >
-                  {typeof colOptions[item] == "object"
-                    ? `${colOptions[item].value}`
-                    : `${colOptions[item]}`}
-                </span>
+                  parentColumnId={
+                    this.uniqueKey
+                      ? colOptions[this.uniqueKey]
+                        ? colOptions[this.uniqueKey]
+                        : colOptions["table_id"]
+                      : colOptions["table_id"]
+                  }
+                  componentName={this.$options.name}
+                  editPropName={item}
+                  readonly
+                  value={
+                    typeof colOptions[item] == "object"
+                      ? colOptions[item].value
+                      : colOptions[item]
+                  }
+                />
               );
             })();
             const editInput = (() => {
@@ -649,11 +678,20 @@ export default {
                           borderLeft: `1px solid ${this.tableBorderColor}`,
                           borderRight: "none",
                           borderRadius: 0,
+                          textAlign: "center",
                           ...this.cellStyle
                         }
-                      : {}
+                      : {
+                          textAlign: "center"
+                        }
                   }
-                  parentColumnId={colOptions["cell_id"]}
+                  parentColumnId={
+                    this.uniqueKey
+                      ? colOptions[this.uniqueKey]
+                        ? colOptions[this.uniqueKey]
+                        : colOptions["table_id"]
+                      : colOptions["table_id"]
+                  }
                   componentName={this.$options.name}
                   editPropName={item}
                   value={
@@ -666,7 +704,7 @@ export default {
             })();
             return this.bodyNotShowPropData.includes(item) ? null : (
               <td
-                class="row-td"
+                class="row-td "
                 id={`td_id_${colOptions[this.uniqueKey]}_${item}_${idx}`}
                 style={{
                   borderBottom: `1px solid ${this.tableBorderColor}`,
@@ -711,8 +749,9 @@ export default {
     };
     return (
       <section class="nui-scroll nui-scroll-x">
+        <Toast />
         <div style={{ display: "flex" }}>
-          <div>{this.renderPanelBody()}</div>
+          <div class="flex-1">{this.renderPanelBody()}</div>
           <div style={{ width: "300px" }}>{this.renderOneCellItem()}</div>
         </div>
         {this.isBodyEmpty ? emptyBody() : null}

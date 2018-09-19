@@ -51,8 +51,9 @@ export default {
     },
     newValue: {
       handler(val) {
+        if(this.readonly&&Object.is(Number(val),NaN)){return}
         let data={
-            value:val,
+            value:Object.is(Number(val),NaN)?val:val-0,
             prop: this.editPropName,
             parentColumnId: this.parentColumnId
           }

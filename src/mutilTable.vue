@@ -3,6 +3,7 @@ import tools from "./tools/index";
 import MyInput from "./input.vue";
 import event from "./event.js";
 import fnModules from "./tools/fns";
+import Toast from "./toast.vue";
 export default {
   name: "MutilTable",
   props: {
@@ -104,61 +105,77 @@ export default {
       if (this.isReadOnly) {
         return;
       }
-      // console.log(val);
+      if (Object.is(Number(val.value), NaN)) {
+        event.emit("show-toast", { text: "请输入数字" });
+        return;
+      }
       let _check = obj => {
-        let flag = false;
         for (let [k, v] of Object.entries(obj)) {
           if (val.prop == k) {
             return true;
           }
+
           if (typeof v == "object") {
-            return (
+            let flag =
               v.fnParms &&
               v.fnParms.some(item => {
-                return item.code == val.parentColumnId || item.key == val.prop;
-              })
-            );
+                return (
+                  item[this.uniqueKey] == val.parentColumnId &&
+                  item.key == val.prop
+                );
+              });
+
+            if (flag) {
+              return true;
+            }
           }
         }
-        return flag;
+        return false;
       };
       //该数据变化后 受影响的
       let target_arr = this.curTableData.filter(
-        // item => _check(item)
         item => item[this.uniqueKey] == val.parentColumnId || _check(item)
       );
       //找到数据变化的那一行tr
       let _temp = this.curTableData.find(
         item => item[this.uniqueKey] == val.parentColumnId
       );
-      if (typeof _temp[val.prop] == "object") {
-        this.$set(
-          _temp,
-          val.prop,
-          Object.assign(_temp[val.prop], { value: val.value })
-        );
-      } else {
-        this.$set(_temp, val.prop, val.value);
+      try {
+        if (_temp[val.prop] && typeof _temp[val.prop] == "object") {
+          this.$set(
+            _temp,
+            val.prop,
+            Object.assign({}, _temp[val.prop], { value: val.value })
+          );
+        } else {
+          this.$set(_temp, val.prop, val.value);
+        }
+        if (_temp) {
+          this.$set(this.curTableData, _idx, _temp);
+          this.$emit("TableDataChange", this.curTableData);
+        }
+      } catch (e) {
+        throw e;
       }
-      if (_temp) {
-        this.$set(this.curTableData, _idx, _temp);
-        this.$emit("TableDataChange", this.curTableData);
-      }
+
       let _idx = this.curTableData.findIndex(
         item => item[this.uniqueKey] == val.parentColumnId
       );
       let _temp_oss = this.ossTableData.find(
         item => item[this.uniqueKey] == val.parentColumnId
       );
-      if (typeof _temp[val.prop] == "object") {
-        this.$set(
-          _temp_oss,
-          val.prop,
-          Object.assign(_temp_oss[val.prop], { value: val.value })
-        );
-      } else {
-        this.$set(_temp_oss, val.prop, val.value);
+      if (_temp_oss && _temp_oss[val.prop]) {
+        if (typeof _temp_oss[val.prop] == "object") {
+          this.$set(
+            _temp_oss,
+            val.prop,
+            Object.assign({}, _temp_oss[val.prop], { value: val.value })
+          );
+        } else {
+          this.$set(_temp_oss, val.prop, val.value);
+        }
       }
+
       let _idx_oss = this.ossTableData.findIndex(
         item => item[this.uniqueKey] == val.parentColumnId
       );
@@ -187,8 +204,12 @@ export default {
                      */
                     try {
                       let res = eval("(" + f + `)(${argsArr.toString()})`);
+                      // console.log(res,argsArr.toString(),v)
                       if (["false", false].includes(res)) {
-                        alert("公式运行错误，请检查参数!");
+                        event.emit("show-toast", {
+                          text: "公式运算错误,请检查"
+                        });
+                        return;
                       }
                       if (Number(res) !== NaN) {
                         res = Number(res).toFixed(3);
@@ -388,14 +409,7 @@ export default {
       );
     },
     //单元格点击事件
-    tdClickHandler(tableId, isCanEdit, item, trData) {
-      //响应操作单元格传入的函数
-      if (trData.caozuo) {
-        const _handler = trData.caozuo._clickHandler;
-        if (item == "caozuo" && _handler && typeof _handler == "function") {
-          _handler.apply(this);
-        }
-      }
+    tdClickHandler(tableId, isCanEdit) {
       if (!isCanEdit) {
         return;
       }
@@ -529,19 +543,24 @@ export default {
             };
             const isReadOnlySpan = (() => {
               const common = {
-                padding: "0 25px",
-                minWidth: "100px",
+                minWidth: "120px",
+                borderTop: "none",
+                borderBottom: "none",
+                // borderLeft: `1px solid ${this.tableBorderColor}`,
+                borderRight: "none",
+                borderRadius: 0,
+                textAlign: "center",
+                ...this.cellStyle,
                 height:
                   this.cellHeight *
                     (typeof colOptions[item] == "object"
-                      ? (colOptions[item].rowSpan?colOptions[item].rowSpan:1)
+                      ? colOptions[item].rowSpan ? colOptions[item].rowSpan : 1
                       : 1) +
                   "px"
               };
               return (
-                <span
-                  class="flexBox "
-                  style={
+                <MyInput
+                  addStyle={
                     colOptions[item].fn
                       ? {
                           ...common,
@@ -551,11 +570,22 @@ export default {
                           ...common
                         }
                   }
-                >
-                  {typeof colOptions[item] == "object"
-                    ? colOptions[item].value
-                    : colOptions[item]}
-                </span>
+                  parentColumnId={
+                    this.uniqueKey
+                      ? colOptions[this.uniqueKey]
+                        ? colOptions[this.uniqueKey]
+                        : colOptions["table_id"]
+                      : colOptions["table_id"]
+                  }
+                  componentName={this.$options.name}
+                  editPropName={item}
+                  readonly
+                  value={
+                    typeof colOptions[item] == "object"
+                      ? colOptions[item].value
+                      : colOptions[item]
+                  }
+                />
               );
             })();
             const editInput = (() => {
@@ -575,25 +605,23 @@ export default {
                       : colOptions["table_id"]
                   }
                   addStyle={
-                    `td_id_${colOptions.table_id}_${item}_${idx}` !=
+                    `td_id_${colOptions[this.uniqueKey]}_${item}_${idx}` !=
                     this.curEditTdId
                       ? {
                           borderTop: "none",
                           borderBottom: "none",
                           borderLeft: "none",
                           borderRight: "none",
-                          // cursor:'pointer',
+                          textAlign: "center",
                           borderRadius: 0,
                           ...this.cellStyle
                         }
-                      : {}
+                      : {
+                          textAlign: "center"
+                        }
                   }
                   editPropName={item}
                   componentName={this.$options.name}
-                  readonly={
-                    `td_id_${colOptions.table_id}_${item}_${idx}` !=
-                    this.curEditTdId
-                  }
                 />
               );
             })();
@@ -614,9 +642,7 @@ export default {
                 onClick={this.tdClickHandler.bind(
                   this,
                   `td_id_${colOptions[this.uniqueKey]}_${item}_${idx}`,
-                  this.getHeaderItemByKey(item).isCanEdit,
-                  item,
-                  colOptions
+                  this.getHeaderItemByKey(item).isCanEdit
                 )}
               >
                 {this.isReadOnly
@@ -650,6 +676,7 @@ export default {
   render() {
     return (
       <section class="nui-scroll nui-scroll-x">
+        <Toast />
         {this.renderPanelBody()}
       </section>
     );

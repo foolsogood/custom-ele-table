@@ -1,76 +1,293 @@
 let tableBody=[{
-	"explain": "5",
-	"denomValueThis": "",
+	"explain": "",
+	"denomValueThis": "7",
 	"serialNum": "1",
 	"code": "01000401",
-	"indexValueThis": "1",
-	"indexName": "4",
+	"indexValueThis": {
+		"code": "01000401",
+		"key": "indexValueThis",
+		"type": "",
+		"fnParms": [{
+			"code": "01000401",
+			"key": "numerValueThis"
+		}, {
+			"code": "01000401",
+			"key": "denomValueThis"
+		}, {
+			"code": "01000401",
+			"key": "unitCoeff"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b,c){return((a/b)*c)}",
+		"cal": null,
+		"isCanEdit": 1,
+		"value": "0.286"
+	},
+	"indexName": "",
 	"indexUnit": "",
-	"indexValueLastindexValueLast": "",
+	"indexValueLast": {
+		"code": "01000401",
+		"key": "indexValueLast",
+		"type": "",
+		"fnParms": [{
+			"code": "01000401",
+			"key": "numerValueLast"
+		}, {
+			"code": "01000401",
+			"key": "denomValueLast"
+		}, {
+			"code": "01000401",
+			"key": "unitCoeff"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b,c){return((a/b)*c)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": "0.667"
+	},
 	"quotaValue": "",
-	"numerValueThis": "",
-	"codeNo": "6",
+	"numerValueThis": "1",
+	"codeNo": "",
 	"energyValueSave": "",
 	"numerUnit": "",
-	"unitCoeff": "",
-	"changeValue": "",
+	"unitCoeff": "2",
+	"changeValue": {
+		"code": "01000401",
+		"key": "changeValue",
+		"type": "",
+		"fnParms": [{
+			"code": "01000401",
+			"key": "indexValueThis"
+		}, {
+			"code": "01000401",
+			"key": "indexValueLast"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b){return(100*(a-b)/b)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
 	"denomUnit": "",
-	"denomValueLast": "",
-	"numerValueLast": ""
-}, {
-	"explain": "6",
+	"denomValueLast": "3",
+	"numerValueLast": "1"
+},
+ {
+	"explain": "",
 	"denomValueThis": "",
 	"serialNum": "2",
 	"code": "01000402",
-	"indexValueThis": "2",
-	"indexName": "6",
-	"indexUnit": "",
-	"indexValueLastindexValueLast": "",
-	"quotaValue": "",
-	"numerValueThis": "",
-	"codeNo": "7",
-	"energyValueSave": "",
-	"numerUnit": "",
-	"unitCoeff": "",
-	"changeValue": "",
-	"denomUnit": "",
-	"denomValueLast": "",
-	"numerValueLast": ""
-}, {
-	"explain": "7",
-	"denomValueThis": "",
-	"serialNum": "3",
-	"code": "01000403",
-	"indexValueThis": "3",
-	"indexName": "8",
-	"indexUnit": "",
-	"indexValueLastindexValueLast": "",
-	"quotaValue": "",
-	"numerValueThis": "",
-	"codeNo": "8",
-	"energyValueSave": "",
-	"numerUnit": "",
-	"unitCoeff": "",
-	"changeValue": "",
-	"denomUnit": "",
-	"denomValueLast": "",
-	"numerValueLast": ""
-}, {
-	"explain": "8",
-	"denomValueThis": "",
-	"serialNum": "4",
-	"code": "01000404",
-	"indexValueThis": "",
+	"indexValueThis": {
+		"code": "01000402",
+		"key": "indexValueThis",
+		"type": "",
+		"fnParms": [{
+			"code": "01000402",
+			"key": "numerValueThis"
+		}, {
+			"code": "01000402",
+			"key": "denomValueThis"
+		}, {
+			"code": "01000402",
+			"key": "unitCoeff"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b,c){return((a/b)*c)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
 	"indexName": "",
 	"indexUnit": "",
-	"indexValueLastindexValueLast": "",
+	"indexValueLast": {
+		"code": "01000402",
+		"key": "indexValueLast",
+		"type": "",
+		"fnParms": [{
+			"code": "01000402",
+			"key": "numerValueLast"
+		}, {
+			"code": "01000402",
+			"key": "denomValueLast"
+		}, {
+			"code": "01000402",
+			"key": "unitCoeff"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b,c){return((a/b)*c)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
 	"quotaValue": "",
 	"numerValueThis": "",
 	"codeNo": "",
 	"energyValueSave": "",
 	"numerUnit": "",
 	"unitCoeff": "",
-	"changeValue": "",
+	"changeValue": {
+		"code": "01000402",
+		"key": "changeValue",
+		"type": "",
+		"fnParms": [{
+			"code": "01000402",
+			"key": "indexValueThis"
+		}, {
+			"code": "01000402",
+			"key": "indexValueLast"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b){return(100*(a-b)/b)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
+	"denomUnit": "",
+	"denomValueLast": "",
+	"numerValueLast": ""
+}, {
+	"explain": "",
+	"denomValueThis": "",
+	"serialNum": "3",
+	"code": "01000403",
+	"indexValueThis": {
+		"code": "01000403",
+		"key": "indexValueThis",
+		"type": "",
+		"fnParms": [{
+			"code": "01000403",
+			"key": "numerValueThis"
+		}, {
+			"code": "01000403",
+			"key": "denomValueThis"
+		}, {
+			"code": "01000403",
+			"key": "unitCoeff"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b,c){return((a/b)*c)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
+	"indexName": "",
+	"indexUnit": "",
+	"indexValueLast": {
+		"code": "01000403",
+		"key": "indexValueLast",
+		"type": "",
+		"fnParms": [{
+			"code": "01000403",
+			"key": "numerValueLast"
+		}, {
+			"code": "01000403",
+			"key": "denomValueLast"
+		}, {
+			"code": "01000403",
+			"key": "unitCoeff"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b,c){return((a/b)*c)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
+	"quotaValue": "",
+	"numerValueThis": "",
+	"codeNo": "",
+	"energyValueSave": "",
+	"numerUnit": "",
+	"unitCoeff": "",
+	"changeValue": {
+		"code": "01000403",
+		"key": "changeValue",
+		"type": "",
+		"fnParms": [{
+			"code": "01000403",
+			"key": "indexValueThis"
+		}, {
+			"code": "01000403",
+			"key": "indexValueLast"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b){return(100*(a-b)/b)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
+	"denomUnit": "",
+	"denomValueLast": "",
+	"numerValueLast": ""
+}, {
+	"explain": "",
+	"denomValueThis": "",
+	"serialNum": "4",
+	"code": "01000404",
+	"indexValueThis": {
+		"code": "01000404",
+		"key": "indexValueThis",
+		"type": "",
+		"fnParms": [{
+			"code": "01000404",
+			"key": "numerValueThis"
+		}, {
+			"code": "01000404",
+			"key": "denomValueThis"
+		}, {
+			"code": "01000404",
+			"key": "unitCoeff"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b,c){return((a/b)*c)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
+	"indexName": "",
+	"indexUnit": "",
+	"indexValueLast": {
+		"code": "01000404",
+		"key": "indexValueLast",
+		"type": "",
+		"fnParms": [{
+			"code": "01000404",
+			"key": "numerValueLast"
+		}, {
+			"code": "01000404",
+			"key": "denomValueLast"
+		}, {
+			"code": "01000404",
+			"key": "unitCoeff"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b,c){return((a/b)*c)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
+	"quotaValue": "",
+	"numerValueThis": "",
+	"codeNo": "",
+	"energyValueSave": "",
+	"numerUnit": "",
+	"unitCoeff": "",
+	"changeValue": {
+		"code": "01000404",
+		"key": "changeValue",
+		"type": "",
+		"fnParms": [{
+			"code": "01000404",
+			"key": "indexValueThis"
+		}, {
+			"code": "01000404",
+			"key": "indexValueLast"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b){return(100*(a-b)/b)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
 	"denomUnit": "",
 	"denomValueLast": "",
 	"numerValueLast": ""
@@ -79,17 +296,71 @@ let tableBody=[{
 	"denomValueThis": "",
 	"serialNum": "5",
 	"code": "01000405",
-	"indexValueThis": "",
+	"indexValueThis": {
+		"code": "01000405",
+		"key": "indexValueThis",
+		"type": "",
+		"fnParms": [{
+			"code": "01000405",
+			"key": "numerValueThis"
+		}, {
+			"code": "01000405",
+			"key": "denomValueThis"
+		}, {
+			"code": "01000405",
+			"key": "unitCoeff"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b,c){return((a/b)*c)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
 	"indexName": "",
 	"indexUnit": "",
-	"indexValueLastindexValueLast": "",
+	"indexValueLast": {
+		"code": "01000405",
+		"key": "indexValueLast",
+		"type": "",
+		"fnParms": [{
+			"code": "01000405",
+			"key": "numerValueLast"
+		}, {
+			"code": "01000405",
+			"key": "denomValueLast"
+		}, {
+			"code": "01000405",
+			"key": "unitCoeff"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b,c){return((a/b)*c)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
 	"quotaValue": "",
 	"numerValueThis": "",
 	"codeNo": "",
 	"energyValueSave": "",
 	"numerUnit": "",
 	"unitCoeff": "",
-	"changeValue": "",
+	"changeValue": {
+		"code": "01000405",
+		"key": "changeValue",
+		"type": "",
+		"fnParms": [{
+			"code": "01000405",
+			"key": "indexValueThis"
+		}, {
+			"code": "01000405",
+			"key": "indexValueLast"
+		}],
+		"parmArrs": null,
+		"fn": "function(a,b){return(100*(a-b)/b)}",
+		"cal": null,
+		"isCanEdit": 0,
+		"value": ""
+	},
 	"denomUnit": "",
 	"denomValueLast": "",
 	"numerValueLast": ""
@@ -120,7 +391,7 @@ let tableHeader=[{
 		}]
 	}]
 }, {
-	"title": "能源名称",
+	"title": "指标名称",
 	"onlyOneCell": 0,
 	"isCanEdit": 1,
 	"isClick": 1,
@@ -327,7 +598,7 @@ let tableHeader=[{
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
-			"key": "indexValueLastindexValueLast",
+			"key": "indexValueLast",
 			"title": "4",
 			"onlyOneCell": 0,
 			"isCanEdit": 1,
@@ -447,7 +718,7 @@ let tableHeader=[{
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 1,
+		"onlyOneCell": 0,
 		"isCanEdit": 1,
 		"isClick": 0,
 		"rowSpan": 1,
