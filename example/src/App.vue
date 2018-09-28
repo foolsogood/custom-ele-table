@@ -16,8 +16,10 @@
 
     <!-- <p style="line-height:60px">参数说明</p>
     <explainCom :tableData="explain.prop.data" :tableHeader="explain.prop.header" /> -->
-    <!-- <p style="line-height:60px">方法说明</p> -->
+    <!-- <p style="line-height:60px">回调方法说明</p> -->
     <!-- <explainCom :tableData="explain.func.data" :tableHeader="explain.func.header" /> -->
+    <!-- <p style="line-height:60px">直接操作节点方法说明</p> -->
+    <!-- <explainCom :tableData="explain.method.data" :tableHeader="explain.method.header" /> -->
   </div>
 </template>
 <script>
@@ -43,7 +45,11 @@ export default {
         func: {
           data: require("./mock/explain").default.funcTableData,
           header: require("./mock/explain").default.funcTableHeader
-        }
+        },
+        method: {
+          data: require("./mock/explain").default.methodTableData,
+          header: require("./mock/explain").default.methodTableHeader
+        },
       },
       tableData: require("./mock/data_2").default.tableBody,
       edit_tableData: [],

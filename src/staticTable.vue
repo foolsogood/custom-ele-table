@@ -57,7 +57,7 @@ export default {
           {colOptions.map(item => {
             return (
               <td class="flexBox flex-1 " style={{borderBottom:`1px solid ${this.tableBorderColor}`}}>
-                <span class="flexBox" style={{ flex: 1,height: `${this.cellHeight}px`,borderLeft:`1px solid ${this.tableBorderColor}`,...this.headerStyle}}>
+                <span class="flexBox" style={{ minWidth:'100px',flex: 1,height: `${this.cellHeight}px`,borderLeft:`1px solid ${this.tableBorderColor}`,...this.headerStyle}}>
                   {item.name}
                 </span>
                  <span
@@ -81,7 +81,7 @@ export default {
     }
   },
   render() {
-    return <section>{this.renderPanelBody()}</section>;
+    return <section class="nui-scroll nui-scroll-x">{this.renderPanelBody()}</section>;
   }
 };
 </script>

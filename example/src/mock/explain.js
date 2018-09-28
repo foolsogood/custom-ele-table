@@ -111,50 +111,7 @@ let propTableBody = [{
     rowEditableTable:'✔️',
     mutilTable: '✔️',
 }]
-let funcTableData=[
-    {
-        func: 'TableDataChange',
-        explain: '表体数据变化回调方法',
-        // way:'',
-        staticTable: '❌',
-        rowEditableTable:'✔️',
-        mutilTable: '✔️',
-    }
-]
-let funcTableHeader = [
-    {
-        title: '方法',
-        key: 'func'
-    },
-    {
-        title: '说明',
-        key: 'explain',
-        isCanEdit: 0
-    },
-    // {
-    //     title: '使用方法',
-    //     key: 'way',
-    //     isCanEdit: 0
-    // },
-    
-    {
-        title: 'staticTable',
-        key: 'staticTable',
-        isCanEdit: 0
-    },
-    {
-        title: 'rowEditableTable',
-        key: 'rowEditableTable',
-        isCanEdit: 0
-    },
-    {
-        title: 'mutilTable',
-        key: 'mutilTable',
-        isCanEdit: 0
-    },
-  
 
-]
 let propTableHeader = [
     {
         title: '属性',
@@ -193,9 +150,86 @@ let propTableHeader = [
    
 
 ]
+let funcTableData=[
+    {
+        func: 'TableDataChange',
+        explain: '表体数据变化回调方法',
+        // way:'',
+        staticTable: '❌',
+        rowEditableTable:'✔️',
+        mutilTable: '✔️',
+    }
+]
+let funcTableHeader = [
+    {
+        title: '方法',
+        key: 'func'
+    },
+    {
+        title: '说明',
+        key: 'explain',
+        isCanEdit: 0
+    },
+    {
+        title: 'staticTable',
+        key: 'staticTable',
+        isCanEdit: 0
+    },
+    {
+        title: 'rowEditableTable',
+        key: 'rowEditableTable',
+        isCanEdit: 0
+    },
+    {
+        title: 'mutilTable',
+        key: 'mutilTable',
+        isCanEdit: 0
+    },
+  
+
+]
+let methodTableData=[
+    {
+        func: 'this.$refs.TEST_NODE.reCalculate()',
+        explain: '表体数据公式重新计算',
+        staticTable: '❌',
+        rowEditableTable:'❌',
+        mutilTable: '✔️',
+    }
+]
+let methodTableHeader = [
+    {
+        title: '直接操作ref节点方法',
+        key: 'func'
+    },
+    {
+        title: '说明',
+        key: 'explain',
+        isCanEdit: 0
+    },
+    {
+        title: 'staticTable',
+        key: 'staticTable',
+        isCanEdit: 0
+    },
+    {
+        title: 'rowEditableTable',
+        key: 'rowEditableTable',
+        isCanEdit: 0
+    },
+    {
+        title: 'mutilTable',
+        key: 'mutilTable',
+        isCanEdit: 0
+    },
+  
+
+]
 export default {
     propTableHeader,
     propTableBody,
     funcTableData,
-    funcTableHeader
+    funcTableHeader,
+    methodTableHeader,
+    methodTableData
 }

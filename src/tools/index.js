@@ -93,6 +93,23 @@ class tools {
         }
         return resObj
     }
+    //节流
+    throttle(fn, delay) {
+        let endTime, timer
+        return function (args) {
+            let startTime = +new Date()
+            if (endTime && Math.abs(endTime - startTime) < delay) {
+                clearTimeout(timer)
+                timer = setTimeout(() => {
+                    endTime = +new Date()
+                    fn.apply(this, [args])
+                }, delay)
+            } else {
+                endTime = +new Date()
+                fn.apply(this, [args])
+            }
+        }
+    }
     guid() {
         function S4() {
             return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);

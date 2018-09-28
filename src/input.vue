@@ -23,7 +23,7 @@ export default {
     },
     //所在行的id唯一标识
     parentColumnId: {
-      type: String,
+      type: [String,Number],
       default: ""
     },
     //编辑属性字段
@@ -53,7 +53,7 @@ export default {
       handler(val) {
         if(this.readonly&&Object.is(Number(val),NaN)){return}
         let data={
-            value:Object.is(Number(val),NaN)?val:val-0,
+            value:Object.is(Number(val),NaN)?(val==''?0:val):val-0,
             prop: this.editPropName,
             parentColumnId: this.parentColumnId
           }

@@ -102,9 +102,52 @@ export default {
   components: { MyInput },
   created() {
     event.on(`inputChange-${this.$options.name}`, val => {
+      // this.numberChangeHandler(val);
+      tools.throttle(this.numberChangeHandler(val), 1000);
+    });
+  },
+  computed: {
+    //表头层级
+    headerClasses() {
+      let arr = this.headerArr.map(item => item.classifyId);
+      return [...new Set(arr)];
+    }
+  },
+  watch: {
+    tableHeader: {
+      handler(val) {
+        this.initData();
+      },
+      immediate: true,
+      deep: true
+    }
+  },
+
+  methods: {
+    //重新计算
+    reCalculate() {
+      this.ossTableData.forEach(item => {
+        Object.keys(item).forEach(_key => {
+          if (item[_key] - 0) {
+            let data = {
+              value: Object.is(Number(item[_key]), NaN)
+                ? item[_key] == "" ? 0 : item[_key]
+                : item[_key] - 0,
+              prop: _key,
+              parentColumnId: item[this.uniqueKey]
+            };
+            tools.throttle(this.numberChangeHandler(data), 1000);
+          }
+        });
+      });
+    },
+    numberChangeHandler(val) {
+      console.log(val.prop, val.value, val.parentColumnId);
+      //如果该组件为纯展示，没有编辑功能
       if (this.isReadOnly) {
         return;
       }
+      //  输入的是非数字
       if (Object.is(Number(val.value), NaN)) {
         event.emit("show-toast", { text: "请输入数字" });
         return;
@@ -132,7 +175,7 @@ export default {
         }
         return false;
       };
-      //该数据变化后 受影响的
+      //该数据变化后 受影响的行
       let target_arr = this.curTableData.filter(
         item => item[this.uniqueKey] == val.parentColumnId || _check(item)
       );
@@ -141,6 +184,9 @@ export default {
         item => item[this.uniqueKey] == val.parentColumnId
       );
       try {
+        if (!_temp) {
+          return;
+        }
         if (_temp[val.prop] && typeof _temp[val.prop] == "object") {
           this.$set(
             _temp,
@@ -166,11 +212,15 @@ export default {
       );
       if (_temp_oss && _temp_oss[val.prop]) {
         if (typeof _temp_oss[val.prop] == "object") {
-          this.$set(
-            _temp_oss,
-            val.prop,
-            Object.assign({}, _temp_oss[val.prop], { value: val.value })
-          );
+          let _copy = tools.deepCopy(_temp_oss[val.prop]);
+          if (_copy.value != val.value) {
+            console.log("11222", _copy.value, val.value);
+            this.$set(
+              _temp_oss,
+              val.prop,
+              Object.assign({}, _temp_oss[val.prop], { value: val.value })
+            );
+          }
         } else {
           this.$set(_temp_oss, val.prop, val.value);
         }
@@ -211,7 +261,7 @@ export default {
                         });
                         return;
                       }
-                      if (Number(res) !== NaN) {
+                      if (!Object.is(Number(res), NaN)) {
                         res = Number(res).toFixed(3);
                       }
                       // console.log(k, v.code, res, f, argsArr);
@@ -222,10 +272,13 @@ export default {
                         "Infinity"
                       ].includes(res);
                       //如果输入非数字或0则不变化
+                      let _copy__ = tools.deepCopy(v);
                       if (flag) {
                         this.$set(v, "value", "");
                       } else {
-                        this.$set(v, "value", res);
+                        if (_copy__.value - 0 != res - 0) {
+                          this.$set(v, "value", res);
+                        }
                       }
                     } catch (error) {
                       throw error;
@@ -256,26 +309,7 @@ export default {
           });
         });
       }
-    });
-  },
-  computed: {
-    //表头层级
-    headerClasses() {
-      let arr = this.headerArr.map(item => item.classifyId);
-      return [...new Set(arr)];
-    }
-  },
-  watch: {
-    tableHeader: {
-      handler(val) {
-        this.initData();
-      },
-      immediate: true,
-      deep: true
-    }
-  },
-
-  methods: {
+    },
     //匹配对应行的值
     getValueFromColumn(code, key) {
       let _target;
@@ -293,7 +327,7 @@ export default {
     },
     //判断是否为数字，不是则输出0
     checkIfNum(n) {
-      return Number(n) != NaN ? Number(n) : 0;
+      return !Object.is(Number(n), NaN) ? Number(n) : 0;
     },
     initData() {
       this.headerArr = [];
