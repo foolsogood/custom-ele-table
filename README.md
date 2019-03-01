@@ -1,3 +1,5 @@
+## tip
+  有改进建议或bug请提issue 
 ## 准备工作
 - 确保你的vue项目已经安装以下插件：babel-plugin-transform-vue-jsx,babel-plugin-syntax-jsx
 - .babelrc中配置

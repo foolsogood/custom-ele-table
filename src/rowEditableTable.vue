@@ -5,7 +5,7 @@ import Textarea from "./textarea.vue";
 import event from "./event.js";
 import fnModules from "./tools/fns";
 import Toast from "./toast.vue";
-export default {
+export const rowEditableTable ={
   name: "RowEditableTable",
   props: {
     tableData: {
@@ -759,6 +759,7 @@ export default {
     );
   }
 };
+export default rowEditableTable
 </script>
 <style>
 .row-td .el-input__inner__1 {

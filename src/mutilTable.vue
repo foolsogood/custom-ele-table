@@ -4,7 +4,7 @@ import MyInput from "./input.vue";
 import event from "./event.js";
 import fnModules from "./tools/fns";
 import Toast from "./toast.vue";
-export default {
+export const mutilTable = {
   name: "MutilTable",
   props: {
     tableData: {
@@ -86,7 +86,7 @@ export default {
           background: "#999",
           color: "#fff"
         })
-    }
+    },
   },
   data() {
     return {
@@ -131,7 +131,9 @@ export default {
           if (item[_key] - 0) {
             let data = {
               value: Object.is(Number(item[_key]), NaN)
-                ? item[_key] == "" ? 0 : item[_key]
+                ? item[_key] == ""
+                  ? 0
+                  : item[_key]
                 : item[_key] - 0,
               prop: _key,
               parentColumnId: item[this.uniqueKey]
@@ -142,7 +144,7 @@ export default {
       });
     },
     numberChangeHandler(val) {
-      console.log(val.prop, val.value, val.parentColumnId);
+        console.log(val.prop, val.value, val.parentColumnId);
       //如果该组件为纯展示，没有编辑功能
       if (this.isReadOnly) {
         return;
@@ -588,7 +590,9 @@ export default {
                 height:
                   this.cellHeight *
                     (typeof colOptions[item] == "object"
-                      ? colOptions[item].rowSpan ? colOptions[item].rowSpan : 1
+                      ? colOptions[item].rowSpan
+                        ? colOptions[item].rowSpan
+                        : 1
                       : 1) +
                   "px"
               };
@@ -716,5 +720,6 @@ export default {
     );
   }
 };
+export default mutilTable;
 </script>
 

@@ -1,13 +1,12 @@
 <script>
-
-export default {
+export const staticTable = {
   name: "staticTable",
   props: {
     tableData: {
       type: Array,
       default: () => new Array()
     },
-      //表格边框颜色
+    //表格边框颜色
     tableBorderColor: {
       type: String,
       default: "#ddd"
@@ -17,7 +16,7 @@ export default {
       type: [String, Number],
       default: "40"
     },
-     //header样式
+    //header样式
     headerStyle: {
       type: Object,
       default: () =>
@@ -35,15 +34,21 @@ export default {
           color: "#333"
         })
     }
-  
   },
-  
+
   methods: {
     //渲染表body
     renderPanelBody() {
       return (
-        <table style={{border: `1px solid ${this.tableBorderColor}`, borderBottom: "none",borderLeft:'none',width:'100%'}}>
-          <tbody style={{width:'100%'}}>
+        <table
+          style={{
+            border: `1px solid ${this.tableBorderColor}`,
+            borderBottom: "none",
+            borderLeft: "none",
+            width: "100%"
+          }}
+        >
+          <tbody style={{ width: "100%" }}>
             {this.tableData.map(item => this.renderTableColumn(item))}
           </tbody>
         </table>
@@ -53,14 +58,26 @@ export default {
     //渲染表的每行
     renderTableColumn(colOptions) {
       return (
-        <tr class="flexBox" style={{width:'100%'}}>
+        <tr class="flexBox" style={{ width: "100%" }}>
           {colOptions.map(item => {
             return (
-              <td class="flexBox flex-1 " style={{borderBottom:`1px solid ${this.tableBorderColor}`}}>
-                <span class="flexBox" style={{ minWidth:'100px',flex: 1,height: `${this.cellHeight}px`,borderLeft:`1px solid ${this.tableBorderColor}`,...this.headerStyle}}>
+              <td
+                class="flexBox flex-1 "
+                style={{ borderBottom: `1px solid ${this.tableBorderColor}` }}
+              >
+                <span
+                  class="flexBox"
+                  style={{
+                    minWidth: "100px",
+                    flex: 1,
+                    height: `${this.cellHeight}px`,
+                    borderLeft: `1px solid ${this.tableBorderColor}`,
+                    ...this.headerStyle
+                  }}
+                >
                   {item.name}
                 </span>
-                 <span
+                <span
                   class="flexBox "
                   style={{
                     padding: "0 25px",
@@ -81,8 +98,13 @@ export default {
     }
   },
   render() {
-    return <section class="nui-scroll nui-scroll-x">{this.renderPanelBody()}</section>;
+    return (
+      <section class="nui-scroll nui-scroll-x">
+        {this.renderPanelBody()}
+      </section>
+    );
   }
 };
+export default staticTable;
 </script>
 
