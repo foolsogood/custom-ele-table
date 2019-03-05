@@ -18,6 +18,10 @@
    - 跨列单元格(rowEditableTable)
 
 ## 示例&&参数说明
+导入
+```
+import { staticTable, rowEditableTable, mutilTable } from "custom-ele-table";
+```
 ####  staticTable 组件
 ```
     <staticTable :tableData="tableData" />
