@@ -1,8 +1,8 @@
 <template>
   <div id="app" style="padding:20px 30px">
-    <p style="line-height:60px">基本情况表</p>
+    <p style="line-height:60px">staticTable</p>
     <staticTable :tableData="tableData"/>
-    <p style="line-height:60px">跨行单元格</p>
+    <p style="line-height:60px">rowEditableTable</p>
     <p>
       <span
         @click="toggleEdit(item)"
@@ -19,7 +19,7 @@
       :bodyNotShowProps="['code']"
       uniqueKey="code"
     />
-    <p style="line-height:60px">多层表头</p>
+    <p style="line-height:60px">mutilTable</p>
     <p>
       <span
         @click="toggle(item)"
