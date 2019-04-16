@@ -1,23 +1,23 @@
-let tableHeader=[{
+export const tableHeader=[{
 	"title": "能源名称",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 0,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": false,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "energyName",
 			"title": "甲",
-			"onlyOneCell": 0,
-			"isCanEdit": 0,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": false,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -25,24 +25,24 @@ let tableHeader=[{
 	}]
 }, {
 	"title": "计量单位",
-	"onlyOneCell": 0,
-	"isCanEdit": 0,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": false,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 0,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": false,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "energyUnit",
 			"title": "乙",
-			"onlyOneCell": 0,
-			"isCanEdit": 0,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": false,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -50,24 +50,24 @@ let tableHeader=[{
 	}]
 }, {
 	"title": "代码",
-	"onlyOneCell": 0,
-	"isCanEdit": 0,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": false,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 0,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": false,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "energyCode",
 			"title": "丙",
-			"onlyOneCell": 0,
-			"isCanEdit": 0,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": false,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -75,24 +75,24 @@ let tableHeader=[{
 	}]
 }, {
 	"title": "工业生产消费量",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "industryConsum",
 			"title": "1",
-			"onlyOneCell": 0,
-			"isCanEdit": 0,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": false,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -100,24 +100,24 @@ let tableHeader=[{
 	}]
 }, {
 	"title": "加工转换投入合计",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "total",
 			"title": "2",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -125,143 +125,143 @@ let tableHeader=[{
 	}]
 }, {
 	"title": "能源",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 1,
 	"colSpan": 8,
 	"children": [{
 		"title": "火力发电",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "themalPower",
 			"title": "3",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "供热",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "heatAdd",
 			"title": "4",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "原煤入洗",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "rawCoal",
 			"title": "5",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "炼焦",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "coking",
 			"title": "6",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "炼油",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "oilRef",
 			"title": "7",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "制气",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "gasification",
 			"title": "8",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "天然气液化",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "gasLique",
 			"title": "9",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "加工煤制品",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "coalPro",
 			"title": "10",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -269,24 +269,24 @@ let tableHeader=[{
 	}]
 }, {
 	"title": "能源加工转换产出",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "convertOut",
 			"title": "11",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -294,24 +294,24 @@ let tableHeader=[{
 	}]
 }, {
 	"title": "能源加工转换产出折标量(吨标准煤)",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "convertOutCoeff",
 			"title": "12",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -319,24 +319,24 @@ let tableHeader=[{
 	}]
 }, {
 	"title": "回收利用",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 2,
 		"colSpan": 1,
 		"children": [{
 			"key": "recycle",
 			"title": "13",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -344,24 +344,24 @@ let tableHeader=[{
 	}]
 }, {
 	"title": "折标系数",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "useCoeff",
 			"title": "14",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -369,32 +369,32 @@ let tableHeader=[{
 	}]
 }, {
 	"title": "参考折标系数",
-	"onlyOneCell": 0,
-	"isCanEdit": 0,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": false,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"key": "",
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 0,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": false,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "referCoeff",
 			"title": "丁",
-			"onlyOneCell": 0,
-			"isCanEdit": 0,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": false,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}]
 }]
-let tableBody=[{
+export const tableBody=[{
 	"useCoeff": "0.71",
 	"oilRef": "2",
 	"code": "01",
@@ -435,7 +435,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(){return Array.prototype.reduce.call(arguments,(a,b)=>a+b)} ",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "30.000",
 		"defaultValue": null
 	},
@@ -490,7 +490,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(){return Array.prototype.reduce.call(arguments,(a,b)=>a+b)} ",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "28.000",
 		"defaultValue": null
 	},
@@ -545,7 +545,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(){return Array.prototype.reduce.call(arguments,(a,b)=>a+b)} ",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "27.000",
 		"defaultValue": null
 	},
@@ -568,7 +568,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -814,7 +814,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -1061,7 +1061,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "1",
 		"defaultValue": null
 	},
@@ -1307,7 +1307,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -1553,7 +1553,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -1800,7 +1800,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -1836,7 +1836,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(){return Array.prototype.reduce.call(arguments,(a,b)=>a+b)} ",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -2082,7 +2082,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -2328,7 +2328,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -2340,7 +2340,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -2586,7 +2586,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -2832,7 +2832,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -3310,7 +3310,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "4",
 		"defaultValue": null
 	},
@@ -3558,7 +3558,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,a2,b2,a3,b3,a4,b4,a5,b5,a6,b6,a7,b7,a8,b8,a9,b9,a10,b10,a11,b11,a12,b12,a13,b13,a14,b14,a15,b15,a16,b16,a17,b17,a18,b18,a19,b19,a20,b20,a21,b21,a22,b22,a23,b23,a24,b24,a25,b25,a26,b26,a27,b27,a28,b28,a29,b29,a30,b30,a31,b31,a32,b32,a35,b35,a36,b36,a37,b37,a38,b38,a39,b39){return(a1*b1+a2*b2+a3*b3+a4*b4+a5*b5+a6*b6+a7*b7+a8*b8+a9*b9+a10*b10+a11*b11+a12*b12+a13*b13+a14*b14+a15*b15+a16*b16+a17*b17+a18*b18+a19*b19+a20*b20+a21*b21+a22*b22+a23*b23+a24*b24+a25*b25+a26*b26+a27*b27+a28*b28+a29*b29+a30*b30+a31*b31+a32*b32+a35*b35+a36*b36+a37*b37+a38*b38+a39*b39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "2",
 		"defaultValue": null
 	}
@@ -3571,7 +3571,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -3583,7 +3583,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -3596,7 +3596,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -3608,7 +3608,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -3620,7 +3620,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -4100,7 +4100,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a1,b1,c1,d1,a2,b2,c2,d2,a3,b3,c3,d3,a4,b4,c4,d4,a5,b5,c5,d5,a6,b6,c6,d6,a7,b7,c7,d7,a8,b8,c8,d8,a9,b9,c9,d9,a10,b10,c10,d10,a11,b11,c11,d11,a12,b12,c12,d12,a13,b13,c13,d13,a14,b14,c14,d14,a15,b15,c15,d15,a16,b16,c16,d16,a17,b17,c17,d17,a18,b18,c18,d18,a19,b19,c19,d19,a20,b20,c20,d20,a21,b21,c21,d21,a22,b22,c22,d22,a23,b23,c23,d23,a24,b24,c24,d24,a25,b25,c25,d25,a26,b26,c26,d26,a27,b27,c27,d27,a28,b28,c28,d28,a29,b29,c29,d29,a30,b30,c30,d30,a31,b31,c31,d31,a32,b32,c32,d32,a33,b33,c33,d33,a34,b34,c34,d34,a35,b35,c35,d35,a36,b36,c36,d36,a37,b37,c37,d37,a38,b38,c38,d38,a39,b39,c39,d39){return((a1-b1-c1)*d1+(a2-b2-c2)*d2+(a3-b3-c3)*d3+(a4-b4-c4)*d4+(a5-b5-c5)*d5+(a6-b6-c6)*d6+(a7-b7-c7)*d7+(a8-b8-c8)*d8+(a9-b9-c9)*d9+(a10-b10-c10)*d10+(a11-b11-c11)*d11+(a12-b12-c12)*d12+(a13-b13-c13)*d13+(a14-b14-c14)*d14+(a15-b15-c15)*d15+(a16-b16-c16)*d16+(a17-b17-c17)*d17+(a18-b18-c18)*d18+(a19-b19-c19)*d19+(a20-b20-c20)*d20+(a21-b21-c21)*d21+(a22-b22-c22)*d22+(a23-b23-c23)*d23+(a24-b24-c24)*d24+(a25-b25-c25)*d25+(a26-b26-c26)*d26+(a27-b27-c27)*d27+(a28-b28-c28)*d28+(a29-b29-c29)*d29+(a30-b30-c30)*d30+(a31-b31-c31)*d31+(a32-b32-c32)*d32+(a33-b33-c33)*d33+(a34-b34-c34)*d34+(a35-b35-c35)*d35+(a36-b36-c36)*d36+(a37-b37-c37)*d37+(a38-b38-c38)*d38+(a39-b39-c39)*d39)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-20.542299999999997",
 		"defaultValue": null
 	},
@@ -4112,7 +4112,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -4124,7 +4124,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -4136,7 +4136,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -4148,7 +4148,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -4160,7 +4160,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -4172,7 +4172,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -4184,7 +4184,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -4197,7 +4197,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	},
@@ -4211,7 +4211,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "",
 		"cal": "",
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-",
 		"defaultValue": null
 	}

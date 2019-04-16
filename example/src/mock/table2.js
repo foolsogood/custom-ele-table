@@ -1,4 +1,4 @@
-let tableBody=[{
+export const tableBody=[{
 	"explain": "",
 	"code": "01000001",
 	"thisYearValue": "11",
@@ -16,7 +16,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "1"
 	},
 	"lastYearValue": "11",
@@ -40,7 +40,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "1"
 	},
 	"lastYearValue": "3",
@@ -64,7 +64,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "0.75"
 	},
 	"lastYearValue": "4",
@@ -88,7 +88,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "0.9174304351416068"
 	},
 	"lastYearValue": "12111",
@@ -112,7 +112,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "1.6"
 	},
 	"lastYearValue": "5",
@@ -136,7 +136,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": ""
 	},
 	"lastYearValue": "",
@@ -159,7 +159,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "1.625"
 	},
 	"rate": {
@@ -176,7 +176,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": ""
 	},
 	"lastYearValue": "",
@@ -199,7 +199,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "0.000990009900099001"
 	},
 	"rate": {
@@ -216,7 +216,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "0.0004950049500495005"
 	},
 	"lastYearValue": "2",
@@ -239,7 +239,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "0.00027000270002700027"
 	},
 	"rate": {
@@ -256,7 +256,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": ""
 	},
 	"lastYearValue": "",
@@ -280,7 +280,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": ""
 	},
 	"lastYearValue": "",
@@ -304,7 +304,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": ""
 	},
 	"lastYearValue": "",
@@ -328,7 +328,7 @@ let tableBody=[{
 		"parmArrs": null,
 		"fn": "function(a,b){return(a/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "1.25"
 	},
 	"lastYearValue": "4",
@@ -336,48 +336,48 @@ let tableBody=[{
 	"uint": "万元"
 }]
 
-let tableHeader=[{
+export const tableHeader=[{
 	"key": "index",
 	"title": "指标名称",
-	"onlyOneCell": 0,
-	"isCanEdit": 0,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": false,
+	
 	"rowSpan": 1,
 	"colSpan": 1,
 	"children": []
 }, {
 	"key": "uint",
 	"title": "计量单位",
-	"onlyOneCell": 0,
-	"isCanEdit": 0,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": false,
+	
 	"rowSpan": 1,
 	"colSpan": 1,
 	"children": []
 }, {
 	"key": "thisYearValue",
 	"title": "本期值",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 1,
 	"colSpan": 1,
 	"children": []
 }, {
 	"key": "lastYearValue",
 	"title": "上年同期值",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 1,
 	"colSpan": 1,
 	"children": []
 }, {
 	"key": "rate",
 	"title": "同比变化率",
-	"onlyOneCell": 0,
-	"isCanEdit": 0,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": false,
+	
 	"rowSpan": 1,
 	"colSpan": 1,
 	"children": []
@@ -385,8 +385,8 @@ let tableHeader=[{
 	"key": "explain",
 	"title": "产值及能耗消费变化情况说明",
 	"onlyOneCell": 1,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"isCanEdit": true,
+	
 	"rowSpan": 1,
 	"colSpan": 1,
 	"children": []

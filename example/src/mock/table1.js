@@ -1,4 +1,4 @@
-let tableBody = [{
+export const tableBody = [{
 	"explain": "5",
 	"denomValueThis": "22",
 	"serialNum": "1",
@@ -20,7 +20,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b,c){return((a/b)*c)}",
 		"cal": null,
-		"isCanEdit": 1,
+		"isCanEdit": true,
 		"value": "3.000",
 		"defaultValue": null
 	},
@@ -43,7 +43,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b,c){return((a/b)*c)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "44.000",
 		"defaultValue": null
 	},
@@ -67,7 +67,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b){return(100*(a-b)/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-90.000",
 		"defaultValue": null
 	},
@@ -96,7 +96,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b,c){return((a/b)*c)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "1.000",
 		"defaultValue": null
 	},
@@ -119,7 +119,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b,c){return((a/b)*c)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "11.000",
 		"defaultValue": null
 	},
@@ -143,7 +143,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b){return(100*(a-b)/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-100.000",
 		"defaultValue": null
 	},
@@ -172,7 +172,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b,c){return((a/b)*c)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "11.000",
 		"defaultValue": null
 	},
@@ -195,7 +195,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b,c){return((a/b)*c)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "121.000",
 		"defaultValue": null
 	},
@@ -219,7 +219,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b){return(100*(a-b)/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-100.000",
 		"defaultValue": null
 	},
@@ -248,7 +248,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b,c){return((a/b)*c)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "1.000",
 		"defaultValue": null
 	},
@@ -271,7 +271,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b,c){return((a/b)*c)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "1.000",
 		"defaultValue": null
 	},
@@ -295,7 +295,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b){return(100*(a-b)/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "-100.000",
 		"defaultValue": null
 	},
@@ -324,7 +324,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b,c){return((a/b)*c)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -347,7 +347,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b,c){return((a/b)*c)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -371,7 +371,7 @@ let tableBody = [{
 		"parmArrs": null,
 		"fn": "function(a,b){return(100*(a-b)/b)}",
 		"cal": null,
-		"isCanEdit": 0,
+		"isCanEdit": false,
 		"value": "",
 		"defaultValue": null
 	},
@@ -379,26 +379,26 @@ let tableBody = [{
 	"denomValueLast": "",
 	"numerValueLast": ""
 }]
-let tableHeader = [{
+export const tableHeader = [{
 	"title": "序号",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 3,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 3,
 		"colSpan": 1,
 		"children": [{
 			"key": "serialNum",
 			"title": "",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 3,
 			"colSpan": 1,
 			"children": []
@@ -406,24 +406,23 @@ let tableHeader = [{
 	}]
 }, {
 	"title": "指标名称",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 1,
+	"onlyOneCell": false,
+	"isCanEdit": true,
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 2,
 		"colSpan": 1,
 		"children": [{
 			"key": "indexName",
 			"title": "甲",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -431,58 +430,58 @@ let tableHeader = [{
 	}]
 }, {
 	"title": "计量单位",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 1,
 	"colSpan": 3,
 	"children": [{
 		"title": "指标单位",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "indexUnit",
 			"title": "乙",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "子项单位",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "numerUnit",
 			"title": "丙",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "母项单位",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "denomUnit",
 			"title": "丁",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -490,24 +489,24 @@ let tableHeader = [{
 	}]
 }, {
 	"title": "单位换算系数",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "unitCoeff",
 			"title": "戊",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -515,24 +514,24 @@ let tableHeader = [{
 	}]
 }, {
 	"title": "代码",
-	"onlyOneCell": 0,
-	"isCanEdit": 0,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": false,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "codeNo",
 			"title": "己",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -540,58 +539,58 @@ let tableHeader = [{
 	}]
 }, {
 	"title": "本期值",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 1,
 	"colSpan": 3,
 	"children": [{
 		"title": "指标值",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "indexValueThis",
 			"title": "1",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "子项值",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "numerValueThis",
 			"title": "2",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "母项值",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "denomValueThis",
 			"title": "3",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -599,58 +598,58 @@ let tableHeader = [{
 	}]
 }, {
 	"title": "同期值",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 1,
 	"colSpan": 3,
 	"children": [{
 		"title": "指标值",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "indexValueLast",
 			"title": "4",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "子项值",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "numerValueLast",
 			"title": "5",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "母项值",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "denomValueLast",
 			"title": "6",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -658,41 +657,41 @@ let tableHeader = [{
 	}]
 }, {
 	"title": "与同期值比",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 1,
 	"colSpan": 2,
 	"children": [{
 		"title": "节能量",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "energyValueSave",
 			"title": "7",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}, {
 		"title": "变化率(%)",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "changeValue",
 			"title": "8",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -700,24 +699,24 @@ let tableHeader = [{
 	}]
 }, {
 	"title": "国家(地区)定额",
-	"onlyOneCell": 0,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"onlyOneCell": false,
+	"isCanEdit": true,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "quotaValue",
 			"title": "9",
-			"onlyOneCell": 0,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"onlyOneCell": false,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
@@ -726,29 +725,30 @@ let tableHeader = [{
 }, {
 	"title": "影响指标变化因素的说明",
 	"onlyOneCell": 1,
-	"isCanEdit": 1,
-	"isClick": 0,
+	"isCanEdit": true,
+	
 	"rowSpan": 2,
 	"colSpan": 1,
 	"children": [{
 		"title": "",
-		"onlyOneCell": 0,
-		"isCanEdit": 1,
-		"isClick": 0,
+		"onlyOneCell": false,
+		"isCanEdit": true,
+		
 		"rowSpan": 1,
 		"colSpan": 1,
 		"children": [{
 			"key": "explain",
 			"title": "10",
 			"onlyOneCell": 1,
-			"isCanEdit": 1,
-			"isClick": 0,
+			"isCanEdit": true,
+			
 			"rowSpan": 1,
 			"colSpan": 1,
 			"children": []
 		}]
 	}]
 }]
+ 
 export default {
     tableBody, tableHeader
 }

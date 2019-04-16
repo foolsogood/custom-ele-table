@@ -59,59 +59,59 @@ export default {
       triggerFn: () => {
         console.log("表头首位被点击");
       },
-      explain: {
-        prop: {
-          data: require("./mock/explain").default.propTableBody,
-          header: require("./mock/explain").default.propTableHeader
-        },
-        func: {
-          data: require("./mock/explain").default.funcTableData,
-          header: require("./mock/explain").default.funcTableHeader
-        },
-        method: {
-          data: require("./mock/explain").default.methodTableData,
-          header: require("./mock/explain").default.methodTableHeader
-        }
-      },
-      tableData: require("./mock/data_2").default.tableBody,
+      // explain: {
+      //   prop: {
+      //     data: require("./mock/explain").default.propTableBody,
+      //     header: require("./mock/explain").default.propTableHeader
+      //   },
+      //   func: {
+      //     data: require("./mock/explain").default.funcTableData,
+      //     header: require("./mock/explain").default.funcTableHeader
+      //   },
+      //   method: {
+      //     data: require("./mock/explain").default.methodTableData,
+      //     header: require("./mock/explain").default.methodTableHeader
+      //   }
+      // },
+      tableData:require("./mock/baseInfo").tableBody ,
       edit_tableData: [],
       edit_tableHeader: [],
       rowEdit: {
-        cur: "计算1",
+        cur: "table1-计算-多行表头",
         list: [
           {
-            title: "计算1",
-            data: require("./mock/data_1").default.tableBody,
-            header: require("./mock/data_1").default.tableHeader
+            title: "table1-计算-多行表头",
+            data: require("./mock/table1").tableBody,
+            header: require("./mock/table1").tableHeader
           },
           {
-            title: "计算2",
-            data: require("./mock/func_3").default.tableBody,
-            header: require("./mock/func_3").default.tableHeader
+            title: "table2-计算-单行表头",
+            data: require("./mock/table2").tableBody,
+            header: require("./mock/table2").tableHeader
           }
         ]
       },
-      curTitle: "计算",
+      curTitle: "table3-计算-多行表头",
       tableDatas_1: [],
       tableHeader_1: [],
       isMutilReadOnly: false,
       list: [
         {
-          title: "计算",
-          data: require("./mock/func3").default.tableBody,
-          header: require("./mock/func3").default.tableHeader,
+          title: "table3-计算-多行表头",
+          data: require("./mock/table3").tableBody,
+          header: require("./mock/table3").tableHeader,
           isReadOnly: false
         },
         {
-          title: "纯展示",
-          data: require("./mock/GHG").default.tableBody,
-          header: require("./mock/GHG").default.tableHeader,
+          title: "table4-纯展示-多行表头",
+          data: require("./mock/table4").tableBody,
+          header: require("./mock/table4").tableHeader,
           isReadOnly: true
         },
         {
-          title: "123",
-          data: require("./mock/func_5").default.tableBody,
-          header: require("./mock/func_5").default.tableHeader,
+          title: "table5-计算-多行表头",
+          data: require("./mock/table5").tableBody,
+          header: require("./mock/table5").tableHeader,
           isReadOnly: false
         }
       ]
@@ -126,7 +126,7 @@ export default {
   watch: {
     curTitle: {
       handler(val) {
-        let _temp = this.list.find(item => item.title == val);
+        const _temp = this.list.find(item => item.title == val);
         this.tableDatas_1 = _temp.data;
         this.tableHeader_1 = _temp.header;
         this.isMutilReadOnly = _temp.isReadOnly;
@@ -135,7 +135,7 @@ export default {
     },
     "rowEdit.cur": {
       handler(val) {
-        let _temp = this.rowEdit.list.find(item => item.title == val);
+        const _temp = this.rowEdit.list.find(item => item.title == val);
         this.edit_tableData = _temp.data;
         this.edit_tableHeader = _temp.header;
       },

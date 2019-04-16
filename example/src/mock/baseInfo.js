@@ -1,4 +1,4 @@
-let tableBody = [
+export const tableBody = [
     [{
         name: '所属地区',
         key: 'area',
