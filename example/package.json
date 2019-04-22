@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "custom-ele-table": "2.2.6",
-    "vue": "^2.5.2"
+    "vue": "^2.5.2",
+    "vue-json-viewer": "^2.1.4"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
