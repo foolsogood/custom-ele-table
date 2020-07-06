@@ -245,3 +245,4 @@ const getTool = (() => {
     };
 })()();
 export default getTool;
+//# sourceMappingURL=index.js.map

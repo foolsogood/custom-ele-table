@@ -1,14 +1,18 @@
 {
   "name": "custom-ele-table",
-  "version": "2.2.6",
+  "version": "3.0.3",
   "description": "vue自定义报表组件",
-  "main": "index.js",
+  "main": "./dist/custom-ele-table.umd.min.js",
+  "typings": "./typings/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/foolsogood/custom-ele-table.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:library": "npm run package && npm run typings",
+    "package": "vue-cli-service build --mode package --modern --target lib --name custom-ele-table src/index.ts",
+    "typings": "tsc -p tsconfig.package.json && cp -a src/typings typings",
+    "prepublish": "npm run build:library"
   },
   "keywords": [
     "vue",
@@ -16,5 +20,41 @@
     "table"
   ],
   "author": "foolsogood",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/events": "^3.0.0",
+    "core-js": "^3.6.4",
+    "events": "^3.1.0",
+    "vue": "^2.6.11",
+    "vue-class-component": "^7.2.3",
+    "vue-property-decorator": "^8.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@commitlint/config-conventional": "^7.3.1",
+    "@typescript-eslint/eslint-plugin": "^3.4.0",
+    "@typescript-eslint/parser": "^3.4.0",
+    "@vue/cli-plugin-babel": "~4.4.1",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-plugin-router": "^4.1.0",
+    "@vue/cli-plugin-typescript": "~4.4.1",
+    "@vue/cli-plugin-unit-mocha": "~4.4.1",
+    "@vue/cli-plugin-vuex": "^4.1.0",
+    "@vue/cli-service": "~4.4.1",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "@vue/test-utils": "^1.0.0-beta.20",
+    "codemirror": "^5.44.0",
+    "commitlint": "^7.3.2",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "lint-staged": "^8.1.0",
+    "node-sass": "^4.14.1",
+    "prettier": "^1.15.2",
+    "sass": "^1.26.7",
+    "sass-loader": "^8.0.2",
+    "typescript": "~3.5.3",
+    "vue-markdown-loader": "^2.4.1",
+    "vue-template-compiler": "^2.6.6"
+  }
 }

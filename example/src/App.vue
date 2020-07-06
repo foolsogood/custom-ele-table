@@ -2,11 +2,18 @@
   <div id="app" style="padding:20px 30px">
     <div class="bd-btm-2 pd-btm-30">
       <p class="lh-60">staticTable</p>
-      <staticTable :tableData="tableData"/>
+      <staticTable :tableData="tableData" />
       <div>
-        <button @click="view1Handler" class="btn">{{showText(isView1Show)}}</button>
+        <button @click="view1Handler" class="btn">
+          {{ showText(isView1Show) }}
+        </button>
         <div v-show="isView1Show">
-          <JsonViewer :value="tableData" :expand-depth="5" copyable sort></JsonViewer>
+          <JsonViewer
+            :value="tableData"
+            :expand-depth="5"
+            copyable
+            sort
+          ></JsonViewer>
         </div>
       </div>
     </div>
@@ -16,10 +23,11 @@
         <span
           @click="toggleEdit(item)"
           style="padding:0 20px;cursor:pointer;line-height:40px"
-          :style="rowEdit.cur==item.title?{color:'red'}:{}"
-          v-for="(item,idx) in rowEdit.list"
+          :style="rowEdit.cur == item.title ? { color: 'red' } : {}"
+          v-for="(item, idx) in rowEdit.list"
           :key="idx"
-        >{{item.title}}</span>
+          >{{ item.title }}</span
+        >
       </p>
       <rowEditableTable
         @TableDataChange="rowEditTableDataChangeHandler"
@@ -29,13 +37,27 @@
         uniqueKey="code"
       />
       <div>
-        <button @click="view2Handler" class="btn">{{showText(isView2Show)}}</button>
+        <button @click="view2Handler" class="btn">
+          {{ showText(isView2Show) }}
+        </button>
         <div v-show="isView2Show">
-          <div>表头
-            <JsonViewer :value="isView2Show&&edit_tableHeader" :expand-depth="5" copyable sort></JsonViewer>
+          <div>
+            表头
+            <JsonViewer
+              :value="isView2Show && edit_tableHeader"
+              :expand-depth="5"
+              copyable
+              sort
+            ></JsonViewer>
           </div>
-          <div>表体
-            <JsonViewer :value="isView2Show&&edit_tableData" :expand-depth="5" copyable sort></JsonViewer>
+          <div>
+            表体
+            <JsonViewer
+              :value="isView2Show && edit_tableData"
+              :expand-depth="5"
+              copyable
+              sort
+            ></JsonViewer>
           </div>
         </div>
       </div>
@@ -46,30 +68,45 @@
         <span
           @click="toggle(item)"
           style="padding:0 20px;cursor:pointer;line-height:40px"
-          :style="curTitle==item.title?{color:'red'}:{}"
-          v-for="(item,idx) in list"
+          :style="curTitle == item.title ? { color: 'red' } : {}"
+          v-for="(item, idx) in list"
           :key="idx"
-        >{{item.title}}</span>
+          >{{ item.title }}</span
+        >
       </p>
       <mutilTable
         @TableDataChange="changeDataHandler"
-        :firstThStyle="{color:'#ff0000'}"
+        :firstThStyle="{ color: '#ff0000' }"
         :firstThClickHandler="triggerFn"
         :isFirstThEableClick="true"
         :isReadOnly="isMutilReadOnly"
         :tableData="mutil_tableData"
         :tableHeader="mutil_tableHeader"
-        :bodyNotShowProps="['code','id']"
+        :bodyNotShowProps="['code', 'id']"
         uniqueKey="code"
       />
       <div>
-        <button @click="view3Handler" class="btn">{{showText(isView3Show)}}</button>
+        <button @click="view3Handler" class="btn">
+          {{ showText(isView3Show) }}
+        </button>
         <div v-show="isView3Show">
-          <div>表头
-            <JsonViewer :value="isView3Show&&mutil_tableHeader" :expand-depth="5" copyable sort></JsonViewer>
+          <div>
+            表头
+            <JsonViewer
+              :value="isView3Show && mutil_tableHeader"
+              :expand-depth="5"
+              copyable
+              sort
+            ></JsonViewer>
           </div>
-          <div>表体
-            <JsonViewer :value="isView3Show&&mutil_tableData" :expand-depth="5" copyable sort></JsonViewer>
+          <div>
+            表体
+            <JsonViewer
+              :value="isView3Show && mutil_tableData"
+              :expand-depth="5"
+              copyable
+              sort
+            ></JsonViewer>
           </div>
         </div>
       </div>
@@ -84,8 +121,11 @@
 </template>
 <script>
 import { staticTable, rowEditableTable, mutilTable } from "custom-ele-table";
+// import a from "../../lib/index.js";
 // import explainCom from "./explain";
 import JsonViewer from "vue-json-viewer";
+// const { staticTable, rowEditableTable, mutilTable } = a;
+// console.log(a);
 export default {
   name: "App",
   data() {
@@ -216,12 +256,10 @@ export default {
 .lh-60 {
   line-height: 60px;
 }
-.btn{
+.btn {
   cursor: pointer;
-  border:1px solid #ddd;
+  border: 1px solid #ddd;
   padding: 2px 5px;
   margin-bottom: 10px;
 }
 </style>
-
-

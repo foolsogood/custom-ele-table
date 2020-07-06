@@ -9,3 +9,4 @@ export const fns = {
     "function(a,b,c){if((a+b)<c)) {return false }return(a+b-c)}": "function(a,b,c){if(a+b<c){return false}return(floatAdd(floatAdd(a,b),-c))}"
 };
 export default fns;
+//# sourceMappingURL=fns.js.map

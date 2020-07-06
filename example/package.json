@@ -10,7 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "custom-ele-table": "2.2.6",
+    "custom-ele-table": "^3.0.3",
     "vue": "^2.5.2",
     "vue-json-viewer": "^2.1.4"
   },
