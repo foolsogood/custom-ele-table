@@ -6,4 +6,4 @@ export { MutilTable };
 export { RowEditableTable };
 export { StaticTable };
 
-export default { MutilTable, RowEditableTable, StaticTable };
+// export default { MutilTable, RowEditableTable, StaticTable };

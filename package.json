@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build:library": "npm run package && npm run typings",
-    "package": "rm -rf dist & vue-cli-service build --mode package --modern --target lib --name custom-ele-table lib/index.ts",
+    "package": "rm -rf dist & vue-cli-service build --mode package  --target lib --name custom-ele-table lib/index.ts",
     "typings": "rm -rf es typings & tsc -p tsconfig.package.json && cp -a lib/typings typings",
     "prepublish": "npm run build:library"
   },
