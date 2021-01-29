@@ -1,6 +1,6 @@
 {
   "name": "custom-ele-table",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "description": "vue自定义报表组件",
   "main": "./dist/custom-ele-table.umd.min.js",
   "typings": "./typings/index.d.ts",
@@ -10,8 +10,8 @@
   },
   "scripts": {
     "build:library": "npm run package && npm run typings",
-    "package": "vue-cli-service build --mode package --modern --target lib --name custom-ele-table lib/index.ts",
-    "typings": "tsc -p tsconfig.package.json && cp -a lib/typings typings",
+    "package": "rm -rf dist & vue-cli-service build --mode package --modern --target lib --name custom-ele-table lib/index.ts",
+    "typings": "rm -rf es typings & tsc -p tsconfig.package.json && cp -a lib/typings typings",
     "prepublish": "npm run build:library"
   },
   "keywords": [

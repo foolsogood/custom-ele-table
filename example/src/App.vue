@@ -4,8 +4,8 @@
       <vue-slider v-model="value" />
     </div>
     <div class="bd-btm-2 pd-btm-30">
-      <p class="lh-60">staticTable</p>
-      <staticTable :tableData="tableData" />
+      <p class="lh-60">StaticTable</p>
+      <StaticTable :tableData="tableData" />
       <div>
         <button @click="view1Handler" class="btn">
           {{ showText(isView1Show) }}
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="bd-btm-2 pd-btm-30">
-      <p class="lh-60">rowEditableTable</p>
+      <p class="lh-60">RowEditableTable</p>
       <p>
         <span
           @click="toggleEdit(item)"
@@ -32,7 +32,7 @@
           >{{ item.title }}</span
         >
       </p>
-      <rowEditableTable
+      <RowEditableTable
         @TableDataChange="rowEditTableDataChangeHandler"
         :tableData="edit_tableData"
         :tableHeader="edit_tableHeader"
@@ -66,7 +66,7 @@
       </div>
     </div>
     <div class="pd-btm-30">
-      <p class="lh-60">mutilTable</p>
+      <p class="lh-60">MutilTable</p>
       <p>
         <span
           @click="toggle(item)"
@@ -77,7 +77,7 @@
           >{{ item.title }}</span
         >
       </p>
-      <mutilTable
+      <MutilTable
         @TableDataChange="changeDataHandler"
         :firstThStyle="{ color: '#ff0000' }"
         :firstThClickHandler="triggerFn"
@@ -118,13 +118,16 @@
 </template>
 <script>
 // import {
-//   staticTable,
-//   rowEditableTable,
-//   mutilTable
+//   StaticTable,
+//   RowEditableTable,
+//   MutilTable
 // } from "../../dist/custom-ele-table.umd";
-import { staticTable, rowEditableTable, mutilTable } from "custom-ele-table";
+import { StaticTable, RowEditableTable, MutilTable } from "custom-ele-table";
+import MyTable from "../../dist/custom-ele-table.umd";
+import MyTable1 from "custom-ele-table";
+
 import JsonViewer from "vue-json-viewer";
-import VueSlider from "vue-slider-component";
+import VueSlider, { VueSliderMark, VueSliderDot } from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
 
 export default {
@@ -184,9 +187,9 @@ export default {
     };
   },
   components: {
-    staticTable,
-    rowEditableTable,
-    mutilTable,
+    StaticTable,
+    RowEditableTable,
+    MutilTable,
     JsonViewer,
     VueSlider
   },
