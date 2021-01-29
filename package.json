@@ -1,6 +1,6 @@
 {
   "name": "custom-ele-table",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "vue自定义报表组件",
   "main": "./dist/custom-ele-table.umd.min.js",
   "typings": "./typings/index.d.ts",
@@ -14,12 +14,6 @@
     "typings": "tsc -p tsconfig.package.json && cp -a lib/typings typings",
     "prepublish": "npm run build:library"
   },
-  "files": [
-    "dist",
-    "lib",
-    "typings",
-    "example"
-  ],
   "keywords": [
     "vue",
     "jsx",
