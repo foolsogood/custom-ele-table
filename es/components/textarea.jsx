@@ -1,4 +1,4 @@
-import * as tslib_1 from "tslib";
+import { __decorate } from "tslib";
 import { Component, Watch, Vue, Prop } from "vue-property-decorator";
 import event from "../tools/event";
 import "../style/textarea.css";
@@ -20,28 +20,28 @@ let TextArea = class TextArea extends Vue {
       </div>);
     }
 };
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: String,
         default: ""
     })
 ], TextArea.prototype, "propContent", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Boolean,
         default: false
     })
 ], TextArea.prototype, "isReadonly", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: Object.create(null)
     })
 ], TextArea.prototype, "addStyle", void 0);
-tslib_1.__decorate([
+__decorate([
     Watch("textAreaContent")
 ], TextArea.prototype, "textAreaContentChange", null);
-TextArea = tslib_1.__decorate([
+TextArea = __decorate([
     Component({
         name: "text-area"
     })

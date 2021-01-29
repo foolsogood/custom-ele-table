@@ -23,7 +23,7 @@ interface IData {
     prop: string;
     parentColumnId: string | number;
 }
-export declare class MutilTable extends Vue {
+export default class MutilTable extends Vue {
     readonly tableData: ITableData[];
     readonly tableHeader: IHeaderItem[];
     readonly bodyNotShowProps: string[];
@@ -45,7 +45,7 @@ export declare class MutilTable extends Vue {
     curTableData: ITableData[];
     curEditTdId: string;
     isBodyEmpty: boolean;
-    readonly headerClasses: number[];
+    get headerClasses(): number[];
     created(): void;
     onTableHeaderChange(val: any[]): void;
     reCalculate(): void;
@@ -61,9 +61,9 @@ export declare class MutilTable extends Vue {
     getHeaderItemArr(arr1: IHeaderArrItem[]): void;
     getRowspan(cell: IHeaderArrItem): number;
     getIfHeaderItemCanEditByKey(key: string): boolean;
-    isAfrontB(A: string, B: string): 1 | 0 | -1;
+    isAfrontB(A: string, B: string): 1 | -1 | 0;
     renderTableColumn(colOptions: ITableData): JSX.Element;
     giveIdx2Item(arr: IHeaderItem[], parentSortId?: string, classifyId?: number): IHeaderArrItem[];
     render(): JSX.Element;
 }
-export default MutilTable;
+export {};

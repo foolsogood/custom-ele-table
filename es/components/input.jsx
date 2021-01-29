@@ -1,4 +1,4 @@
-import * as tslib_1 from "tslib";
+import { __decorate } from "tslib";
 import { Component, Watch, Vue, Prop } from "vue-property-decorator";
 import event from "../tools/event";
 import "../style/input.css";
@@ -35,51 +35,51 @@ let Input = class Input extends Vue {
       </div>);
     }
 };
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: [String, Number],
         default: ""
     })
 ], Input.prototype, "value", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: {}
     })
 ], Input.prototype, "addStyle", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Boolean,
         default: false
     })
 ], Input.prototype, "isReadonly", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: [String, Number],
         default: ""
     })
 ], Input.prototype, "parentColumnId", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: [String],
         default: ""
     })
 ], Input.prototype, "editPropName", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: [String],
         default: ""
     })
 ], Input.prototype, "componentName", void 0);
-tslib_1.__decorate([
+__decorate([
     Watch("value", {
         immediate: true
     })
 ], Input.prototype, "onValueChange", null);
-tslib_1.__decorate([
+__decorate([
     Watch("newValue")
 ], Input.prototype, "onNewValueChange", null);
-Input = tslib_1.__decorate([
+Input = __decorate([
     Component({
         name: "My-Input"
     })

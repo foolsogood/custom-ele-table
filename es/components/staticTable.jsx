@@ -1,4 +1,4 @@
-import * as tslib_1 from "tslib";
+import { __decorate } from "tslib";
 import { Component, Vue, Prop } from "vue-property-decorator";
 let StaticTable = class StaticTable extends Vue {
     //渲染表body
@@ -20,21 +20,21 @@ let StaticTable = class StaticTable extends Vue {
         {colOptions.map(item => {
             return (<td class="flexBox flex-1 " style={{ borderBottom: `1px solid ${this.tableBorderColor}` }}>
               <span class="flexBox" style={{
+                ...this.headerStyle,
                 minWidth: "100px",
                 flex: 1,
                 height: `${this.cellHeight}px`,
-                borderLeft: `1px solid ${this.tableBorderColor}`,
-                ...this.headerStyle
+                borderLeft: `1px solid ${this.tableBorderColor}`
             }}>
                 {item.name}
               </span>
               <span class="flexBox " style={{
+                ...this.cellStyle,
                 padding: "0 25px",
                 minWidth: "100px",
                 borderLeft: `1px solid ${this.tableBorderColor}`,
                 height: `${this.cellHeight}px`,
-                flex: 2,
-                ...this.cellStyle
+                flex: 2
             }}>
                 {item.value}
               </span>
@@ -48,25 +48,25 @@ let StaticTable = class StaticTable extends Vue {
       </section>);
     }
 };
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Array,
         default: []
     })
 ], StaticTable.prototype, "tableData", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: String,
         default: "#ddd"
     })
 ], StaticTable.prototype, "tableBorderColor", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Number,
         default: 40
     })
 ], StaticTable.prototype, "cellHeight", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: () => ({
@@ -75,7 +75,7 @@ tslib_1.__decorate([
         })
     })
 ], StaticTable.prototype, "headerStyle", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: () => ({
@@ -84,11 +84,10 @@ tslib_1.__decorate([
         })
     })
 ], StaticTable.prototype, "cellStyle", void 0);
-StaticTable = tslib_1.__decorate([
+StaticTable = __decorate([
     Component({
         name: "StaticTable"
     })
 ], StaticTable);
-export { StaticTable };
 export default StaticTable;
 //# sourceMappingURL=staticTable.jsx.map

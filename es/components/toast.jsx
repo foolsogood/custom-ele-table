@@ -1,4 +1,4 @@
-import * as tslib_1 from "tslib";
+import { __decorate } from "tslib";
 import { Component, Vue } from "vue-property-decorator";
 import event from "../tools/event";
 import "../style/toast.css";
@@ -30,7 +30,7 @@ let Toast = class Toast extends Vue {
       </div>);
     }
 };
-Toast = tslib_1.__decorate([
+Toast = __decorate([
     Component({
         name: "My-Toast"
     })

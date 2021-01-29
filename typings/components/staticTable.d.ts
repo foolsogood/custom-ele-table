@@ -4,7 +4,7 @@ interface Item {
     name: string;
     value: string;
 }
-export declare class StaticTable extends Vue {
+export default class StaticTable extends Vue {
     readonly tableData: Item[][];
     readonly tableBorderColor: string;
     readonly cellHeight: number;
@@ -14,4 +14,4 @@ export declare class StaticTable extends Vue {
     renderTableColumn(colOptions: Item[]): JSX.Element;
     render(): JSX.Element;
 }
-export default StaticTable;
+export {};

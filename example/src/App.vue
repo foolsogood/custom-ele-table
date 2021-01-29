@@ -1,5 +1,8 @@
 <template>
   <div id="app" style="padding:20px 30px">
+    <div>
+      <vue-slider v-model="value" />
+    </div>
     <div class="bd-btm-2 pd-btm-30">
       <p class="lh-60">staticTable</p>
       <staticTable :tableData="tableData" />
@@ -111,45 +114,30 @@
         </div>
       </div>
     </div>
-    <!-- <p class="lh-60">参数说明</p>
-    <explainCom :tableData="explain.prop.data" :tableHeader="explain.prop.header" />
-    <p class="lh-60">回调方法说明</p>
-    <explainCom :tableData="explain.func.data" :tableHeader="explain.func.header" />
-    <p class="lh-60">直接操作节点方法说明</p>
-    <explainCom :tableData="explain.method.data" :tableHeader="explain.method.header" />-->
   </div>
 </template>
 <script>
-import { staticTable, rowEditableTable, mutilTable } from "custom-ele-table";
-// import a from "../../lib/index.js";
-// import explainCom from "./explain";
+import {
+  staticTable,
+  rowEditableTable,
+  mutilTable
+} from "../../dist/custom-ele-table.umd";
 import JsonViewer from "vue-json-viewer";
-// const { staticTable, rowEditableTable, mutilTable } = a;
-// console.log(a);
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/antd.css";
+
 export default {
   name: "App",
   data() {
     return {
+      value: 0,
       isView1Show: false,
       isView2Show: false,
       isView3Show: false,
       triggerFn: () => {
         console.log("表头首位被点击");
       },
-      // explain: {
-      //   prop: {
-      //     data: require("./mock/explain").default.propTableBody,
-      //     header: require("./mock/explain").default.propTableHeader
-      //   },
-      //   func: {
-      //     data: require("./mock/explain").default.funcTableData,
-      //     header: require("./mock/explain").default.funcTableHeader
-      //   },
-      //   method: {
-      //     data: require("./mock/explain").default.methodTableData,
-      //     header: require("./mock/explain").default.methodTableHeader
-      //   }
-      // },
+
       tableData: require("./mock/baseInfo").tableBody,
       edit_tableData: [],
       edit_tableHeader: [],
@@ -198,8 +186,8 @@ export default {
     staticTable,
     rowEditableTable,
     mutilTable,
-    JsonViewer
-    // explainCom
+    JsonViewer,
+    VueSlider
   },
   watch: {
     curTitle: {

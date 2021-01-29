@@ -22,7 +22,7 @@ interface IHeaderArrItem extends IHeaderItem {
     classifyId: number;
     sortIdx: string;
 }
-export declare class RowEditableTable extends Vue {
+export default class RowEditableTable extends Vue {
     readonly tableData: ITableData[];
     readonly tableHeader: IHeaderItem[];
     readonly bodyNotShowProps: string[];
@@ -47,7 +47,7 @@ export declare class RowEditableTable extends Vue {
     textAreaContent: string;
     isBodyEmpty: boolean;
     oneCellData: ICellData;
-    readonly headerClasses: number[];
+    get headerClasses(): number[];
     created(): void;
     onTableHeaderChange(val: any[]): void;
     onTextContentChange(val: string): void;
@@ -64,9 +64,9 @@ export declare class RowEditableTable extends Vue {
     renderHeader(item: IHeaderArrItem, _idx: number): JSX.Element;
     getOneCellItemByKey(key: string, arr?: any): IHeaderArrItem | undefined;
     tdClickHandler(tableId: string): void;
-    isAfrontB(A: string, B: string): 1 | 0 | -1;
+    isAfrontB(A: string, B: string): 1 | -1 | 0;
     getHeaderItemSortIndex(target_key: string): string;
     renderTableColumn(colOptions: ITableData): JSX.Element;
     render(): JSX.Element;
 }
-export default RowEditableTable;
+export {};

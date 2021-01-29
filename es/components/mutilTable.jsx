@@ -1,4 +1,4 @@
-import * as tslib_1 from "tslib";
+import { __decorate } from "tslib";
 import { Component, Watch, Vue, Prop } from "vue-property-decorator";
 import tools from "../tools/index";
 import MyInput from "./input";
@@ -414,7 +414,7 @@ let MutilTable = class MutilTable extends Vue {
             const flag = this.isAfrontB(this.getHeaderItemSortIndex(a), this.getHeaderItemSortIndex(b));
             return flag;
         });
-        return (<tr style={{ width: "100%", ...this.cellStyle }}>
+        return (<tr style={{ ...this.cellStyle, width: "100%" }}>
         {sortArr.map((item, idx) => {
             const common = {
                 padding: "0 25px",
@@ -426,13 +426,13 @@ let MutilTable = class MutilTable extends Vue {
             };
             const isReadOnlySpan = (() => {
                 const common = {
+                    ...this.cellStyle,
                     minWidth: "120px",
                     borderTop: "none",
                     borderBottom: "none",
                     borderRight: "none",
                     borderRadius: 0,
                     textAlign: "center",
-                    ...this.cellStyle,
                     height: this.cellHeight *
                         (typeof colOptions[item] === "object"
                             ? colOptions[item].rowSpan
@@ -466,12 +466,12 @@ let MutilTable = class MutilTable extends Vue {
                     : colOptions["table_id"]} addStyle={`td_id_${colOptions[this.uniqueKey]}_${item}_${idx}` !==
                     this.curEditTdId
                     ? {
+                        ...this.cellStyle,
                         borderTop: "none",
                         borderBottom: "none",
                         borderRight: "none",
                         textAlign: "center",
-                        borderRadius: 0,
-                        ...this.cellStyle
+                        borderRadius: 0
                     }
                     : {
                         textAlign: "center"
@@ -521,73 +521,73 @@ let MutilTable = class MutilTable extends Vue {
       </section>);
     }
 };
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Array,
         default: []
     })
 ], MutilTable.prototype, "tableData", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Array,
         default: []
     })
 ], MutilTable.prototype, "tableHeader", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Array,
         default: []
     })
 ], MutilTable.prototype, "bodyNotShowProps", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: String,
         default: "#ddd"
     })
 ], MutilTable.prototype, "tableBorderColor", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Number,
         default: 40
     })
 ], MutilTable.prototype, "cellHeight", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: String,
         default: ""
     })
 ], MutilTable.prototype, "uniqueKey", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Function,
         default: () => null
     })
 ], MutilTable.prototype, "firstThClickHandler", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Boolean,
         default: false
     })
 ], MutilTable.prototype, "isFirstThEableClick", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: () => { }
     })
 ], MutilTable.prototype, "firstThStyle", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Boolean,
         default: false
     })
 ], MutilTable.prototype, "isReadOnly", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: String,
         default: "暂无数据"
     })
 ], MutilTable.prototype, "bodyEmptyTips", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: () => ({
@@ -596,7 +596,7 @@ tslib_1.__decorate([
         })
     })
 ], MutilTable.prototype, "headerStyle", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: () => ({
@@ -605,7 +605,7 @@ tslib_1.__decorate([
         })
     })
 ], MutilTable.prototype, "cellStyle", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: () => ({
@@ -614,17 +614,16 @@ tslib_1.__decorate([
         })
     })
 ], MutilTable.prototype, "calcCellStyle", void 0);
-tslib_1.__decorate([
+__decorate([
     Watch("tableHeader", {
         immediate: true,
         deep: true
     })
 ], MutilTable.prototype, "onTableHeaderChange", null);
-MutilTable = tslib_1.__decorate([
+MutilTable = __decorate([
     Component({
         name: "MutilTable"
     })
 ], MutilTable);
-export { MutilTable };
 export default MutilTable;
 //# sourceMappingURL=mutilTable.jsx.map

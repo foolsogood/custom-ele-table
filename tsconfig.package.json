@@ -16,6 +16,6 @@
     "baseUrl": ".",
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["lib/**/*.ts", "lib/**/*.tsx"],
   "exclude": ["node_modules"]
 }

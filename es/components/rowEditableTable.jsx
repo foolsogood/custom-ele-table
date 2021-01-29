@@ -1,4 +1,4 @@
-import * as tslib_1 from "tslib";
+import { __decorate } from "tslib";
 import { Component, Watch, Vue, Prop } from "vue-property-decorator";
 import tools from "../tools/index";
 import MyInput from "./input";
@@ -315,11 +315,11 @@ let RowEditableTable = class RowEditableTable extends Vue {
         return (<div style={{ borderTop: `1px solid ${this.tableBorderColor}` }}>
         {oneCellHeaderArr.map(item => {
             return (<div id={item.title} style={{
+                ...this.headerStyle,
                 lineHeight: `${this.cellHeight * item.rowSpan}px`,
                 borderRight: `1px solid ${this.tableBorderColor}`,
                 borderBottom: `1px solid ${this.tableBorderColor}`,
-                width: "300px",
-                ...this.headerStyle
+                width: "300px"
             }} class="flexBox Ellipsis">
               <span style={{ padding: "0 20px" }}>{item.title}</span>
             </div>);
@@ -342,10 +342,10 @@ let RowEditableTable = class RowEditableTable extends Vue {
                 width: "300px"
             }} key={item.key}>
               {this.isBodyEmpty ? null : (<Textarea addStyle={{
+                ...this.cellStyle,
                 height: `${this.ossTableData.length * 40 +
                     this.ossTableData.length -
-                    1}px`,
-                ...this.cellStyle
+                    1}px`
             }} propContent={this.textAreaContent} isReadonly={this.isReadOnly}/>)}
             </div>);
         })}
@@ -488,14 +488,14 @@ let RowEditableTable = class RowEditableTable extends Vue {
         {sortArr.map((item, idx) => {
             const readonlyInput = (() => {
                 const common = {
+                    ...this.cellStyle,
                     minWidth: "100px",
                     borderTop: "none",
                     borderBottom: "none",
                     borderLeft: `1px solid ${this.tableBorderColor}`,
                     borderRight: "none",
                     borderRadius: 0,
-                    textAlign: "center",
-                    ...this.cellStyle
+                    textAlign: "center"
                 };
                 return (<MyInput addStyle={colOptions[item].fn
                     ? {
@@ -516,13 +516,13 @@ let RowEditableTable = class RowEditableTable extends Vue {
                 return (<MyInput style={{ minWidth: "100px" }} addStyle={`td_id_${colOptions[this.uniqueKey]}_${item}_${idx}` !==
                     this.curEditTdId
                     ? {
+                        ...this.cellStyle,
                         borderTop: "none",
                         borderBottom: "none",
                         borderLeft: `1px solid ${this.tableBorderColor}`,
                         borderRight: "none",
                         borderRadius: 0,
-                        textAlign: "center",
-                        ...this.cellStyle
+                        textAlign: "center"
                     }
                     : {
                         textAlign: "center"
@@ -572,73 +572,73 @@ let RowEditableTable = class RowEditableTable extends Vue {
       </section>);
     }
 };
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Array,
         default: []
     })
 ], RowEditableTable.prototype, "tableData", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Array,
         default: []
     })
 ], RowEditableTable.prototype, "tableHeader", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Array,
         default: []
     })
 ], RowEditableTable.prototype, "bodyNotShowProps", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: String,
         default: "#ddd"
     })
 ], RowEditableTable.prototype, "tableBorderColor", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Number,
         default: 40
     })
 ], RowEditableTable.prototype, "cellHeight", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: String,
         default: ""
     })
 ], RowEditableTable.prototype, "uniqueKey", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Function,
         default: () => null
     })
 ], RowEditableTable.prototype, "firstThClickHandler", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Boolean,
         default: false
     })
 ], RowEditableTable.prototype, "isFirstThEableClick", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: () => { }
     })
 ], RowEditableTable.prototype, "firstThStyle", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Boolean,
         default: false
     })
 ], RowEditableTable.prototype, "isReadOnly", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: String,
         default: "暂无数据"
     })
 ], RowEditableTable.prototype, "bodyEmptyTips", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: () => ({
@@ -647,7 +647,7 @@ tslib_1.__decorate([
         })
     })
 ], RowEditableTable.prototype, "headerStyle", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: () => ({
@@ -656,7 +656,7 @@ tslib_1.__decorate([
         })
     })
 ], RowEditableTable.prototype, "cellStyle", void 0);
-tslib_1.__decorate([
+__decorate([
     Prop({
         type: Object,
         default: () => ({
@@ -665,21 +665,20 @@ tslib_1.__decorate([
         })
     })
 ], RowEditableTable.prototype, "calcCellStyle", void 0);
-tslib_1.__decorate([
+__decorate([
     Watch("tableHeader", {
         immediate: true
     })
 ], RowEditableTable.prototype, "onTableHeaderChange", null);
-tslib_1.__decorate([
+__decorate([
     Watch("textAreaContent", {
         deep: true
     })
 ], RowEditableTable.prototype, "onTextContentChange", null);
-RowEditableTable = tslib_1.__decorate([
+RowEditableTable = __decorate([
     Component({
         name: "RowEditableTable"
     })
 ], RowEditableTable);
-export { RowEditableTable };
 export default RowEditableTable;
 //# sourceMappingURL=rowEditableTable.jsx.map

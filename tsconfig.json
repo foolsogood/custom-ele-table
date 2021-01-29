@@ -11,20 +11,20 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    // "sourceMap": true,
+    "sourceMap": true,
     "declaration": true,
     "downlevelIteration": true,
     "baseUrl": ".",
     "types": ["webpack-env"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["lib/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
+    "lib/**/*.ts",
+    "lib/**/*.tsx",
+    "lib/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
