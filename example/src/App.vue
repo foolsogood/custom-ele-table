@@ -117,11 +117,12 @@
   </div>
 </template>
 <script>
-import {
-  staticTable,
-  rowEditableTable,
-  mutilTable
-} from "../../dist/custom-ele-table.umd";
+// import {
+//   staticTable,
+//   rowEditableTable,
+//   mutilTable
+// } from "../../dist/custom-ele-table.umd";
+import { staticTable, rowEditableTable, mutilTable } from "custom-ele-table";
 import JsonViewer from "vue-json-viewer";
 import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
