@@ -2036,10 +2036,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-custom-ele-table@^3.0.12:
-  version "3.0.12"
-  resolved "https://registry.npm.taobao.org/custom-ele-table/download/custom-ele-table-3.0.12.tgz#f1ce8013c522024aa580b9ec86029b0f27ca566b"
-  integrity sha1-8c6AE8UiAkqlgLnshgKbDyfKVms=
+custom-ele-table@^3.0.13:
+  version "3.0.13"
+  resolved "https://registry.npm.taobao.org/custom-ele-table/download/custom-ele-table-3.0.13.tgz#aa78089d0bada6004372c378ab6164bc7dea9210"
+  integrity sha1-qngInQutpgBDcsN4q2FkvH3qkhA=
   dependencies:
     "@types/events" "^3.0.0"
     core-js "^3.6.4"

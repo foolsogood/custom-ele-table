@@ -1,8 +1,5 @@
 <template>
   <div id="app" style="padding:20px 30px">
-    <div>
-      <vue-slider v-model="value" />
-    </div>
     <div class="bd-btm-2 pd-btm-30">
       <p class="lh-60">staticTable</p>
       <staticTable :tableData="tableData" />
@@ -117,23 +114,15 @@
   </div>
 </template>
 <script>
-import {
-  staticTable,
-  rowEditableTable,
-  mutilTable
-} from "../../dist/custom-ele-table.umd";
-// import { staticTable, rowEditableTable, mutilTable } from "custom-ele-table";
-import MyTable from "../../dist/custom-ele-table.umd";
-import { default as MyTable1 } from "custom-ele-table";
+// import {
+//   staticTable,
+//   rowEditableTable,
+//   mutilTable
+// } from "../../dist/custom-ele-table.umd";
+import { staticTable, rowEditableTable, mutilTable } from "custom-ele-table";
 
 import JsonViewer from "vue-json-viewer";
-import VueSlider, { VueSliderMark, VueSliderDot } from "vue-slider-component";
-import "vue-slider-component/theme/antd.css";
-console.log("MyTable", MyTable);
-console.log("MyTable1", MyTable1);
 
-// console.log("VueSlider", VueSlider);
-// const { staticTable, rowEditableTable, mutilTable } = MyTable1;
 export default {
   name: "App",
   data() {
@@ -194,8 +183,7 @@ export default {
     staticTable,
     rowEditableTable,
     mutilTable,
-    JsonViewer,
-    VueSlider
+    JsonViewer
   },
   watch: {
     curTitle: {
