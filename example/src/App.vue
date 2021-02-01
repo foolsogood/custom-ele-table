@@ -129,6 +129,9 @@ import MyTable1 from "custom-ele-table";
 import JsonViewer from "vue-json-viewer";
 import VueSlider, { VueSliderMark, VueSliderDot } from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
+console.log("MyTable1", MyTable1);
+console.log("StaticTable", StaticTable);
+console.log("VueSlider", VueSlider);
 
 export default {
   name: "App",
