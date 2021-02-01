@@ -1,6 +1,6 @@
 {
   "name": "custom-ele-table",
-  "version": "3.0.11",
+  "version": "3.0.12",
   "description": "vue自定义报表组件",
   "main": "./dist/custom-ele-table.umd.min.js",
   "typings": "./typings/index.d.ts",
