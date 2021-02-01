@@ -4,8 +4,8 @@
       <vue-slider v-model="value" />
     </div>
     <div class="bd-btm-2 pd-btm-30">
-      <p class="lh-60">StaticTable</p>
-      <StaticTable :tableData="tableData" />
+      <p class="lh-60">staticTable</p>
+      <staticTable :tableData="tableData" />
       <div>
         <button @click="view1Handler" class="btn">
           {{ showText(isView1Show) }}
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="bd-btm-2 pd-btm-30">
-      <p class="lh-60">RowEditableTable</p>
+      <p class="lh-60">rowEditableTable</p>
       <p>
         <span
           @click="toggleEdit(item)"
@@ -32,7 +32,7 @@
           >{{ item.title }}</span
         >
       </p>
-      <RowEditableTable
+      <rowEditableTable
         @TableDataChange="rowEditTableDataChangeHandler"
         :tableData="edit_tableData"
         :tableHeader="edit_tableHeader"
@@ -66,7 +66,7 @@
       </div>
     </div>
     <div class="pd-btm-30">
-      <p class="lh-60">MutilTable</p>
+      <p class="lh-60">mutilTable</p>
       <p>
         <span
           @click="toggle(item)"
@@ -77,7 +77,7 @@
           >{{ item.title }}</span
         >
       </p>
-      <MutilTable
+      <mutilTable
         @TableDataChange="changeDataHandler"
         :firstThStyle="{ color: '#ff0000' }"
         :firstThClickHandler="triggerFn"
@@ -118,11 +118,11 @@
 </template>
 <script>
 // import {
-//   StaticTable,
-//   RowEditableTable,
-//   MutilTable
+//   staticTable,
+//   rowEditableTable,
+//   mutilTable
 // } from "../../dist/custom-ele-table.umd";
-import { StaticTable, RowEditableTable, MutilTable } from "custom-ele-table";
+// import { staticTable, rowEditableTable, mutilTable } from "custom-ele-table";
 import MyTable from "../../dist/custom-ele-table.umd";
 import MyTable1 from "custom-ele-table";
 
@@ -130,9 +130,8 @@ import JsonViewer from "vue-json-viewer";
 import VueSlider, { VueSliderMark, VueSliderDot } from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
 console.log("MyTable1", MyTable1);
-console.log("StaticTable", StaticTable);
-console.log("VueSlider", VueSlider);
-
+// console.log("VueSlider", VueSlider);
+const { staticTable, rowEditableTable, mutilTable } = MyTable1;
 export default {
   name: "App",
   data() {
@@ -190,9 +189,9 @@ export default {
     };
   },
   components: {
-    StaticTable,
-    RowEditableTable,
-    MutilTable,
+    staticTable,
+    rowEditableTable,
+    mutilTable,
     JsonViewer,
     VueSlider
   },

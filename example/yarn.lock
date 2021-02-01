@@ -2040,10 +2040,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-custom-ele-table@^3.0.9:
-  version "3.0.9"
-  resolved "https://registry.yarnpkg.com/custom-ele-table/-/custom-ele-table-3.0.9.tgz#eae014db66767bbd7340272682447fd741f8b473"
-  integrity sha512-+vDuNzkxDfqM9NeSfasXvUGdlv031tQuIyfem3rUTnX3g9h1/X4jyrd2euu0QGQENHhSlK8SmavX5akoo5xwJg==
+custom-ele-table@^3.0.10:
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/custom-ele-table/-/custom-ele-table-3.0.10.tgz#dda2c64cd3f909f94d69d801ae45929ffec82caa"
+  integrity sha512-pwySOCxdQ7T9EKDNr3mmxoeLe5F7w1329T1SFZ7hEZ97XpfQ7tn2h02dAdAWgcxB+aPzyw219g8XqlkM7BRI/A==
   dependencies:
     "@types/events" "^3.0.0"
     core-js "^3.6.4"

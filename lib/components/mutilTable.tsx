@@ -42,68 +42,68 @@ export default class MutilTable extends Vue {
     type: Array,
     default: []
   })
-  public readonly tableData!: ITableData[];
-  //表头
+  readonly tableData!: ITableData[];
+  // 表头
   @Prop({
     type: Array,
     default: []
   })
-  public readonly tableHeader!: IHeaderItem[];
-  //表体不显示得属性
+  readonly tableHeader!: IHeaderItem[];
+  // 表体不显示得属性
   @Prop({
     type: Array,
     default: []
   })
-  public readonly bodyNotShowProps!: string[];
-  //表格边框颜色
+  readonly bodyNotShowProps!: string[];
+  // 表格边框颜色
   @Prop({
     type: String,
     default: "#ddd"
   })
-  public readonly tableBorderColor!: string;
-  //单元格高度
+  readonly tableBorderColor!: string;
+  // 单元格高度
   @Prop({
     type: Number,
     default: 40
   })
-  public readonly cellHeight!: number;
-  //唯一标识
+  readonly cellHeight!: number;
+  // 唯一标识
   @Prop({
     type: String,
     default: ""
   })
-  public readonly uniqueKey!: string;
-  //点击第一个th触发事件
+  readonly uniqueKey!: string;
+  // 点击第一个th触发事件
   @Prop({
     type: Function,
     default: () => null
   })
-  public readonly firstThClickHandler!: () => void;
-  //firstThClickHandler属性是否可用
+  readonly firstThClickHandler!: () => void;
+  // firstThClickHandler属性是否可用
   @Prop({
     type: Boolean,
     default: false
   })
-  public readonly isFirstThEableClick!: boolean;
-  //首位th样式
+  readonly isFirstThEableClick!: boolean;
+  // 首位th样式
   @Prop({
     type: Object,
     default: () => {}
   })
-  public readonly firstThStyle!: object;
-  //该表格是否只读
+  readonly firstThStyle!: object;
+  // 该表格是否只读
   @Prop({
     type: Boolean,
     default: false
   })
-  public readonly isReadOnly!: boolean;
-  //表体无数据显示的提示语
+  readonly isReadOnly!: boolean;
+  // 表体无数据显示的提示语
   @Prop({
     type: String,
     default: "暂无数据"
   })
-  public readonly bodyEmptyTips!: string;
-  //header样式
+  readonly bodyEmptyTips!: string;
+  // header样式
   @Prop({
     type: Object,
     default: () => ({
@@ -111,8 +111,8 @@ export default class MutilTable extends Vue {
       color: "#333"
     })
   })
-  public readonly headerStyle!: CSSStyleDeclaration;
-  //body单元格样式
+  readonly headerStyle!: CSSStyleDeclaration;
+  // body单元格样式
   @Prop({
     type: Object,
     default: () => ({
@@ -120,8 +120,8 @@ export default class MutilTable extends Vue {
       color: "#333"
     })
   })
-  public readonly cellStyle!: CSSStyleDeclaration;
-  //需要公式计算的单元格的样式
+  readonly cellStyle!: CSSStyleDeclaration;
+  // 需要公式计算的单元格的样式
   @Prop({
     type: Object,
     default: () => ({
@@ -129,37 +129,36 @@ export default class MutilTable extends Vue {
       color: "#fff"
     })
   })
-  public readonly calcCellStyle!: CSSStyleDeclaration;
+  readonly calcCellStyle!: CSSStyleDeclaration;
 
-  public ossTableHeader: IHeaderArrItem[] = [];
-  public ossTableData: IOssTableData[] = []; //处理过表体
-  public headerArr: IHeaderArrItem[] = [];
-  public bodyNotShowPropData: string[] = ["cell_id"];
-  public curTableData: ITableData[] = [];
-  public curEditTdId: string = "";
-  public isBodyEmpty: boolean = false; //表体是否无数据
+  ossTableHeader: IHeaderArrItem[] = [];
+  ossTableData: IOssTableData[] = []; // 处理过表体
+  headerArr: IHeaderArrItem[] = [];
+  bodyNotShowPropData: string[] = ["cell_id"];
+  curTableData: ITableData[] = [];
+  curEditTdId: string = "";
+  isBodyEmpty: boolean = false; // 表体是否无数据
 
-  //表头层级
+  // 表头层级
   get headerClasses() {
     const arr = this.headerArr.map(item => item.classifyId);
     return [...new Set(arr)];
   }
 
-  public created() {
+  created() {
     event.on(`inputChange-${this.$options.name}`, (val: IData) => {
       tools.throttle(() => this.numberChangeHandler(val), 1000);
     });
   }
   @Watch("tableHeader", {
-    immediate: true,
     deep: true
   })
-  public onTableHeaderChange(val: any[]) {
+  onTableHeaderChange(val: any[]) {
     this.initData();
   }
 
-  //重新计算
-  public reCalculate() {
+  // 重新计算
+  reCalculate() {
     this.ossTableData.forEach(item => {
       Object.keys(item).forEach(_key => {
         if (item[_key] - 0) {
@@ -177,9 +176,9 @@ export default class MutilTable extends Vue {
       });
     });
   }
-  public numberChangeHandler(val: IData) {
+  numberChangeHandler(val: IData) {
     // console.log(val.prop, val.value, val.parentColumnId);
-    //如果该组件为纯展示，没有编辑功能
+    // 如果该组件为纯展示，没有编辑功能
     if (this.isReadOnly) {
       return;
     }
@@ -211,14 +210,14 @@ export default class MutilTable extends Vue {
       }
       return false;
     };
-    //该数据变化后 受影响的行
+    // 该数据变化后 受影响的行
     const target_arr = this.curTableData.filter(
       item => item[this.uniqueKey] === val.parentColumnId || _check(item)
     );
     const _idx = this.curTableData.findIndex(
       item => item[this.uniqueKey] === val.parentColumnId
     );
-    //找到数据变化的那一行tr
+    // 找到数据变化的那一行tr
     const _temp = this.curTableData.find(
       item => item[this.uniqueKey] === val.parentColumnId
     );
@@ -274,12 +273,12 @@ export default class MutilTable extends Vue {
                 if (
                   v.fnParms.some((_val: ICellData) => _val.key === val.prop)
                 ) {
-                  //参数数值的数组
+                  // 参数数值的数组
                   const argsArr = v.fnParms.map((_val: ICellData) => {
                     return this.getValueFromColumn(_val.code, _val.key);
                   });
                   let f = v.fn;
-                  //加入浮点型计算
+                  // 加入浮点型计算
                   const { floatAdd, floatMul, floatDiv } = tools;
                   if (fnModules[f]) {
                     f = fnModules[f];
@@ -308,7 +307,7 @@ export default class MutilTable extends Vue {
                       "NaN",
                       "Infinity"
                     ].includes(res);
-                    //如果输入非数字或0则不变化
+                    // 如果输入非数字或0则不变化
                     const _copy__ = tools.deepCopy(v);
                     if (flag) {
                       this.$set(v, "value", "");
@@ -347,8 +346,8 @@ export default class MutilTable extends Vue {
       });
     }
   }
-  //匹配对应行的值
-  public getValueFromColumn(code: string, key: string) {
+  // 匹配对应行的值
+  getValueFromColumn(code: string, key: string) {
     const _target = this.curTableData.find(
       item => item[this.uniqueKey] === code
     );
@@ -362,11 +361,11 @@ export default class MutilTable extends Vue {
       return 0;
     }
   }
-  //判断是否为数字，不是则输出0
-  public checkIfNum(n: string) {
+  // 判断是否为数字，不是则输出0
+  checkIfNum(n: string) {
     return !Object.is(Number(n), NaN) ? Number(n) : 0;
   }
-  public initData() {
+  initData() {
     this.headerArr = [];
     this.ossTableData = tools.deepCopy(this.tableData);
     const ossTableHeader = tools.deepCopy(this.tableHeader);
@@ -400,8 +399,8 @@ export default class MutilTable extends Vue {
     this.ossTableHeader = this.giveIdx2Item(ossTableHeader);
     this.getHeaderItemArr(this.ossTableHeader);
   }
-  //将表体中跨行的相同单元格合并(其实是将多余的单元格去除)
-  public combineCellByKey(key: string) {
+  // 将表体中跨行的相同单元格合并(其实是将多余的单元格去除)
+  combineCellByKey(key: string) {
     const arr: string[] = [];
     this.ossTableData.forEach(item => {
       const _idx = arr.findIndex(_ => tools.checkIfObjectEqual(_, item[key]));
@@ -413,8 +412,8 @@ export default class MutilTable extends Vue {
     });
   }
 
-  //将表头中的层级分类
-  public classifyHeaderHandler() {
+  // 将表头中的层级分类
+  classifyHeaderHandler() {
     const common = {
       verticalAlign: "middle",
       borderRight: `1px solid ${this.tableBorderColor}`
@@ -476,8 +475,8 @@ export default class MutilTable extends Vue {
       </thead>
     );
   }
-  //单元格点击事件
-  public tdClickHandler(tableId: string, isCanEdit: boolean) {
+  // 单元格点击事件
+  tdClickHandler(tableId: string, isCanEdit: boolean) {
     if (!isCanEdit) {
       return;
     }
@@ -485,9 +484,9 @@ export default class MutilTable extends Vue {
     this.curEditTdId = tableId;
   }
 
-  //渲染表body
-  public renderPanelBody() {
-    //body无数据
+  // 渲染表body
+  renderPanelBody() {
+    // body无数据
     const emptyBody = () => {
       return (
         <div
@@ -500,7 +499,7 @@ export default class MutilTable extends Vue {
         </div>
       );
     };
-    //body有数据
+    // body有数据
     const renderBody = () => {
       return (
         <tbody
@@ -529,8 +528,8 @@ export default class MutilTable extends Vue {
       </div>
     );
   }
-  //返回header某项的排列索引
-  public getHeaderItemSortIndex(target_key: string) {
+  // 返回header某项的排列索引
+  getHeaderItemSortIndex(target_key: string) {
     const _idx = this.headerArr.findIndex(item => item.key === target_key);
     if (_idx === -1) {
       // console.error(_idx, target_key);
@@ -538,8 +537,8 @@ export default class MutilTable extends Vue {
     }
     return this.headerArr[_idx].sortIdx;
   }
-  //返回header某项
-  public getHeaderItemArr(arr1: IHeaderArrItem[]) {
+  // 返回header某项
+  getHeaderItemArr(arr1: IHeaderArrItem[]) {
     const bianli = (arr: IHeaderArrItem[]) => {
       arr.map(item => {
         if (item.children && item.children.length) {
@@ -562,19 +561,19 @@ export default class MutilTable extends Vue {
     };
     bianli(arr1);
   }
-  public getRowspan(cell: IHeaderArrItem) {
+  getRowspan(cell: IHeaderArrItem) {
     return cell.rowSpan ? cell.rowSpan : 1;
   }
-  //通过key查找表头
-  public getIfHeaderItemCanEditByKey(key: string): boolean {
+  // 通过key查找表头
+  getIfHeaderItemCanEditByKey(key: string): boolean {
     const _idx = this.headerArr.findIndex(item => item.key === key);
     if (_idx === -1) {
       return false;
     }
     return this.headerArr[_idx].isCanEdit!;
   }
-  //排序A是否应该排在B前面 -1是1否
-  public isAfrontB(A: string, B: string) {
+  // 排序A是否应该排在B前面 -1是1否
+  isAfrontB(A: string, B: string) {
     if (!A || !B) {
       return 0;
     }
@@ -590,9 +589,9 @@ export default class MutilTable extends Vue {
     }
     return 0;
   }
-  //渲染表的每行
-  public renderTableColumn(colOptions: ITableData) {
-    //根据sortIdx排好序
+  // 渲染表的每行
+  renderTableColumn(colOptions: ITableData) {
+    // 根据sortIdx排好序
     const sortArr = Object.keys(colOptions)
       .filter(item => !this.bodyNotShowPropData.includes(item))
       .sort((a, b) => {
@@ -730,8 +729,8 @@ export default class MutilTable extends Vue {
       </tr>
     );
   }
-  //赋值id
-  public giveIdx2Item(arr: IHeaderItem[], parentSortId = "", classifyId = 0) {
+  // 赋值id
+  giveIdx2Item(arr: IHeaderItem[], parentSortId = "", classifyId = 0) {
     return arr.map((v, idx) => {
       const item: IHeaderArrItem = {
         ...tools.deepCopy(v),
@@ -756,7 +755,7 @@ export default class MutilTable extends Vue {
     });
   }
 
-  public render() {
+  render() {
     return (
       <section class="nui-scroll nui-scroll-x">
         <Toast />

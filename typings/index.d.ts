@@ -2,12 +2,12 @@ import MutilTable from "./components/mutilTable";
 import RowEditableTable from "./components/rowEditableTable";
 import StaticTable from "./components/staticTable";
 import "./style/index.css";
-export { MutilTable };
-export { RowEditableTable };
-export { StaticTable };
+export { MutilTable as mutilTable };
+export { RowEditableTable as rowEditableTable };
+export { StaticTable as staticTable };
 declare const _default: {
-    MutilTable: typeof MutilTable;
-    RowEditableTable: typeof RowEditableTable;
-    StaticTable: typeof StaticTable;
+    mutilTable: typeof MutilTable;
+    rowEditableTable: typeof RowEditableTable;
+    staticTable: typeof StaticTable;
 };
 export default _default;
