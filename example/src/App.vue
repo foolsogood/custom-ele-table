@@ -117,21 +117,23 @@
   </div>
 </template>
 <script>
-// import {
-//   staticTable,
-//   rowEditableTable,
-//   mutilTable
-// } from "../../dist/custom-ele-table.umd";
+import {
+  staticTable,
+  rowEditableTable,
+  mutilTable
+} from "../../dist/custom-ele-table.umd";
 // import { staticTable, rowEditableTable, mutilTable } from "custom-ele-table";
-// import MyTable from "../../dist/custom-ele-table.umd";
-import MyTable1 from "custom-ele-table";
+import MyTable from "../../dist/custom-ele-table.umd";
+import { default as MyTable1 } from "custom-ele-table";
 
 import JsonViewer from "vue-json-viewer";
 import VueSlider, { VueSliderMark, VueSliderDot } from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
+console.log("MyTable", MyTable);
 console.log("MyTable1", MyTable1);
+
 // console.log("VueSlider", VueSlider);
-const { staticTable, rowEditableTable, mutilTable } = MyTable1;
+// const { staticTable, rowEditableTable, mutilTable } = MyTable1;
 export default {
   name: "App",
   data() {
