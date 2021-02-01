@@ -6,7 +6,7 @@ import Textarea from "./textarea";
 import event from "../tools/event";
 import fnModules from "../tools/fns";
 import Toast from "./toast";
-let RowEditableTable = class RowEditableTable extends Vue {
+let rowEditableTable = class rowEditableTable extends Vue {
     constructor() {
         super(...arguments);
         this.ossTableHeader = [];
@@ -577,67 +577,67 @@ __decorate([
         type: Array,
         default: []
     })
-], RowEditableTable.prototype, "tableData", void 0);
+], rowEditableTable.prototype, "tableData", void 0);
 __decorate([
     Prop({
         type: Array,
         default: []
     })
-], RowEditableTable.prototype, "tableHeader", void 0);
+], rowEditableTable.prototype, "tableHeader", void 0);
 __decorate([
     Prop({
         type: Array,
         default: []
     })
-], RowEditableTable.prototype, "bodyNotShowProps", void 0);
+], rowEditableTable.prototype, "bodyNotShowProps", void 0);
 __decorate([
     Prop({
         type: String,
         default: "#ddd"
     })
-], RowEditableTable.prototype, "tableBorderColor", void 0);
+], rowEditableTable.prototype, "tableBorderColor", void 0);
 __decorate([
     Prop({
         type: Number,
         default: 40
     })
-], RowEditableTable.prototype, "cellHeight", void 0);
+], rowEditableTable.prototype, "cellHeight", void 0);
 __decorate([
     Prop({
         type: String,
         default: ""
     })
-], RowEditableTable.prototype, "uniqueKey", void 0);
+], rowEditableTable.prototype, "uniqueKey", void 0);
 __decorate([
     Prop({
         type: Function,
         default: () => null
     })
-], RowEditableTable.prototype, "firstThClickHandler", void 0);
+], rowEditableTable.prototype, "firstThClickHandler", void 0);
 __decorate([
     Prop({
         type: Boolean,
         default: false
     })
-], RowEditableTable.prototype, "isFirstThEableClick", void 0);
+], rowEditableTable.prototype, "isFirstThEableClick", void 0);
 __decorate([
     Prop({
         type: Object,
         default: () => { }
     })
-], RowEditableTable.prototype, "firstThStyle", void 0);
+], rowEditableTable.prototype, "firstThStyle", void 0);
 __decorate([
     Prop({
         type: Boolean,
         default: false
     })
-], RowEditableTable.prototype, "isReadOnly", void 0);
+], rowEditableTable.prototype, "isReadOnly", void 0);
 __decorate([
     Prop({
         type: String,
         default: "暂无数据"
     })
-], RowEditableTable.prototype, "bodyEmptyTips", void 0);
+], rowEditableTable.prototype, "bodyEmptyTips", void 0);
 __decorate([
     Prop({
         type: Object,
@@ -646,7 +646,7 @@ __decorate([
             color: "#333"
         })
     })
-], RowEditableTable.prototype, "headerStyle", void 0);
+], rowEditableTable.prototype, "headerStyle", void 0);
 __decorate([
     Prop({
         type: Object,
@@ -655,7 +655,7 @@ __decorate([
             color: "#333"
         })
     })
-], RowEditableTable.prototype, "cellStyle", void 0);
+], rowEditableTable.prototype, "cellStyle", void 0);
 __decorate([
     Prop({
         type: Object,
@@ -664,21 +664,21 @@ __decorate([
             color: "#fff"
         })
     })
-], RowEditableTable.prototype, "calcCellStyle", void 0);
+], rowEditableTable.prototype, "calcCellStyle", void 0);
 __decorate([
     Watch("tableHeader", {
         immediate: true
     })
-], RowEditableTable.prototype, "onTableHeaderChange", null);
+], rowEditableTable.prototype, "onTableHeaderChange", null);
 __decorate([
     Watch("textAreaContent", {
         deep: true
     })
-], RowEditableTable.prototype, "onTextContentChange", null);
-RowEditableTable = __decorate([
+], rowEditableTable.prototype, "onTextContentChange", null);
+rowEditableTable = __decorate([
     Component({
-        name: "RowEditableTable"
+        name: "rowEditableTable"
     })
-], RowEditableTable);
-export default RowEditableTable;
+], rowEditableTable);
+export default rowEditableTable;
 //# sourceMappingURL=rowEditableTable.jsx.map

@@ -1,13 +1,13 @@
-import MutilTable from "./components/mutilTable";
-import RowEditableTable from "./components/rowEditableTable";
-import StaticTable from "./components/staticTable";
+import mutilTable from "./components/mutilTable";
+import rowEditableTable from "./components/rowEditableTable";
+import staticTable from "./components/staticTable";
 import "./style/index.css";
-export { MutilTable as mutilTable };
-export { RowEditableTable as rowEditableTable };
-export { StaticTable as staticTable };
+export { mutilTable };
+export { rowEditableTable };
+export { staticTable };
 declare const _default: {
-    mutilTable: typeof MutilTable;
-    rowEditableTable: typeof RowEditableTable;
-    staticTable: typeof StaticTable;
+    mutilTable: typeof mutilTable;
+    rowEditableTable: typeof rowEditableTable;
+    staticTable: typeof staticTable;
 };
 export default _default;

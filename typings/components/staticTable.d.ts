@@ -4,7 +4,7 @@ interface Item {
     name: string;
     value: string;
 }
-export default class StaticTable extends Vue {
+export default class staticTable extends Vue {
     readonly tableData: Item[][];
     readonly tableBorderColor: string;
     readonly cellHeight: number;

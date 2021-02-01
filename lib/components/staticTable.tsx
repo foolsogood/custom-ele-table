@@ -5,9 +5,9 @@ interface Item {
   value: string;
 }
 @Component({
-  name: "StaticTable"
+  name: "staticTable"
 })
-export default class StaticTable extends Vue {
+export default class staticTable extends Vue {
   @Prop({
     type: Array,
     default: []

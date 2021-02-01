@@ -1,13 +1,13 @@
-import MutilTable from "./components/mutilTable";
-import RowEditableTable from "./components/rowEditableTable";
-import StaticTable from "./components/staticTable";
+import mutilTable from "./components/mutilTable";
+import rowEditableTable from "./components/rowEditableTable";
+import staticTable from "./components/staticTable";
 import "./style/index.css";
-export { MutilTable as mutilTable };
-export { RowEditableTable as rowEditableTable };
-export { StaticTable as staticTable };
+export { mutilTable };
+export { rowEditableTable };
+export { staticTable };
 export default {
-    mutilTable: MutilTable,
-    rowEditableTable: RowEditableTable,
-    staticTable: StaticTable
+    mutilTable,
+    rowEditableTable,
+    staticTable
 };
 //# sourceMappingURL=index.js.map

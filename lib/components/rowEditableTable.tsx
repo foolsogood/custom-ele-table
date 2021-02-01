@@ -32,9 +32,9 @@ interface IHeaderArrItem extends IHeaderItem {
 }
 
 @Component({
-  name: "RowEditableTable"
+  name: "rowEditableTable"
 })
-export default class RowEditableTable extends Vue {
+export default class rowEditableTable extends Vue {
   @Prop({
     type: Array,
     default: []

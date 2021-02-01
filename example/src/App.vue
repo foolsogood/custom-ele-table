@@ -123,7 +123,7 @@
 //   mutilTable
 // } from "../../dist/custom-ele-table.umd";
 // import { staticTable, rowEditableTable, mutilTable } from "custom-ele-table";
-import MyTable from "../../dist/custom-ele-table.umd";
+// import MyTable from "../../dist/custom-ele-table.umd";
 import MyTable1 from "custom-ele-table";
 
 import JsonViewer from "vue-json-viewer";

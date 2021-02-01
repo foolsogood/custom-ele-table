@@ -1,6 +1,6 @@
 import { __decorate } from "tslib";
 import { Component, Vue, Prop } from "vue-property-decorator";
-let StaticTable = class StaticTable extends Vue {
+let staticTable = class staticTable extends Vue {
     //渲染表body
     renderPanelBody() {
         return (<table style={{
@@ -53,19 +53,19 @@ __decorate([
         type: Array,
         default: []
     })
-], StaticTable.prototype, "tableData", void 0);
+], staticTable.prototype, "tableData", void 0);
 __decorate([
     Prop({
         type: String,
         default: "#ddd"
     })
-], StaticTable.prototype, "tableBorderColor", void 0);
+], staticTable.prototype, "tableBorderColor", void 0);
 __decorate([
     Prop({
         type: Number,
         default: 40
     })
-], StaticTable.prototype, "cellHeight", void 0);
+], staticTable.prototype, "cellHeight", void 0);
 __decorate([
     Prop({
         type: Object,
@@ -74,7 +74,7 @@ __decorate([
             color: "#333"
         })
     })
-], StaticTable.prototype, "headerStyle", void 0);
+], staticTable.prototype, "headerStyle", void 0);
 __decorate([
     Prop({
         type: Object,
@@ -83,11 +83,11 @@ __decorate([
             color: "#333"
         })
     })
-], StaticTable.prototype, "cellStyle", void 0);
-StaticTable = __decorate([
+], staticTable.prototype, "cellStyle", void 0);
+staticTable = __decorate([
     Component({
-        name: "StaticTable"
+        name: "staticTable"
     })
-], StaticTable);
-export default StaticTable;
+], staticTable);
+export default staticTable;
 //# sourceMappingURL=staticTable.jsx.map

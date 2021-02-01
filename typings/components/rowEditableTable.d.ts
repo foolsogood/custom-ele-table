@@ -22,7 +22,7 @@ interface IHeaderArrItem extends IHeaderItem {
     classifyId: number;
     sortIdx: string;
 }
-export default class RowEditableTable extends Vue {
+export default class rowEditableTable extends Vue {
     readonly tableData: ITableData[];
     readonly tableHeader: IHeaderItem[];
     readonly bodyNotShowProps: string[];

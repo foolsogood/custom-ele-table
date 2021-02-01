@@ -23,7 +23,7 @@ interface IData {
     prop: string;
     parentColumnId: string | number;
 }
-export default class MutilTable extends Vue {
+export default class mutilTable extends Vue {
     readonly tableData: ITableData[];
     readonly tableHeader: IHeaderItem[];
     readonly bodyNotShowProps: string[];

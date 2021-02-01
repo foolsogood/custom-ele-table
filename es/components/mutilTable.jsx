@@ -5,18 +5,18 @@ import MyInput from "./input";
 import event from "../tools/event";
 import fnModules from "../tools/fns";
 import Toast from "./toast";
-let MutilTable = class MutilTable extends Vue {
+let mutilTable = class mutilTable extends Vue {
     constructor() {
         super(...arguments);
         this.ossTableHeader = [];
-        this.ossTableData = []; //处理过表体
+        this.ossTableData = []; // 处理过表体
         this.headerArr = [];
         this.bodyNotShowPropData = ["cell_id"];
         this.curTableData = [];
         this.curEditTdId = "";
-        this.isBodyEmpty = false; //表体是否无数据
+        this.isBodyEmpty = false; // 表体是否无数据
     }
-    //表头层级
+    // 表头层级
     get headerClasses() {
         const arr = this.headerArr.map(item => item.classifyId);
         return [...new Set(arr)];
@@ -29,7 +29,7 @@ let MutilTable = class MutilTable extends Vue {
     onTableHeaderChange(val) {
         this.initData();
     }
-    //重新计算
+    // 重新计算
     reCalculate() {
         this.ossTableData.forEach(item => {
             Object.keys(item).forEach(_key => {
@@ -50,7 +50,7 @@ let MutilTable = class MutilTable extends Vue {
     }
     numberChangeHandler(val) {
         // console.log(val.prop, val.value, val.parentColumnId);
-        //如果该组件为纯展示，没有编辑功能
+        // 如果该组件为纯展示，没有编辑功能
         if (this.isReadOnly) {
             return;
         }
@@ -77,10 +77,10 @@ let MutilTable = class MutilTable extends Vue {
             }
             return false;
         };
-        //该数据变化后 受影响的行
+        // 该数据变化后 受影响的行
         const target_arr = this.curTableData.filter(item => item[this.uniqueKey] === val.parentColumnId || _check(item));
         const _idx = this.curTableData.findIndex(item => item[this.uniqueKey] === val.parentColumnId);
-        //找到数据变化的那一行tr
+        // 找到数据变化的那一行tr
         const _temp = this.curTableData.find(item => item[this.uniqueKey] === val.parentColumnId);
         try {
             if (!_temp) {
@@ -121,12 +121,12 @@ let MutilTable = class MutilTable extends Vue {
                         if (typeof v === "object") {
                             if (v.fn && v.fnParms && v.fnParms.length) {
                                 if (v.fnParms.some((_val) => _val.key === val.prop)) {
-                                    //参数数值的数组
+                                    // 参数数值的数组
                                     const argsArr = v.fnParms.map((_val) => {
                                         return this.getValueFromColumn(_val.code, _val.key);
                                     });
                                     let f = v.fn;
-                                    //加入浮点型计算
+                                    // 加入浮点型计算
                                     const { floatAdd, floatMul, floatDiv } = tools;
                                     if (fnModules[f]) {
                                         f = fnModules[f];
@@ -155,7 +155,7 @@ let MutilTable = class MutilTable extends Vue {
                                             "NaN",
                                             "Infinity"
                                         ].includes(res);
-                                        //如果输入非数字或0则不变化
+                                        // 如果输入非数字或0则不变化
                                         const _copy__ = tools.deepCopy(v);
                                         if (flag) {
                                             this.$set(v, "value", "");
@@ -191,7 +191,7 @@ let MutilTable = class MutilTable extends Vue {
             });
         }
     }
-    //匹配对应行的值
+    // 匹配对应行的值
     getValueFromColumn(code, key) {
         const _target = this.curTableData.find(item => item[this.uniqueKey] === code);
         if (_target) {
@@ -206,7 +206,7 @@ let MutilTable = class MutilTable extends Vue {
             return 0;
         }
     }
-    //判断是否为数字，不是则输出0
+    // 判断是否为数字，不是则输出0
     checkIfNum(n) {
         return !Object.is(Number(n), NaN) ? Number(n) : 0;
     }
@@ -244,7 +244,7 @@ let MutilTable = class MutilTable extends Vue {
         this.ossTableHeader = this.giveIdx2Item(ossTableHeader);
         this.getHeaderItemArr(this.ossTableHeader);
     }
-    //将表体中跨行的相同单元格合并(其实是将多余的单元格去除)
+    // 将表体中跨行的相同单元格合并(其实是将多余的单元格去除)
     combineCellByKey(key) {
         const arr = [];
         this.ossTableData.forEach(item => {
@@ -257,7 +257,7 @@ let MutilTable = class MutilTable extends Vue {
             }
         });
     }
-    //将表头中的层级分类
+    // 将表头中的层级分类
     classifyHeaderHandler() {
         const common = {
             verticalAlign: "middle",
@@ -305,16 +305,16 @@ let MutilTable = class MutilTable extends Vue {
         })}
       </thead>);
     }
-    //单元格点击事件
+    // 单元格点击事件
     tdClickHandler(tableId, isCanEdit) {
         if (!isCanEdit) {
             return;
         }
         this.curEditTdId = tableId;
     }
-    //渲染表body
+    // 渲染表body
     renderPanelBody() {
-        //body无数据
+        // body无数据
         const emptyBody = () => {
             return (<div class="flexBox" style={{
                 height: "100px",
@@ -323,7 +323,7 @@ let MutilTable = class MutilTable extends Vue {
           {this.bodyEmptyTips}
         </div>);
         };
-        //body有数据
+        // body有数据
         const renderBody = () => {
             return (<tbody style={{
                 width: "100%",
@@ -344,7 +344,7 @@ let MutilTable = class MutilTable extends Vue {
         {this.isBodyEmpty === false ? null : emptyBody()}
       </div>);
     }
-    //返回header某项的排列索引
+    // 返回header某项的排列索引
     getHeaderItemSortIndex(target_key) {
         const _idx = this.headerArr.findIndex(item => item.key === target_key);
         if (_idx === -1) {
@@ -353,7 +353,7 @@ let MutilTable = class MutilTable extends Vue {
         }
         return this.headerArr[_idx].sortIdx;
     }
-    //返回header某项
+    // 返回header某项
     getHeaderItemArr(arr1) {
         const bianli = (arr) => {
             arr.map(item => {
@@ -379,7 +379,7 @@ let MutilTable = class MutilTable extends Vue {
     getRowspan(cell) {
         return cell.rowSpan ? cell.rowSpan : 1;
     }
-    //通过key查找表头
+    // 通过key查找表头
     getIfHeaderItemCanEditByKey(key) {
         const _idx = this.headerArr.findIndex(item => item.key === key);
         if (_idx === -1) {
@@ -387,7 +387,7 @@ let MutilTable = class MutilTable extends Vue {
         }
         return this.headerArr[_idx].isCanEdit;
     }
-    //排序A是否应该排在B前面 -1是1否
+    // 排序A是否应该排在B前面 -1是1否
     isAfrontB(A, B) {
         if (!A || !B) {
             return 0;
@@ -405,9 +405,9 @@ let MutilTable = class MutilTable extends Vue {
         }
         return 0;
     }
-    //渲染表的每行
+    // 渲染表的每行
     renderTableColumn(colOptions) {
-        //根据sortIdx排好序
+        // 根据sortIdx排好序
         const sortArr = Object.keys(colOptions)
             .filter(item => !this.bodyNotShowPropData.includes(item))
             .sort((a, b) => {
@@ -495,7 +495,7 @@ let MutilTable = class MutilTable extends Vue {
         })}
       </tr>);
     }
-    //赋值id
+    // 赋值id
     giveIdx2Item(arr, parentSortId = "", classifyId = 0) {
         return arr.map((v, idx) => {
             const item = {
@@ -526,67 +526,67 @@ __decorate([
         type: Array,
         default: []
     })
-], MutilTable.prototype, "tableData", void 0);
+], mutilTable.prototype, "tableData", void 0);
 __decorate([
     Prop({
         type: Array,
         default: []
     })
-], MutilTable.prototype, "tableHeader", void 0);
+], mutilTable.prototype, "tableHeader", void 0);
 __decorate([
     Prop({
         type: Array,
         default: []
     })
-], MutilTable.prototype, "bodyNotShowProps", void 0);
+], mutilTable.prototype, "bodyNotShowProps", void 0);
 __decorate([
     Prop({
         type: String,
         default: "#ddd"
     })
-], MutilTable.prototype, "tableBorderColor", void 0);
+], mutilTable.prototype, "tableBorderColor", void 0);
 __decorate([
     Prop({
         type: Number,
         default: 40
     })
-], MutilTable.prototype, "cellHeight", void 0);
+], mutilTable.prototype, "cellHeight", void 0);
 __decorate([
     Prop({
         type: String,
         default: ""
     })
-], MutilTable.prototype, "uniqueKey", void 0);
+], mutilTable.prototype, "uniqueKey", void 0);
 __decorate([
     Prop({
         type: Function,
         default: () => null
     })
-], MutilTable.prototype, "firstThClickHandler", void 0);
+], mutilTable.prototype, "firstThClickHandler", void 0);
 __decorate([
     Prop({
         type: Boolean,
         default: false
     })
-], MutilTable.prototype, "isFirstThEableClick", void 0);
+], mutilTable.prototype, "isFirstThEableClick", void 0);
 __decorate([
     Prop({
         type: Object,
         default: () => { }
     })
-], MutilTable.prototype, "firstThStyle", void 0);
+], mutilTable.prototype, "firstThStyle", void 0);
 __decorate([
     Prop({
         type: Boolean,
         default: false
     })
-], MutilTable.prototype, "isReadOnly", void 0);
+], mutilTable.prototype, "isReadOnly", void 0);
 __decorate([
     Prop({
         type: String,
         default: "暂无数据"
     })
-], MutilTable.prototype, "bodyEmptyTips", void 0);
+], mutilTable.prototype, "bodyEmptyTips", void 0);
 __decorate([
     Prop({
         type: Object,
@@ -595,7 +595,7 @@ __decorate([
             color: "#333"
         })
     })
-], MutilTable.prototype, "headerStyle", void 0);
+], mutilTable.prototype, "headerStyle", void 0);
 __decorate([
     Prop({
         type: Object,
@@ -604,7 +604,7 @@ __decorate([
             color: "#333"
         })
     })
-], MutilTable.prototype, "cellStyle", void 0);
+], mutilTable.prototype, "cellStyle", void 0);
 __decorate([
     Prop({
         type: Object,
@@ -613,17 +613,16 @@ __decorate([
             color: "#fff"
         })
     })
-], MutilTable.prototype, "calcCellStyle", void 0);
+], mutilTable.prototype, "calcCellStyle", void 0);
 __decorate([
     Watch("tableHeader", {
-        immediate: true,
         deep: true
     })
-], MutilTable.prototype, "onTableHeaderChange", null);
-MutilTable = __decorate([
+], mutilTable.prototype, "onTableHeaderChange", null);
+mutilTable = __decorate([
     Component({
-        name: "MutilTable"
+        name: "mutilTable"
     })
-], MutilTable);
-export default MutilTable;
+], mutilTable);
+export default mutilTable;
 //# sourceMappingURL=mutilTable.jsx.map

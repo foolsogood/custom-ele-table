@@ -35,9 +35,9 @@ interface IData {
   parentColumnId: string | number;
 }
 @Component({
-  name: "MutilTable"
+  name: "mutilTable"
 })
-export default class MutilTable extends Vue {
+export default class mutilTable extends Vue {
   @Prop({
     type: Array,
     default: []
